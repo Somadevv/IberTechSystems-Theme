@@ -1,1 +1,386 @@
-{"sections":{"custom_liquid_UNPEzC":{"type":"custom-liquid","settings":{"custom_liquid":"<style>\n .section-template--24403834044794__custom_liquid_UNPEzC-padding {\npadding: 0;\n}\n  video {\n    width: 100%;\n    height: auto;\n    display: block;\n    margin: 0 auto;\n  }\n<\/style>\n\n<video muted autoplay playsinline loop>\n  <source src=\"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/a642b2fca24b4e88b8de3eafe45e06a1.mp4\" type=\"video\/mp4\">\n  Your browser does not support the video tag.\n<\/video>","color_scheme":"","padding_top":40,"padding_bottom":52}},"rich_text_8cpppQ":{"type":"rich-text","blocks":{"heading_wXxnhP":{"type":"heading","settings":{"heading":"<strong>Why Choose IberTechSystems?<\/strong>","heading_size":"h1"}},"text_zHNGfr":{"type":"text","settings":{"text":"<p>We pride ourselves on providing high-quality products that ensure <strong>security<\/strong>, <strong>convenience<\/strong>, and <strong>seamless operation<\/strong> for both residential and commercial properties. Our solutions include <strong>motors<\/strong>, <strong>remote controls<\/strong>, <strong>accessories<\/strong>, and more – all designed for easy installation, reliability, and efficiency. Whether you're looking to automate a residential gate or install an advanced access control system for a commercial property, we’ve got you covered.<\/p>"}}},"block_order":["heading_wXxnhP","text_zHNGfr"],"custom_css":[".rich-text__blocks {max-width: 1200px;}"],"settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}},"multicolumn_3H8KWU":{"type":"multicolumn","blocks":{"column_6mfjxP":{"type":"column","settings":{"image":"shopify:\/\/shop_images\/handshake_50dp_FFFFFF_FILL0_wght400_GRAD0_opsz48_319b13d0-abdc-4605-9196-d15dab20529c.png","title":"<strong>Customer Service<\/strong>","text":"<p>Here to help you 24 Hours a Day, 7 Days a Week<\/p>","link_label":"","link":""}},"column_PkpExa":{"type":"column","settings":{"image":"shopify:\/\/shop_images\/construction_50dp_FFFFFF_FILL0_wght400_GRAD0_opsz48_6b1a2c01-b411-4fc3-bcab-78ba37f355ce.png","title":"<strong>Professional Equipment<\/strong>","text":"<p>Our specialists always use high-quality tools<\/p>","link_label":"","link":""}},"column_QUza4k":{"type":"column","settings":{"image":"shopify:\/\/shop_images\/language_50dp_FFFFFF_FILL0_wght400_GRAD0_opsz48_224ae067-0174-4c23-a539-33fbd93b17ec.png","title":"<strong>English & Spanish speaking<\/strong>","text":"<p>Global continent Delivery services<\/p>","link_label":"","link":""}},"column_FBGqRN":{"type":"column","settings":{"image":"shopify:\/\/shop_images\/badge_50dp_FFFFFF_FILL0_wght400_GRAD0_opsz48_e9a72a1c-389d-4a13-b1d7-cae1e4caf646.png","title":"<strong>40 Years of Experience<\/strong>","text":"<p>40 years of experience in all departments<\/p>","link_label":"","link":""}}},"block_order":["column_6mfjxP","column_PkpExa","column_QUza4k","column_FBGqRN"],"custom_css":[],"settings":{"title":"","heading_size":"h2","image_width":"third","image_ratio":"adapt","columns_desktop":4,"column_alignment":"center","background_style":"none","button_label":"","button_link":"","color_scheme":"scheme-3","columns_mobile":"2","swipe_on_mobile":false,"padding_top":52,"padding_bottom":32}},"collection_list_TEMpXb":{"type":"collection-list","blocks":{"featured_collection_kLJnjD":{"type":"featured_collection","settings":{"collection":"garage-motors"}},"featured_collection_RA9VNU":{"type":"featured_collection","settings":{"collection":"barriers-rising-bollards"}},"featured_collection_Rw3EPH":{"type":"featured_collection","settings":{"collection":"access-control-products"}},"featured_collection_tt6EXt":{"type":"featured_collection","settings":{"collection":"garage-motors"}},"featured_collection_7q7p8E":{"type":"featured_collection","settings":{"collection":"surveillance-products"}},"featured_collection_RdQ8Y7":{"type":"featured_collection","settings":{"collection":"surveillance-products"}},"featured_collection_XVjfzX":{"type":"featured_collection","settings":{"collection":"barriers-rising-bollards"}},"featured_collection_Em9dKE":{"type":"featured_collection","settings":{"collection":"access-control-products"}}},"block_order":["featured_collection_kLJnjD","featured_collection_RA9VNU","featured_collection_Rw3EPH","featured_collection_tt6EXt","featured_collection_7q7p8E","featured_collection_RdQ8Y7","featured_collection_XVjfzX","featured_collection_Em9dKE"],"custom_css":[".icon-wrap {display: none;}"],"settings":{"title":"<strong>Shop by Category<\/strong>","heading_size":"h2","image_ratio":"adapt","columns_desktop":4,"color_scheme":"scheme-1","show_view_all":true,"columns_mobile":"1","swipe_on_mobile":true,"padding_top":36,"padding_bottom":36}},"featured_product_Hykw96":{"type":"featured-product","blocks":{"text_FgH6YR":{"type":"text","settings":{"text":"{{ section.settings.product.vendor }}","text_style":"uppercase"}},"title_iQVNDt":{"type":"title","settings":{"heading_size":"h1"}},"price_YRV6JN":{"type":"price","settings":{}},"variant_picker_BD33qg":{"type":"variant_picker","settings":{"picker_type":"button","swatch_shape":"circle"}},"quantity_selector_Xb8Xm9":{"type":"quantity_selector","settings":{}},"buy_buttons_bQF6tE":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":true}},"share_MGVrJp":{"type":"share","settings":{"share_label":"Share"}}},"block_order":["text_FgH6YR","title_iQVNDt","price_YRV6JN","variant_picker_BD33qg","quantity_selector_Xb8Xm9","buy_buttons_bQF6tE","share_MGVrJp"],"settings":{"product":"rosso120-motorline","color_scheme":"","secondary_background":false,"media_size":"medium","constrain_to_viewport":true,"media_fit":"contain","media_position":"left","image_zoom":"lightbox","hide_variants":false,"enable_video_looping":false,"padding_top":36,"padding_bottom":36}},"collapsible_content_7txCJT":{"type":"collapsible-content","blocks":{"collapsible_row_UMtLqp":{"type":"collapsible_row","settings":{"heading":"What is an access control system, and how does it work?","icon":"check_mark","row_content":"<p>An access control system is a security solution that allows authorized individuals to enter a building or restricted area while keeping unauthorized individuals out. It typically includes keypads, card readers, biometric scanners, and smart locks that can be controlled remotely via a mobile app or central management software.<\/p>","page":""}},"collapsible_row_qEcwtH":{"type":"collapsible_row","settings":{"heading":"What types of access control solutions do you offer?","icon":"check_mark","row_content":"<p>We offer a variety of access control systems, including keycard entry systems, biometric fingerprint scanners, smart locks, intercom systems, and cloud-based access control solutions. Our products are suitable for both residential and commercial properties.<\/p>","page":""}},"collapsible_row_NBiKEf":{"type":"collapsible_row","settings":{"heading":"Can I control my home security system remotely?","icon":"check_mark","row_content":"<p>Yes! Many of our access control solutions come with mobile apps that allow you to lock\/unlock doors, manage user access, and receive real-time notifications from anywhere using your smartphone or tablet.<\/p>","page":""}},"collapsible_row_VJprbd":{"type":"collapsible_row","settings":{"heading":"Is installation included with my purchase?","icon":"check_mark","row_content":"<p>We offer both DIY and professional installation options. Some of our smart locks and access control products are easy to install, while more advanced systems may require professional setup. Contact us to learn more about installation services in your area.<\/p>","page":""}},"collapsible_row_6NyT49":{"type":"collapsible_row","settings":{"heading":"What happens if my access control system stops working?","icon":"check_mark","row_content":"<p>Our products come with warranty coverage and dedicated customer support. If you experience any issues, our support team can assist with troubleshooting. For hardware failures, we offer repair or replacement options.<\/p>","page":""}},"collapsible_row_PL7HKb":{"type":"collapsible_row","settings":{"heading":"Are your security products compatible with other smart home devices?","icon":"check_mark","row_content":"<p>Yes! Many of our access control systems integrate with popular smart home ecosystems, such as Amazon Alexa, Google Assistant, and Apple HomeKit, allowing you to automate and enhance your home security setup.<\/p>","page":""}},"collapsible_row_mmK8ic":{"type":"collapsible_row","settings":{"heading":"How secure are smart locks compared to traditional locks?","icon":"check_mark","row_content":"<p>Smart locks offer enhanced security features, such as encrypted access codes, biometric authentication, and remote monitoring, making them more secure than traditional locks. Many models also have backup entry methods, such as physical keys or emergency power options, in case of battery failure.<\/p>","page":""}},"collapsible_row_Lw3Gqb":{"type":"collapsible_row","settings":{"heading":"Can I grant temporary access to guests or service providers?","icon":"check_mark","row_content":"<p>Yes! Our access control systems allow you to create temporary or scheduled access codes for guests, cleaners, or service providers. You can set expiration times and track entry logs for added security and convenience.<\/p>","page":""}},"collapsible_row_kFD7Ui":{"type":"collapsible_row","settings":{"heading":"What should I do if I lose my access card or forget my entry code?","icon":"check_mark","row_content":"<p>If you lose your access card, you can easily deactivate it through our management software or app and issue a new one. For forgotten entry codes, you can reset them via your account dashboard or request assistance from our support team.<\/p>","page":""}}},"block_order":["collapsible_row_UMtLqp","collapsible_row_qEcwtH","collapsible_row_NBiKEf","collapsible_row_VJprbd","collapsible_row_6NyT49","collapsible_row_PL7HKb","collapsible_row_mmK8ic","collapsible_row_Lw3Gqb","collapsible_row_kFD7Ui"],"settings":{"caption":"Customers also found useful","heading":"Frequently asked Questions","heading_size":"h1","heading_alignment":"center","layout":"section","color_scheme":"","container_color_scheme":"","open_first_collapsible_row":false,"image":"shopify:\/\/shop_images\/contact_support_250dp_000000_FILL0_wght400_GRAD0_opsz48.png","image_ratio":"adapt","desktop_layout":"image_second","padding_top":36,"padding_bottom":36}}},"order":["custom_liquid_UNPEzC","rich_text_8cpppQ","multicolumn_3H8KWU","collection_list_TEMpXb","featured_product_Hykw96","collapsible_content_7txCJT"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_UNPEzC": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n .section-template--24403834044794__custom_liquid_UNPEzC-padding {\npadding: 0;\n}\n  video {\n    width: 100%;\n    height: auto;\n    display: block;\n    margin: 0 auto;\n  }\n</style>\n\n<video muted autoplay playsinline loop>\n  <source src=\"https://cdn.shopify.com/videos/c/o/v/a642b2fca24b4e88b8de3eafe45e06a1.mp4\" type=\"video/mp4\">\n  Your browser does not support the video tag.\n</video>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_8cpppQ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_wXxnhP": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Why Choose IberTechSystems?</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_zHNGfr": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We pride ourselves on providing high-quality products that ensure <strong>security</strong>, <strong>convenience</strong>, and <strong>seamless operation</strong> for both residential and commercial properties. Our solutions include <strong>motors</strong>, <strong>remote controls</strong>, <strong>accessories</strong>, and more – all designed for easy installation, reliability, and efficiency. Whether you're looking to automate a residential gate or install an advanced access control system for a commercial property, we’ve got you covered.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_wXxnhP",
+        "text_zHNGfr"
+      ],
+      "custom_css": [
+        ".rich-text__blocks {max-width: 1200px;}"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "multicolumn_3H8KWU": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_6mfjxP": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/handshake.webp",
+            "title": "<strong>Customer Service</strong>",
+            "text": "<p>Here to help you 24 Hours a Day, 7 Days a Week</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_PkpExa": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Professional Equipment</strong>",
+            "text": "<p>Our specialists always use high-quality tools</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_QUza4k": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>English & Spanish speaking</strong>",
+            "text": "<p>Global continent Delivery services</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_FBGqRN": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>40 Years of Experience</strong>",
+            "text": "<p>40 years of experience in all departments</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_6mfjxP",
+        "column_PkpExa",
+        "column_QUza4k",
+        "column_FBGqRN"
+      ],
+      "custom_css": [],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "scheme-3",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 52,
+        "padding_bottom": 32
+      }
+    },
+    "collection_list_TEMpXb": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_kLJnjD": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "garage-motors"
+          }
+        },
+        "featured_collection_RA9VNU": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "barriers-rising-bollards"
+          }
+        },
+        "featured_collection_Rw3EPH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "access-control-products"
+          }
+        },
+        "featured_collection_tt6EXt": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "garage-motors"
+          }
+        },
+        "featured_collection_7q7p8E": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "surveillance-products"
+          }
+        },
+        "featured_collection_RdQ8Y7": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "surveillance-products"
+          }
+        },
+        "featured_collection_XVjfzX": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "barriers-rising-bollards"
+          }
+        },
+        "featured_collection_Em9dKE": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "access-control-products"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_kLJnjD",
+        "featured_collection_RA9VNU",
+        "featured_collection_Rw3EPH",
+        "featured_collection_tt6EXt",
+        "featured_collection_7q7p8E",
+        "featured_collection_RdQ8Y7",
+        "featured_collection_XVjfzX",
+        "featured_collection_Em9dKE"
+      ],
+      "custom_css": [
+        ".icon-wrap {display: none;}"
+      ],
+      "settings": {
+        "title": "<strong>Shop by Category</strong>",
+        "heading_size": "h2",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "show_view_all": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_product_Hykw96": {
+      "type": "featured-product",
+      "blocks": {
+        "text_FgH6YR": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_iQVNDt": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_YRV6JN": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_BD33qg": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_Xb8Xm9": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_bQF6tE": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_MGVrJp": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_FgH6YR",
+        "title_iQVNDt",
+        "price_YRV6JN",
+        "variant_picker_BD33qg",
+        "quantity_selector_Xb8Xm9",
+        "buy_buttons_bQF6tE",
+        "share_MGVrJp"
+      ],
+      "settings": {
+        "product": "rosso120-motorline",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collapsible_content_7txCJT": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_UMtLqp": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is an access control system, and how does it work?",
+            "icon": "check_mark",
+            "row_content": "<p>An access control system is a security solution that allows authorized individuals to enter a building or restricted area while keeping unauthorized individuals out. It typically includes keypads, card readers, biometric scanners, and smart locks that can be controlled remotely via a mobile app or central management software.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_qEcwtH": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What types of access control solutions do you offer?",
+            "icon": "check_mark",
+            "row_content": "<p>We offer a variety of access control systems, including keycard entry systems, biometric fingerprint scanners, smart locks, intercom systems, and cloud-based access control solutions. Our products are suitable for both residential and commercial properties.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_NBiKEf": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I control my home security system remotely?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes! Many of our access control solutions come with mobile apps that allow you to lock/unlock doors, manage user access, and receive real-time notifications from anywhere using your smartphone or tablet.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_VJprbd": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is installation included with my purchase?",
+            "icon": "check_mark",
+            "row_content": "<p>We offer both DIY and professional installation options. Some of our smart locks and access control products are easy to install, while more advanced systems may require professional setup. Contact us to learn more about installation services in your area.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_6NyT49": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What happens if my access control system stops working?",
+            "icon": "check_mark",
+            "row_content": "<p>Our products come with warranty coverage and dedicated customer support. If you experience any issues, our support team can assist with troubleshooting. For hardware failures, we offer repair or replacement options.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_PL7HKb": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Are your security products compatible with other smart home devices?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes! Many of our access control systems integrate with popular smart home ecosystems, such as Amazon Alexa, Google Assistant, and Apple HomeKit, allowing you to automate and enhance your home security setup.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_mmK8ic": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How secure are smart locks compared to traditional locks?",
+            "icon": "check_mark",
+            "row_content": "<p>Smart locks offer enhanced security features, such as encrypted access codes, biometric authentication, and remote monitoring, making them more secure than traditional locks. Many models also have backup entry methods, such as physical keys or emergency power options, in case of battery failure.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_Lw3Gqb": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I grant temporary access to guests or service providers?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes! Our access control systems allow you to create temporary or scheduled access codes for guests, cleaners, or service providers. You can set expiration times and track entry logs for added security and convenience.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_kFD7Ui": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What should I do if I lose my access card or forget my entry code?",
+            "icon": "check_mark",
+            "row_content": "<p>If you lose your access card, you can easily deactivate it through our management software or app and issue a new one. For forgotten entry codes, you can reset them via your account dashboard or request assistance from our support team.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_UMtLqp",
+        "collapsible_row_qEcwtH",
+        "collapsible_row_NBiKEf",
+        "collapsible_row_VJprbd",
+        "collapsible_row_6NyT49",
+        "collapsible_row_PL7HKb",
+        "collapsible_row_mmK8ic",
+        "collapsible_row_Lw3Gqb",
+        "collapsible_row_kFD7Ui"
+      ],
+      "settings": {
+        "caption": "Customers also found useful",
+        "heading": "Frequently asked Questions",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "section",
+        "color_scheme": "",
+        "container_color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_UNPEzC",
+    "rich_text_8cpppQ",
+    "multicolumn_3H8KWU",
+    "collection_list_TEMpXb",
+    "featured_product_Hykw96",
+    "collapsible_content_7txCJT"
+  ]
+}
