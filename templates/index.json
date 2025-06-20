@@ -67,6 +67,7 @@
         "column_PkpExa": {
           "type": "column",
           "settings": {
+            "image": "shopify://shop_images/tools.webp",
             "title": "<strong>Professional Equipment</strong>",
             "text": "<p>Our specialists always use high-quality tools</p>",
             "link_label": "",
@@ -76,6 +77,7 @@
         "column_QUza4k": {
           "type": "column",
           "settings": {
+            "image": "shopify://shop_images/language.webp",
             "title": "<strong>English & Spanish speaking</strong>",
             "text": "<p>Global continent Delivery services</p>",
             "link_label": "",
@@ -85,6 +87,7 @@
         "column_FBGqRN": {
           "type": "column",
           "settings": {
+            "image": "shopify://shop_images/badge.webp",
             "title": "<strong>40 Years of Experience</strong>",
             "text": "<p>40 years of experience in all departments</p>",
             "link_label": "",
