@@ -1,0 +1,96 @@
+{% schema %}
+  {
+    "name": "Dynamic Product",
+    "tag": "section",
+    "class": "product-page",
+    "settings": [],
+    "blocks": [],
+    "presets": [
+      {
+        "name": "Dynamic Product"
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="product-container">
+  <div class="product-header">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.price | money }}</p>
+  </div>
+
+  {% if product.featured_image %}
+    <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" />
+  {% endif %}
+
+  <div class="product-description">
+    {{ product.description }}
+  </div>
+
+  <div class="product-metafields">
+    <h3>Product Details</h3>
+    <ul>
+      {% assign details = '' %}
+      {% if product.metafields.custom.voltage %}
+        <li>
+          <strong>Voltage:</strong>
+          {{ product.metafields.custom.voltage.value }}</li>
+      {% endif %}
+      {% if product.metafields.custom.power %}
+        <li>
+          <strong>Power:</strong>
+          {{ product.metafields.custom.power.value }}</li>
+      {% endif %}
+      {% if product.metafields.custom.dimensions %}
+        <li>
+          <strong>Dimensions:</strong>
+          {{ product.metafields.custom.dimensions.value }}</li>
+      {% endif %}
+      {% if product.metafields.custom.weight %}
+        <li>
+          <strong>Weight:</strong>
+          {{ product.metafields.custom.weight.value }}</li>
+      {% endif %}
+
+    {%- comment -%}
+      Add more shared metafields above.
+      Product-specific ones can go below this line, or dynamically loop later.
+    {%- endcomment -%}
+    </ul>
+  </div>
+
+  <form method="post" action="/cart/add">
+    <input
+      type="hidden"
+      name="id"
+      value="{{ product.variants.first.id }}" />
+    <button type="submit">Add to cart</button>
+  </form>
+</div>
+
+<style>
+  .product-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 2rem;
+  }
+
+  .product-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-metafields ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .product-metafields li {
+    margin: 0.5rem 0;
+  }
+
+  .product-description {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+  }
+</style>
