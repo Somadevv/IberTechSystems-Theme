@@ -59,13 +59,21 @@
     </ul>
   </div>
 
-  <form method="post" action="/cart/add">
-    <input
-      type="hidden"
-      name="id"
-      value="{{ product.variants.first.id }}" />
-    <button type="submit">Add to cart</button>
-  </form>
+  {% form 'product'
+    , product %}
+    {{ form | payment_terms }}
+    {{ form | product_variants }}
+    {{ form | product_quantity }}
+    <button type="submit" class="btn btn--primary">Add to cart</button>
+  {% endform %}
+
+{% comment %} <form method="post" action="/cart/add">
+      <input
+        type="hidden"
+        name="id"
+        value="{{ product.variants.first.id }}" />
+      <button type="submit">Add to cart</button>
+  </form> {% endcomment %}
 </div>
 
 <style>
