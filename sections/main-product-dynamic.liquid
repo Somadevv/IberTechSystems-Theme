@@ -14,50 +14,54 @@
 {% endschema %}
 
 <div class="product-container">
-  <div class="product-header">
-    <h1>{{ product.title }}</h1>
-    <p>{{ product.price | money }}</p>
+  <div class="product-image">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" />
+    {% endif %}
+  </div>
+  <div class="product-details">
+    <div class="product-header">
+      <h1>{{ product.title }}</h1>
+      <p>{{ product.price | money }}</p>
+    </div>
+
+    <div class="product-description">
+      {{ product.description }}
+    </div>
+
+    <div class="product-metafields">
+      <h3>Product Details</h3>
+      <ul>
+        {% assign details = '' %}
+        {% if product.metafields.custom.voltage %}
+          <li>
+            <strong>Voltage:</strong>
+            {{ product.metafields.custom.voltage.value }}</li>
+        {% endif %}
+        {% if product.metafields.custom.power %}
+          <li>
+            <strong>Power:</strong>
+            {{ product.metafields.custom.power.value }}</li>
+        {% endif %}
+        {% if product.metafields.custom.dimensions %}
+          <li>
+            <strong>Dimensions:</strong>
+            {{ product.metafields.custom.dimensions.value }}</li>
+        {% endif %}
+        {% if product.metafields.custom.weight %}
+          <li>
+            <strong>Weight:</strong>
+            {{ product.metafields.custom.weight.value }}</li>
+        {% endif %}
+
+      {%- comment -%}
+        Add more shared metafields above.
+        Product-specific ones can go below this line, or dynamically loop later.
+      {%- endcomment -%}
+      </ul>
+    </div>
   </div>
 
-  {% if product.featured_image %}
-    <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" />
-  {% endif %}
-
-  <div class="product-description">
-    {{ product.description }}
-  </div>
-
-  <div class="product-metafields">
-    <h3>Product Details</h3>
-    <ul>
-      {% assign details = '' %}
-      {% if product.metafields.custom.voltage %}
-        <li>
-          <strong>Voltage:</strong>
-          {{ product.metafields.custom.voltage.value }}</li>
-      {% endif %}
-      {% if product.metafields.custom.power %}
-        <li>
-          <strong>Power:</strong>
-          {{ product.metafields.custom.power.value }}</li>
-      {% endif %}
-      {% if product.metafields.custom.dimensions %}
-        <li>
-          <strong>Dimensions:</strong>
-          {{ product.metafields.custom.dimensions.value }}</li>
-      {% endif %}
-      {% if product.metafields.custom.weight %}
-        <li>
-          <strong>Weight:</strong>
-          {{ product.metafields.custom.weight.value }}</li>
-      {% endif %}
-
-    {%- comment -%}
-      Add more shared metafields above.
-      Product-specific ones can go below this line, or dynamically loop later.
-    {%- endcomment -%}
-    </ul>
-  </div>
 
   {% form 'product'
     , product %}
@@ -66,14 +70,6 @@
     {{ form | product_quantity }}
     <button type="submit" class="btn btn--primary">Add to cart</button>
   {% endform %}
-
-{% comment %} <form method="post" action="/cart/add">
-      <input
-        type="hidden"
-        name="id"
-        value="{{ product.variants.first.id }}" />
-      <button type="submit">Add to cart</button>
-  </form> {% endcomment %}
 </div>
 
 <style>
@@ -82,6 +78,13 @@
     margin: auto;
     padding: 2rem;
   }
+
+  @media (max-width: 768px) {
+    .product-container {
+      display: flex;
+    }
+  }
+
 
   .product-header h1 {
     font-size: 2rem;
