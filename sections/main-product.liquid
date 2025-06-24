@@ -72,32 +72,6 @@
     >
   {%- endif -%}
 
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panes = document.querySelectorAll('.tab-content > div');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-tab');
-
-        // Activate tab
-        tabs.forEach(t => {
-          t.classList.toggle('text-primary border-primary', t === tab);
-          t.classList.toggle('text-gray-600', t !== tab);
-          t.classList.toggle('-mb-px', t === tab);
-        });
-
-        // Show/hide contentpanes
-        panes.forEach(p => {
-          p.id === `tab-${target}` ? p.classList.remove('hidden') : p.classList.add('hidden');
-        });
-      });
-    });
-  });
-</script>
-
-
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
@@ -220,7 +194,9 @@
                   {%- endif -%}
                 </p>
               
-              <div class="border-t border-border mt-6">
+              {%- when 'description' -%}
+                {%- if product.description != blank -%}
+                 <div class="border-t border-border mt-6">
   <div class="container">
     <div class="mx-auto max-w-3xl py-6 md:py-10">
       <!-- Tabs -->
@@ -264,6 +240,7 @@
   </div>
 </div>
 
+                {%- endif -%}
               {%- when 'sku' -%}
                 <p
                   class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
