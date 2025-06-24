@@ -74,7 +74,38 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}
+  <div id="product-gallery" class="space-y-4">
+    <!-- Main Image -->
+    <div class="w-full">
+      <img
+        id="main-product-image"
+        src="{{ product.featured_media | image_url: width: 1200 }}"
+        alt="{{ product.featured_media.alt | escape }}"
+        class="w-full object-contain rounded-lg transition-all duration-300"
+      >
+    </div>
+
+    <!-- Thumbnail Carousel -->
+    <div class="flex space-x-3 overflow-x-auto" role="list">
+      {% for media in product.media %}
+        {% if media.media_type == 'image' %}
+          <button
+            class="thumbnail-item border-2 border-transparent rounded-lg hover:border-primary focus:outline-none transition"
+            data-image="{{ media | image_url: width: 1200 }}"
+          >
+            <img
+              src="{{ media | image_url: width: 200 }}"
+              alt="{{ media.alt | escape }}"
+              class="h-20 w-20 object-cover rounded-lg"
+            >
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
