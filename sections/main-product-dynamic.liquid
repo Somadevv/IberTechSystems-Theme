@@ -13,153 +13,175 @@
 }
 {% endschema %}
 
-<div class="product-container">
-  <div class="product-image">
-    {% if product.featured_image %}
-      <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" />
-    {% endif %}
-  </div>
-
-  <div class="product-details">
-    <div class="product-header">
-      <h1>{{ product.title }}</h1>
-      <p>{{ product.price | money }}</p>
-    </div>
-
-    <div class="product-metafields">
-      <h3>Product Details</h3>
-      <ul>
-        {% if product.metafields.custom.voltage %}
-          <li><strong>Voltage:</strong> {{ product.metafields.custom.voltage.value }}</li>
-        {% endif %}
-        {% if product.metafields.custom.power %}
-          <li><strong>Power:</strong> {{ product.metafields.custom.power.value }}</li>
-        {% endif %}
-        {% if product.metafields.custom.dimensions %}
-          <li><strong>Dimensions:</strong> {{ product.metafields.custom.dimensions.value }}</li>
-        {% endif %}
-        {% if product.metafields.custom.weight %}
-          <li><strong>Weight:</strong> {{ product.metafields.custom.weight.value }}</li>
-        {% endif %}
-      </ul>
-    </div>
-
-    {% form 'product', product %}
-      {% if product.has_only_default_variant == false %}
-        <div class="product-variants">
-          <label for="product-select">Choose an option:</label>
-          <select name="id" id="product-select">
-            {% for variant in product.variants %}
-              <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>
-                {{ variant.title }} - {{ variant.price | money }}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
-      {% else %}
-        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+<section class="product-wrapper">
+  <div class="product-grid">
+    <div class="product-image">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.title | escape }}">
       {% endif %}
+    </div>
 
-      <div class="product-quantity">
-        <label for="Quantity">Quantity:</label>
-        <input type="number" id="Quantity" name="quantity" min="1" value="1">
+    <div class="product-content">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <p class="product-price">{{ product.price | money }}</p>
+
+      {% form 'product', product %}
+        {% unless product.has_only_default_variant %}
+          <div class="product-variants">
+            <label for="ProductSelect">Choose a variant:</label>
+            <select id="ProductSelect" name="id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>
+                  {{ variant.title }} — {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        {% endunless %}
+
+        <div class="product-quantity">
+          <label for="Quantity">Quantity:</label>
+          <input type="number" id="Quantity" name="quantity" min="1" value="1">
+        </div>
+
+        {{ form | payment_terms }}
+
+        <button type="submit" class="btn-primary">Add to cart</button>
+      {% endform %}
+
+      <div class="product-description">
+        {{ product.description }}
       </div>
 
-      {{ form | payment_terms }}
-
-      <button type="submit" class="btn btn--primary">Add to cart</button>
-    {% endform %}
+      <div class="product-metafields">
+        <h3>Specifications</h3>
+        <ul>
+          {% if product.metafields.custom.voltage %}
+            <li><strong>Voltage:</strong> {{ product.metafields.custom.voltage.value }}</li>
+          {% endif %}
+          {% if product.metafields.custom.power %}
+            <li><strong>Power:</strong> {{ product.metafields.custom.power.value }}</li>
+          {% endif %}
+          {% if product.metafields.custom.dimensions %}
+            <li><strong>Dimensions:</strong> {{ product.metafields.custom.dimensions.value }}</li>
+          {% endif %}
+          {% if product.metafields.custom.weight %}
+            <li><strong>Weight:</strong> {{ product.metafields.custom.weight.value }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <style>
-  .product-container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 2rem;
-    display: block;
-  }
+.product-wrapper {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  @media (min-width: 560px) {
-    .product-container {
-      display: flex;
-      gap: 2rem;
-    }
-  }
+.product-grid {
+  display: block;
+}
 
-  .product-image img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    margin-bottom: 1.5rem;
+@media (min-width: 560px) {
+  .product-grid {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
   }
+}
 
-  .product-details {
-    flex: 1;
-  }
+.product-image img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
 
-  .product-header h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
+.product-content {
+  flex: 1;
+  padding-top: 1rem;
+}
 
-  .product-header p {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
+.product-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
 
-  .product-metafields h3 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-  }
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
 
-  .product-metafields ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 1rem;
-  }
+.product-variants,
+.product-quantity {
+  margin-bottom: 1rem;
+}
 
-  .product-metafields li {
-    margin-bottom: 0.5rem;
-  }
+.product-variants label,
+.product-quantity label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
 
-  .product-description {
-    margin-top: 1.5rem;
-    font-size: 1rem;
-  }
+select,
+input[type="number"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
 
-  .product-variants,
-  .product-quantity {
-    margin-bottom: 1rem;
-  }
+.btn-primary {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #000;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-  .product-variants label,
-  .product-quantity label {
-    display: block;
-    margin-bottom: 0.25rem;
-  }
+.btn-primary:hover {
+  background-color: #222;
+}
 
-  select,
-  input[type="number"] {
-    padding: 0.5rem;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 300px;
-  }
+.product-description {
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
 
-  .btn.btn--primary {
-    display: inline-block;
-    background: #000;
-    color: #fff;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+.product-metafields {
+  margin-top: 2rem;
+}
 
-  .btn.btn--primary:hover {
-    background: #333;
-  }
+.product-metafields h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.product-metafields ul {
+  padding-left: 1rem;
+}
+
+.product-metafields li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
 </style>
