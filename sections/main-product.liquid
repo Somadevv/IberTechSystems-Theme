@@ -194,49 +194,19 @@
                   {%- endif -%}
                 </p>
               
-              <div class="border-t border-border mt-6">
-  <div class="container">
-    <div class="mx-auto max-w-3xl py-6 md:py-10">
-      <!-- Tabs -->
-      <div class="tabs flex border-b border-border">
-        <button class="tab-btn px-4 py-2 text-lg font-bold border-b-2 -mb-px text-primary border-primary" data-tab="description">Description</button>
-        <button class="tab-btn px-4 py-2 text-lg font-bold text-gray-600 hover:text-primary" data-tab="product-specifics">Product Specifics</button>
-        <button class="tab-btn px-4 py-2 text-lg font-bold text-gray-600 hover:text-primary" data-tab="reviews">Reviews</button>
-      </div>
-
-      <!-- Tab Content -->
-      <div class="tab-content mt-6">
-        <!-- Description -->
-        <div id="tab-description">
-          <div class="prose dark:prose-invert max-w-none">
-            {{ product.description }}
-          </div>
-        </div>
-
-        <!-- Product Specifics -->
-        <div id="tab-product-specifics" class="hidden">
-          <div class="prose dark:prose-invert max-w-none">
-            {% if product.options.size > 0 %}
-              <ul class="list-disc list-inside">
-                {% for option in product.options_with_values %}
-                  <li><strong>{{ option.name }}:</strong> {{ option.values | join: ', ' }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-            <!-- Add any additional specifics here -->
-          </div>
-        </div>
-
-        <!-- Reviews -->
-        <div id="tab-reviews" class="hidden">
-          <div class="prose dark:prose-invert max-w-none">
-            <div id="shopify-product-reviews" data-id="{{ product.id }}"></div>
-          </div>
+              {%- when 'description' -%}
+               {% if product.description != blank %}
+  <div class="border-t border-border">
+    <div class="container">
+      <div class="mx-auto max-w-3xl py-6 md:py-10">
+        <h2 class="mb-4 text-xl font-bold">Product Description</h2>
+        <div class="prose dark:prose-invert max-w-none">
+          {{ product.description }}
         </div>
       </div>
     </div>
   </div>
-</div>
+{% endif %}
 
               {%- when 'sku' -%}
                 <p
