@@ -118,3 +118,34 @@ class ProductTabs extends HTMLElement {
 }
 
 customElements.define('product-tabs', ProductTabs);
+
+// Global function to handle feature dropdown toggling
+function toggleFeature(element) {
+  const wasExpanded = element.classList.contains('expanded');
+  
+  // Close all other expanded features in the same list
+  const featuresList = element.closest('.product-tabs__features-list');
+  if (featuresList) {
+    featuresList.querySelectorAll('.product-tabs__features-item.expanded').forEach(item => {
+      if (item !== element) {
+        item.classList.remove('expanded');
+      }
+    });
+  }
+  
+  // Toggle the clicked feature
+  if (wasExpanded) {
+    element.classList.remove('expanded');
+  } else {
+    element.classList.add('expanded');
+  }
+}
+
+// Close feature dropdowns when clicking outside
+document.addEventListener('click', function(event) {
+  if (!event.target.closest('.product-tabs__features-item')) {
+    document.querySelectorAll('.product-tabs__features-item.expanded').forEach(item => {
+      item.classList.remove('expanded');
+    });
+  }
+});
