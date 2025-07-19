@@ -1,0 +1,209 @@
+{{ 'product-tabs.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Check for Vitals app integration
+  If Vitals Product Description Tabs is enabled, this section will be hidden
+{%- endcomment -%}
+{%- unless shop.metafields.vitals.product_tabs_enabled -%}
+<product-tabs class="product-tabs page-width" data-vitals-compatible="true">
+  <nav class="product-tabs__nav">
+    <button class="product-tabs__nav-link" type="button">
+      {{ section.settings.description_tab_label | default: 'Description' }}
+    </button>
+    <button class="product-tabs__nav-link" type="button">
+      {{ section.settings.reviews_tab_label | default: 'Reviews' }}
+      {%- if section.settings.show_reviews_count -%}
+        <span class="product-tabs__reviews-count">{{ section.settings.reviews_count | default: 0 }}</span>
+      {%- endif -%}
+    </button>
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'custom_tab' -%}
+          <button class="product-tabs__nav-link" type="button" {{ block.shopify_attributes }}>
+            {{ block.settings.tab_label | default: 'Custom Tab' }}
+          </button>
+      {%- endcase -%}
+    {%- endfor -%}
+  </nav>
+
+  <div class="product-tabs__content">
+    <div class="product-tabs__panel">
+      {%- if product.description != blank -%}
+        <div class="rte">
+          {{ product.description }}
+        </div>
+      {%- else -%}
+        <div class="product-tabs__reviews-placeholder">
+          <p>{{ section.settings.no_description_text | default: 'No description available for this product.' }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-tabs__panel">
+      {%- if section.settings.reviews_content != blank -%}
+        <div class="rte">
+          {{ section.settings.reviews_content }}
+        </div>
+      {%- else -%}
+        <div class="product-tabs__reviews-placeholder">
+          <h3>{{ section.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
+          <p>{{ section.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
+          {%- if section.settings.show_review_button -%}
+            <button class="button" onclick="document.querySelector('#product-review-form')?.scrollIntoView({behavior: 'smooth'});">
+              {{ section.settings.review_button_text | default: 'Write a Review' }}
+            </button>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'custom_tab' -%}
+          <div class="product-tabs__panel" {{ block.shopify_attributes }}>
+            {%- if block.settings.tab_content != blank -%}
+              <div class="rte">
+                {{ block.settings.tab_content }}
+              </div>
+            {%- else -%}
+              <div class="product-tabs__reviews-placeholder">
+                <p>{{ block.settings.placeholder_text | default: 'Content coming soon...' }}</p>
+              </div>
+            {%- endif -%}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</product-tabs>
+
+{%- comment -%}
+  Vitals Product Description Tabs Integration Area
+  When Vitals is enabled, tabs will appear here automatically
+{%- endcomment -%}
+<div id="vitals-product-tabs-container" data-product-id="{{ product.id }}"></div>
+{%- endunless -%}
+
+<script src="{{ 'product-tabs.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Product Tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Tab Labels"
+    },
+    {
+      "type": "text",
+      "id": "description_tab_label",
+      "label": "Description Tab Label",
+      "default": "Description"
+    },
+    {
+      "type": "text",
+      "id": "reviews_tab_label", 
+      "label": "Reviews Tab Label",
+      "default": "Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Reviews Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews_count",
+      "label": "Show Reviews Count",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "reviews_count",
+      "label": "Reviews Count",
+      "default": 0
+    },
+    {
+      "type": "richtext",
+      "id": "reviews_content",
+      "label": "Reviews Content",
+      "info": "Custom content for reviews tab (leave empty to show placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "reviews_placeholder_title",
+      "label": "Reviews Placeholder Title",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "reviews_placeholder_text",
+      "label": "Reviews Placeholder Text",
+      "default": "No reviews yet. Be the first to review this product!"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_button",
+      "label": "Show Review Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "review_button_text",
+      "label": "Review Button Text",
+      "default": "Write a Review"
+    },
+    {
+      "type": "header",
+      "content": "Description Settings"
+    },
+    {
+      "type": "text",
+      "id": "no_description_text",
+      "label": "No Description Text",
+      "default": "No description available for this product."
+    },
+    {
+      "type": "header",
+      "content": "Vitals Integration"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_vitals_integration",
+      "label": "Enable Vitals Product Tabs Integration",
+      "info": "When enabled, this section will be hidden if Vitals Product Description Tabs app is active",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_tab",
+      "name": "Custom Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab Label",
+          "default": "Custom Tab"
+        },
+        {
+          "type": "richtext",
+          "id": "tab_content",
+          "label": "Tab Content"
+        },
+        {
+          "type": "text",
+          "id": "placeholder_text",
+          "label": "Placeholder Text",
+          "default": "Content coming soon..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tabs"
+    }
+  ]
+}
+{% endschema %}

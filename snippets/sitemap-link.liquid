@@ -1,0 +1,24 @@
+{%- comment -%}
+  Sitemap Link Snippet
+  
+  Usage: {% render 'sitemap-link', class: 'custom-class' %}
+  
+  This snippet renders a link to the sitemap page.
+  Add this to navigation menus or footer sections.
+{%- endcomment -%}
+
+{%- assign sitemap_page = pages['sitemap'] -%}
+{%- if sitemap_page -%}
+  <a href="{{ sitemap_page.url }}" 
+     class="sitemap-link {{ class }}"
+     title="{{ sitemap_page.title | default: 'Sitemap' }}">
+    {{ link_text | default: 'Sitemap' }}
+  </a>
+{%- else -%}
+  {%- comment -%} Fallback if sitemap page doesn't exist {%- endcomment -%}
+  <a href="/pages/sitemap" 
+     class="sitemap-link {{ class }}"
+     title="Sitemap">
+    {{ link_text | default: 'Sitemap' }}
+  </a>
+{%- endif -%}
