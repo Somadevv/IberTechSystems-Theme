@@ -163,8 +163,7 @@
 }
 
 .product-tabs__features-item:hover {
-  background: rgba(var(--color-base-background-2), 0.5);
-  transform: translateX(2px);
+  background: rgba(var(--color-base-background-2), 0.4);
 }
 
 .product-tabs__features-item.expanded {
