@@ -148,7 +148,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 4rem;
+  gap: 2rem;
 }
 
 .product-tabs__features-item {
@@ -169,8 +169,6 @@
 
 .product-tabs__features-item.expanded {
   background: rgba(var(--color-base-background-2), 0.4);
-  z-index: 15;
-  position: relative;
 }
 
 .product-tabs__features-icon {
@@ -203,30 +201,22 @@
 }
 
 .product-tabs__features-details {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  padding: 1.5rem 2rem;
-  background: rgb(var(--color-base-background-1));
-  border: 1px solid rgba(var(--color-base-outline), 0.3);
-  border-radius: 0 0 0.5rem 0.5rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem 2rem 1rem 2.6rem;
+  background: rgba(var(--color-base-background-2), 0.3);
+  border-radius: 0.5rem;
+  margin-top: 1rem;
   color: rgba(var(--color-foreground), 0.8);
   font-size: 1.3rem;
   line-height: 1.6;
-  display: none;
-  animation: slideDown 0.3s ease-out;
-  margin-top: -1px;
-}
-
-.product-tabs__features-item {
-  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
 }
 
 .product-tabs__features-item.expanded .product-tabs__features-details {
-  display: block;
+  max-height: 200px;
+  opacity: 1;
 }
 
 @keyframes slideDown {
@@ -335,9 +325,10 @@
 }
 
 .review-form__actions .button {
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.4rem;
   font-weight: 500;
+  font-size: 1.3rem;
   transition: all 0.2s ease;
   cursor: pointer;
 }
@@ -397,7 +388,7 @@
   }
   
   .product-tabs__features-list {
-    gap: 2.5rem;
+    gap: 1.5rem;
   }
   
   .product-tabs__nav {

@@ -50,6 +50,12 @@ class ProductTabs extends HTMLElement {
     // First, switch to the Reviews tab (index 1)
     this.switchTab(1);
 
+    // Hide the review placeholder (including title and text)
+    const reviewPlaceholder = this.querySelector('.product-tabs__reviews-placeholder');
+    if (reviewPlaceholder) {
+      reviewPlaceholder.style.display = 'none';
+    }
+
     // Show the form with smooth animation
     this.reviewForm.style.display = 'block';
     this.reviewForm.style.opacity = '0';
@@ -62,11 +68,6 @@ class ProductTabs extends HTMLElement {
     this.reviewForm.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     this.reviewForm.style.opacity = '1';
     this.reviewForm.style.transform = 'translateY(0)';
-
-    // Hide the "Write a Review" button
-    if (this.showReviewBtn) {
-      this.showReviewBtn.style.display = 'none';
-    }
 
     // Focus on the first input field
     setTimeout(() => {
@@ -91,9 +92,10 @@ class ProductTabs extends HTMLElement {
       this.reviewForm.style.transition = '';
     }, 300);
 
-    // Show the "Write a Review" button again
-    if (this.showReviewBtn) {
-      this.showReviewBtn.style.display = 'inline-block';
+    // Show the review placeholder again
+    const reviewPlaceholder = this.querySelector('.product-tabs__reviews-placeholder');
+    if (reviewPlaceholder) {
+      reviewPlaceholder.style.display = 'block';
     }
   }
 
