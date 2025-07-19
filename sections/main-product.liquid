@@ -290,20 +290,87 @@
                         {%- assign key_features = block.settings.features_content -%}
                       {%- endif -%}
 
-                      {%- comment -%} Always show interactive dropdowns regardless of product {%- endcomment -%}
                       <div class="product-tabs__features">
-                        {%- comment -%} Determine appropriate feature set based on product content {%- endcomment -%}
-                        {%- assign features_list = '' -%}
+                        {%- comment -%} 
+                        FEATURE SYSTEM - How it works:
                         
-                        {%- if product.description contains 'Torque' or product.description contains 'Motor' or product.description contains 'Control' or product.title contains 'Motor' -%}
-                          {%- comment -%} Motor/mechanical products get specialized features {%- endcomment -%}
-                          {%- assign features_list = 'High Torque Output|Durable Construction|Intelligent Control|Built-in Safety' | split: '|' -%}
-                        {%- elsif key_features != blank and key_features contains '|' and key_features.size < 200 -%}
-                          {%- comment -%} Use custom features only if they're properly formatted and not HTML {%- endcomment -%}
-                          {%- assign features_list = key_features | split: '|' -%}
-                        {%- else -%}
-                          {%- comment -%} Default feature set for all other products {%- endcomment -%}
-                          {%- assign features_list = 'High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed' | split: '|' -%}
+                        1. PRIORITY 1 - Custom Metafields (Full Client Control):
+                           - product.metafields.custom.features = "Feature 1|Feature 2|Feature 3"
+                           - product.metafields.custom.features_details = "Feature 1: Custom description||Feature 2: Another description"
+                        
+                        2. PRIORITY 2 - Automatic Parsing (Uses existing WASGI text):
+                           - Extracts bullet points, HTML lists, or technical specs from product description
+                           - Preserves original product information while making it interactive
+                        
+                        3. PRIORITY 3 - Fallback (Safe default):
+                           - Generic features if nothing else is found
+                        
+                        Client can override any product by adding metafields in Shopify admin.
+                        {%- endcomment -%}
+                        {%- assign features_list = '' -%}
+                        {%- assign features_details = '' -%}
+                        
+                        {%- comment -%} PRIORITY 1: Check for client-defined metafields first {%- endcomment -%}
+                        {%- if product.metafields.custom.features != blank -%}
+                          {%- assign features_list = product.metafields.custom.features | split: '|' -%}
+                          {%- assign features_details = product.metafields.custom.features_details -%}
+                          
+                        {%- comment -%} PRIORITY 2: Parse existing product content intelligently {%- endcomment -%}
+                        {%- elsif product.description != blank -%}
+                          {%- assign parsed_features = '' -%}
+                          {%- assign description_lower = product.description | downcase -%}
+                          
+                          {%- comment -%} Extract features from lists or structured content {%- endcomment -%}
+                          {%- if product.description contains '<li>' -%}
+                            {%- assign li_items = product.description | split: '<li>' -%}
+                            {%- assign parsed_features = '' -%}
+                            {%- for item in li_items -%}
+                              {%- if forloop.index > 1 -%}
+                                {%- assign clean_item = item | split: '</li>' | first | strip_html | strip -%}
+                                {%- if clean_item != blank and clean_item.size > 3 -%}
+                                  {%- if parsed_features == blank -%}
+                                    {%- assign parsed_features = clean_item -%}
+                                  {%- else -%}
+                                    {%- assign parsed_features = parsed_features | append: '|' | append: clean_item -%}
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+                          
+                          {%- comment -%} Look for bullet points or numbered lists {%- endcomment -%}
+                          {%- elsif product.description contains '•' or product.description contains '-' -%}
+                            {%- assign lines = product.description | strip_html | split: '
+' -%}
+                            {%- assign parsed_features = '' -%}
+                            {%- for line in lines -%}
+                              {%- assign clean_line = line | strip -%}
+                              {%- if clean_line contains '•' or clean_line contains '- ' -%}
+                                {%- assign feature_text = clean_line | remove_first: '•' | remove_first: '-' | strip -%}
+                                {%- if feature_text != blank and feature_text.size > 3 -%}
+                                  {%- if parsed_features == blank -%}
+                                    {%- assign parsed_features = feature_text -%}
+                                  {%- else -%}
+                                    {%- assign parsed_features = parsed_features | append: '|' | append: feature_text -%}
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+                            
+                          {%- comment -%} Extract key specs/features from technical descriptions {%- endcomment -%}
+                          {%- elsif description_lower contains 'torque' or description_lower contains 'motor' -%}
+                            {%- assign parsed_features = 'High Torque Output|Durable Construction|Intelligent Control|Built-in Safety' -%}
+                            
+                          {%- endif -%}
+                          
+                          {%- if parsed_features != blank -%}
+                            {%- assign features_list = parsed_features | split: '|' -%}
+                          {%- endif -%}
+                          
+                        {%- endif -%}
+                        
+                        {%- comment -%} PRIORITY 3: Fallback to generic features if nothing found {%- endcomment -%}
+                        {%- if features_list == blank -%}
+                          {%- assign features_list = 'Premium Quality|Durable Design|Easy Installation|Professional Grade|Warranty Included' | split: '|' -%}
                         {%- endif -%}
 
                           <ul class="product-tabs__features-list">
@@ -311,34 +378,56 @@
                               {%- assign feature_trimmed = feature | strip -%}
                               {%- unless feature_trimmed == blank -%}
                                 <li class="product-tabs__features-item" onclick="toggleFeature(this)">
-                                  <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
-                                  </svg>
-                                  <span>{{ feature_trimmed }}</span>
-                                  <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
-                                  </svg>
+                                  <div class="product-tabs__features-header">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                      <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                                      </svg>
+                                      <span>{{ feature_trimmed }}</span>
+                                    </div>
+                                    <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
+                                    </svg>
+                                  </div>
                                   <div class="product-tabs__features-details">
-                                    {%- case feature_trimmed -%}
-                                      {%- when 'High Quality Materials' -%}
-                                        Constructed with premium-grade materials that ensure long-lasting durability and superior performance in all conditions.
-                                      {%- when 'Durable Construction' -%}
-                                        Engineered to withstand rigorous use with reinforced components and weather-resistant design for extended lifespan.
-                                      {%- when 'Easy to Use' -%}
-                                        Intuitive design with user-friendly controls and clear instructions make operation simple for users of all experience levels.
-                                      {%- when 'Eco-Friendly' -%}
-                                        Manufactured using sustainable practices and environmentally responsible materials to minimize ecological impact.
-                                      {%- when 'Satisfaction Guaranteed' -%}
-                                        Backed by our comprehensive warranty and customer satisfaction guarantee for complete peace of mind with your purchase.
-                                      {%- when 'High Torque Output' -%}
-                                        Delivers powerful torque output for demanding applications, ensuring consistent performance even under heavy loads and challenging conditions.
-                                      {%- when 'Intelligent Control' -%}
-                                        Advanced control systems provide precise operation, safety monitoring, and seamless integration with existing automation infrastructure.
-                                      {%- when 'Built-in Safety' -%}
-                                        Comprehensive safety features including automatic stop mechanisms, overload protection, and emergency controls for maximum operational security.
-                                      {%- else -%}
-                                        This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
-                                    {%- endcase -%}
+                                    {%- comment -%} Check if custom details exist for this feature {%- endcomment -%}
+                                    {%- assign custom_detail = '' -%}
+                                    {%- if features_details != blank -%}
+                                      {%- assign detail_pairs = features_details | split: '||' -%}
+                                      {%- for pair in detail_pairs -%}
+                                        {%- assign pair_parts = pair | split: ':' -%}
+                                        {%- if pair_parts[0] == feature_trimmed -%}
+                                          {%- assign custom_detail = pair_parts[1] | strip -%}
+                                          {%- break -%}
+                                        {%- endif -%}
+                                      {%- endfor -%}
+                                    {%- endif -%}
+                                    
+                                    {%- if custom_detail != blank -%}
+                                      {{ custom_detail }}
+                                    {%- else -%}
+                                      {%- comment -%} Default descriptions based on feature name {%- endcomment -%}
+                                      {%- case feature_trimmed -%}
+                                        {%- when 'High Quality Materials', 'Premium Quality' -%}
+                                          Constructed with premium-grade materials that ensure long-lasting durability and superior performance in all conditions.
+                                        {%- when 'Durable Construction', 'Durable Design' -%}
+                                          Engineered to withstand rigorous use with reinforced components and weather-resistant design for extended lifespan.
+                                        {%- when 'Easy to Use', 'Easy Installation' -%}
+                                          Intuitive design with user-friendly controls and clear instructions make operation simple for users of all experience levels.
+                                        {%- when 'Professional Grade' -%}
+                                          Built to professional standards with precision engineering and quality components for reliable commercial use.
+                                        {%- when 'Warranty Included' -%}
+                                          Backed by our comprehensive warranty and customer satisfaction guarantee for complete peace of mind with your purchase.
+                                        {%- when 'High Torque Output' -%}
+                                          Delivers powerful torque output for demanding applications, ensuring consistent performance even under heavy loads and challenging conditions.
+                                        {%- when 'Intelligent Control' -%}
+                                          Advanced control systems provide precise operation, safety monitoring, and seamless integration with existing automation infrastructure.
+                                        {%- when 'Built-in Safety' -%}
+                                          Comprehensive safety features including automatic stop mechanisms, overload protection, and emergency controls for maximum operational security.
+                                        {%- else -%}
+                                          This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
+                                      {%- endcase -%}
+                                    {%- endif -%}
                                   </div>
                                 </li>
                               {%- endunless -%}
