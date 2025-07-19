@@ -38,7 +38,7 @@
           "type": "product_tabs",
           "settings": {
             "description_tab_label": "Description",
-            "features_tab_label": "Key Features",
+            "features_tab_label": "Features",
             "reviews_tab_label": "Reviews",
             "show_reviews_count": true,
             "reviews_count": 1,
@@ -78,6 +78,13 @@
         "padding_bottom": 12
       }
     },
+    "product-review-form": {
+      "type": "product-reviews-form",
+      "settings": {
+        "form_title": "Write a Review",
+        "success_message": "Thank you for your review! It will be published after moderation."
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -97,5 +104,5 @@
       }
     }
   },
-  "order": ["main", "related-products"]
+  "order": ["main", "product-review-form", "related-products"]
 }
