@@ -18,40 +18,33 @@
 .product-tabs__nav-link {
   display: flex;
   align-items: center;
-  padding: 1.2rem 2rem;
+  padding: 1rem 2rem;
   text-decoration: none;
   color: rgba(var(--color-foreground), 0.7);
-  border: 1px solid rgba(var(--color-base-outline), 0.3);
-  border-bottom: 3px solid transparent;
-  border-radius: 0.6rem 0.6rem 0 0;
-  transition: all 0.25s ease;
-  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
   cursor: pointer;
-  background: rgba(var(--color-base-background-1), 0.8);
-  font-size: 1.4rem;
+  background: transparent;
+  font-size: 1.5rem;
   font-family: var(--font-body-family);
   line-height: 1.3;
   position: relative;
   white-space: nowrap;
-  margin-right: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 0;
 }
 
 .product-tabs__nav-link:hover {
   color: rgb(var(--color-foreground));
-  background: rgba(var(--color-base-background-2), 1);
-  border-color: rgba(var(--color-base-outline), 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: rgba(var(--color-base-background-2), 0.3);
 }
 
 .product-tabs__nav-link.active {
   color: rgb(var(--color-foreground));
-  background: rgba(var(--color-base-background-1), 1);
-  border-bottom-color: rgb(var(--color-button));
-  border-color: rgba(var(--color-base-outline), 0.6);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  background: transparent;
+  border-bottom-color: rgb(var(--color-foreground));
+  font-weight: 600;
 }
 
 .product-tabs__reviews-count {
