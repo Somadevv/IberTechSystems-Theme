@@ -78,13 +78,6 @@
         "padding_bottom": 12
       }
     },
-    "product-review-form": {
-      "type": "product-reviews-form",
-      "settings": {
-        "form_title": "Write a Review",
-        "success_message": "Thank you for your review! It will be published after moderation."
-      }
-    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -104,5 +97,5 @@
       }
     }
   },
-  "order": ["main", "product-review-form", "related-products"]
+  "order": ["main", "related-products"]
 }
