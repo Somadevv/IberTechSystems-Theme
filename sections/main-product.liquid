@@ -216,6 +216,9 @@
                       {{ block.settings.description_tab_label | default: 'Description' }}
                     </button>
                     <button class="product-tabs__nav-link" type="button">
+                      {{ block.settings.features_tab_label | default: 'Key Features' }}
+                    </button>
+                    <button class="product-tabs__nav-link" type="button">
                       {{ block.settings.reviews_tab_label | default: 'Reviews' }}
                       {%- if block.settings.show_reviews_count -%}
                         <span class="product-tabs__reviews-count">{{ block.settings.reviews_count | default: 0 }}</span>
@@ -232,6 +235,47 @@
                       {%- else -%}
                         <div class="product-tabs__reviews-placeholder">
                           <p>{{ block.settings.no_description_text | default: 'No description available for this product.' }}</p>
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="product-tabs__panel">
+                      {%- assign key_features = blank -%}
+                      
+                      {%- comment -%} Try to get features from product metafields first {%- endcomment -%}
+                      {%- if product.metafields.custom.key_features != blank -%}
+                        {%- assign key_features = product.metafields.custom.key_features -%}
+                      {%- elsif block.settings.features_content != blank -%}
+                        {%- assign key_features = block.settings.features_content -%}
+                      {%- endif -%}
+
+                      {%- if key_features != blank -%}
+                        <div class="product-tabs__features">
+                          {%- assign features_list = key_features | split: '|' -%}
+                          {%- if features_list.size > 1 -%}
+                            <ul class="product-tabs__features-list">
+                              {%- for feature in features_list -%}
+                                {%- assign feature_trimmed = feature | strip -%}
+                                {%- unless feature_trimmed == blank -%}
+                                  <li class="product-tabs__features-item">
+                                    <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                                    </svg>
+                                    <span>{{ feature_trimmed }}</span>
+                                  </li>
+                                {%- endunless -%}
+                              {%- endfor -%}
+                            </ul>
+                          {%- else -%}
+                            <div class="rte">
+                              {{ key_features }}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {%- else -%}
+                        <div class="product-tabs__reviews-placeholder">
+                          <h3>{{ block.settings.features_placeholder_title | default: 'Key Features' }}</h3>
+                          <p>{{ block.settings.features_placeholder_text | default: 'Product features will be displayed here.' }}</p>
                         </div>
                       {%- endif -%}
                     </div>
@@ -993,6 +1037,12 @@
         },
         {
           "type": "text",
+          "id": "features_tab_label",
+          "label": "Features Tab Label",
+          "default": "Key Features"
+        },
+        {
+          "type": "text",
           "id": "reviews_tab_label", 
           "label": "Reviews Tab Label",
           "default": "Reviews"
@@ -1044,6 +1094,28 @@
           "id": "no_description_text",
           "label": "No Description Text",
           "default": "No description available for this product."
+        },
+        {
+          "type": "header",
+          "content": "Key Features Settings"
+        },
+        {
+          "type": "textarea",
+          "id": "features_content",
+          "label": "Key Features",
+          "info": "Enter features separated by | (pipe) for bullet points, or use rich text for custom formatting. Example: Feature 1|Feature 2|Feature 3"
+        },
+        {
+          "type": "text",
+          "id": "features_placeholder_title",
+          "label": "Features Placeholder Title",
+          "default": "Key Features"
+        },
+        {
+          "type": "text",
+          "id": "features_placeholder_text",
+          "label": "Features Placeholder Text",
+          "default": "Product features will be displayed here."
         }
       ]
     },
