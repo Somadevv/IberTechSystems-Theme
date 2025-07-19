@@ -374,14 +374,9 @@
                               {%- unless feature_trimmed == blank -%}
                                 <li class="product-tabs__features-item" onclick="toggleFeature(this)">
                                   <div class="product-tabs__features-header">
-                                    <div style="display: flex; align-items: center; gap: 1rem;">
-                                      <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
-                                      </svg>
-                                      <span>{{ feature_trimmed }}</span>
-                                    </div>
+                                    <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;">{{ feature_trimmed }}</span>
                                     <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
+                                      <path d="M8 12l-4-4h8l-4 4z" fill="currentColor"/>
                                     </svg>
                                   </div>
                                   <div class="product-tabs__features-details">
