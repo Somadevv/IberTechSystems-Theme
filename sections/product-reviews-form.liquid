@@ -1,6 +1,6 @@
 {{ 'product-reviews.css' | asset_url | stylesheet_tag }}
 
-<div class="product-reviews-form page-width">
+<div class="product-reviews-form page-width" id="product-review-form">
   <h3>{{ section.settings.form_title | default: 'Write a Review' }}</h3>
   
   {%- form 'contact', class: 'review-form' -%}
