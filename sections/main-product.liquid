@@ -292,28 +292,67 @@
 
                       {%- if key_features != blank -%}
                         <div class="product-tabs__features">
-                          {%- comment -%} Check if content contains HTML lists {%- endcomment -%}
-                          {%- if key_features contains '<ul>' or key_features contains '<li>' -%}
-                            <div class="rte">
-                              {{ key_features }}
-                            </div>
+                          {%- comment -%} Always create interactive dropdowns regardless of source format {%- endcomment -%}
+                          {%- assign features_list = '' -%}
+                          {%- assign features_details = '' -%}
+                          
+                          {%- comment -%} Parse HTML content to extract features {%- endcomment -%}
+                          {%- if key_features contains '<li>' -%}
+                            {%- comment -%} Extract feature names and descriptions from HTML list items {%- endcomment -%}
+                            {%- assign html_features = key_features | split: '<li>' -%}
+                            {%- assign parsed_features = '' -%}
+                            {%- for html_item in html_features -%}
+                              {%- if html_item contains '</li>' -%}
+                                {%- assign feature_content = html_item | split: '</li>' | first | strip_html | strip -%}
+                                {%- if feature_content != blank -%}
+                                  {%- assign feature_parts = feature_content | split: ' – ' -%}
+                                  {%- if feature_parts.size > 1 -%}
+                                    {%- assign feature_name = feature_parts[0] | strip -%}
+                                    {%- assign feature_desc = feature_parts[1] | strip -%}
+                                    {%- if parsed_features == blank -%}
+                                      {%- assign parsed_features = feature_name -%}
+                                    {%- else -%}
+                                      {%- assign parsed_features = parsed_features | append: '|' | append: feature_name -%}
+                                    {%- endif -%}
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+                            {%- assign features_list = parsed_features | split: '|' -%}
                           {%- else -%}
-                            {%- comment -%} Create expandable features with sample detailed content {%- endcomment -%}
+                            {%- comment -%} Handle pipe-separated features {%- endcomment -%}
                             {%- assign features_list = key_features | split: '|' -%}
-                            {%- if features_list.size > 1 -%}
-                              <ul class="product-tabs__features-list">
-                                {%- for feature in features_list -%}
-                                  {%- assign feature_trimmed = feature | strip -%}
-                                  {%- unless feature_trimmed == blank -%}
-                                    <li class="product-tabs__features-item" onclick="toggleFeature(this)">
-                                      <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
-                                      </svg>
-                                      <span>{{ feature_trimmed }}</span>
-                                      <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
-                                      </svg>
-                                      <div class="product-tabs__features-details">
+                          {%- endif -%}
+
+                          {%- if features_list.size > 0 -%}
+                            <ul class="product-tabs__features-list">
+                              {%- for feature in features_list -%}
+                                {%- assign feature_trimmed = feature | strip -%}
+                                {%- unless feature_trimmed == blank -%}
+                                  <li class="product-tabs__features-item" onclick="toggleFeature(this)">
+                                    <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                                    </svg>
+                                    <span>{{ feature_trimmed }}</span>
+                                    <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
+                                    </svg>
+                                    <div class="product-tabs__features-details">
+                                      {%- comment -%} Get description from original HTML or use default {%- endcomment -%}
+                                      {%- if key_features contains '<li>' -%}
+                                        {%- assign html_features = key_features | split: '<li>' -%}
+                                        {%- assign feature_desc = 'This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.' -%}
+                                        {%- for html_item in html_features -%}
+                                          {%- if html_item contains '</li>' and html_item contains feature_trimmed -%}
+                                            {%- assign feature_content = html_item | split: '</li>' | first | strip_html | strip -%}
+                                            {%- assign feature_parts = feature_content | split: ' – ' -%}
+                                            {%- if feature_parts.size > 1 -%}
+                                              {%- assign feature_desc = feature_parts[1] | strip -%}
+                                            {%- endif -%}
+                                          {%- endif -%}
+                                        {%- endfor -%}
+                                        {{ feature_desc }}
+                                      {%- else -%}
                                         {%- case feature_trimmed -%}
                                           {%- when 'High Quality Materials' -%}
                                             Constructed with premium-grade materials that ensure long-lasting durability and superior performance in all conditions.
@@ -325,19 +364,25 @@
                                             Manufactured using sustainable practices and environmentally responsible materials to minimize ecological impact.
                                           {%- when 'Satisfaction Guaranteed' -%}
                                             Backed by our comprehensive warranty and customer satisfaction guarantee for complete peace of mind with your purchase.
+                                          {%- when 'High Torque Output' -%}
+                                            Delivers powerful torque output for demanding applications, ensuring consistent performance even under heavy loads and challenging conditions.
+                                          {%- when 'Intelligent Control' -%}
+                                            Advanced control systems provide precise operation, safety monitoring, and seamless integration with existing automation infrastructure.
+                                          {%- when 'Built-in Safety' -%}
+                                            Comprehensive safety features including automatic stop mechanisms, overload protection, and emergency controls for maximum operational security.
                                           {%- else -%}
                                             This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
                                         {%- endcase -%}
-                                      </div>
-                                    </li>
-                                  {%- endunless -%}
-                                {%- endfor -%}
-                              </ul>
-                            {%- else -%}
-                              <div class="rte">
-                                {{ key_features }}
-                              </div>
-                            {%- endif -%}
+                                      {%- endif -%}
+                                    </div>
+                                  </li>
+                                {%- endunless -%}
+                              {%- endfor -%}
+                            </ul>
+                          {%- else -%}
+                            <div class="rte">
+                              {{ key_features }}
+                            </div>
                           {%- endif -%}
                         </div>
                       {%- else -%}
