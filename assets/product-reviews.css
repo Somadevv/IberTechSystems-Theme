@@ -1,0 +1,122 @@
+.product-reviews-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(var(--color-foreground), 0.02);
+  border-radius: 1rem;
+}
+
+.product-reviews-form h3 {
+  margin-bottom: 2rem;
+  color: rgb(var(--color-foreground));
+}
+
+.review-form__field {
+  margin-bottom: 1.5rem;
+}
+
+.review-form__field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+}
+
+.review-form__field input,
+.review-form__field textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  border-radius: 0.5rem;
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.review-form__field input:focus,
+.review-form__field textarea:focus {
+  outline: none;
+  border-color: rgb(var(--color-foreground));
+  box-shadow: 0 0 0 3px rgba(var(--color-foreground), 0.1);
+}
+
+.rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 0.2rem;
+}
+
+.rating-input input[type="radio"] {
+  display: none;
+}
+
+.rating-input label.star {
+  cursor: pointer;
+  font-size: 2.5rem;
+  color: rgba(var(--color-foreground), 0.3);
+  transition: color 0.2s ease;
+  width: auto;
+  margin-bottom: 0;
+}
+
+.rating-input input[type="radio"]:checked ~ label.star,
+.rating-input label.star:hover,
+.rating-input label.star:hover ~ label.star {
+  color: #ffc107;
+}
+
+.review-form__success {
+  padding: 1.5rem;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 0.5rem;
+  color: #155724;
+  margin-bottom: 2rem;
+}
+
+.review-form__errors {
+  padding: 1.5rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 0.5rem;
+  color: #721c24;
+  margin-bottom: 2rem;
+}
+
+.review-form__errors h4 {
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.review-form__errors ul {
+  margin: 0;
+  padding-left: 2rem;
+}
+
+.review-form__errors li {
+  margin-bottom: 0.5rem;
+}
+
+.review-form__actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.review-form__actions .button {
+  padding: 1.2rem 3rem;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 749px) {
+  .product-reviews-form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .rating-input label.star {
+    font-size: 2rem;
+  }
+}

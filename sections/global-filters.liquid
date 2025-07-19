@@ -1,0 +1,295 @@
+{{ 'global-filters.css' | asset_url | stylesheet_tag }}
+
+<div class="global-filters">
+  <div class="page-width">
+    <div class="global-filters__header">
+      <h2>{{ section.settings.heading | default: 'Filter Products' }}</h2>
+      <button class="global-filters__toggle" aria-expanded="false" aria-controls="global-filters-content">
+        <span>{{ section.settings.toggle_text | default: 'Show Filters' }}</span>
+        <svg aria-hidden="true" focusable="false" class="icon icon-caret">
+          <use href="#icon-caret">
+        </svg>
+      </button>
+    </div>
+    
+    <div class="global-filters__content" id="global-filters-content">
+      <form class="global-filters__form" method="get" action="{{ routes.search_url }}">
+        
+        {%- comment -%} Search Input {%- endcomment -%}
+        {%- if section.settings.show_search -%}
+          <div class="global-filters__group">
+            <label for="global-search">{{ section.settings.search_label | default: 'Search' }}</label>
+            <input type="text" id="global-search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder | default: 'Search products...' }}">
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Product Type Filter {%- endcomment -%}
+        {%- if section.settings.show_product_type -%}
+          <div class="global-filters__group">
+            <label for="product-type">{{ section.settings.product_type_label | default: 'Product Type' }}</label>
+            <select id="product-type" name="product_type">
+              <option value="">{{ section.settings.all_types_text | default: 'All Types' }}</option>
+              {%- for product_type in shop.types -%}
+                {%- unless product_type == blank -%}
+                  <option value="{{ product_type | handle }}" {% if search.filters.product_type == product_type.handle %}selected{% endif %}>
+                    {{ product_type }}
+                  </option>
+                {%- endunless -%}
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Vendor Filter {%- endcomment -%}
+        {%- if section.settings.show_vendor -%}
+          <div class="global-filters__group">
+            <label for="vendor">{{ section.settings.vendor_label | default: 'Brand' }}</label>
+            <select id="vendor" name="vendor">
+              <option value="">{{ section.settings.all_brands_text | default: 'All Brands' }}</option>
+              {%- for vendor in shop.vendors -%}
+                {%- unless vendor == blank -%}
+                  <option value="{{ vendor | handle }}" {% if search.filters.vendor == vendor.handle %}selected{% endif %}>
+                    {{ vendor }}
+                  </option>
+                {%- endunless -%}
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Price Range {%- endcomment -%}
+        {%- if section.settings.show_price_range -%}
+          <div class="global-filters__group global-filters__price-range">
+            <label>{{ section.settings.price_range_label | default: 'Price Range' }}</label>
+            <div class="price-range-inputs">
+              <input type="number" name="price_min" placeholder="{{ section.settings.min_price_placeholder | default: 'Min' }}" value="{{ search.filters.price.min | money_without_currency | remove: ',' }}" min="0" step="0.01">
+              <span class="price-range-separator">-</span>
+              <input type="number" name="price_max" placeholder="{{ section.settings.max_price_placeholder | default: 'Max' }}" value="{{ search.filters.price.max | money_without_currency | remove: ',' }}" min="0" step="0.01">
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Collections Filter {%- endcomment -%}
+        {%- if section.settings.show_collections -%}
+          <div class="global-filters__group">
+            <label for="collection">{{ section.settings.collection_label | default: 'Collection' }}</label>
+            <select id="collection" name="collection" onchange="this.form.action = '/collections/' + this.value; if(this.value) this.form.submit();">
+              <option value="">{{ section.settings.all_collections_text | default: 'All Collections' }}</option>
+              {%- for collection in collections -%}
+                {%- unless collection.handle == 'frontpage' -%}
+                  <option value="{{ collection.handle }}" {% if collection.handle == collection.handle %}selected{% endif %}>
+                    {{ collection.title }} ({{ collection.products_count }})
+                  </option>
+                {%- endunless -%}
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Custom Filters from Blocks {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'custom_filter' -%}
+              <div class="global-filters__group" {{ block.shopify_attributes }}>
+                <label for="filter-{{ block.id }}">{{ block.settings.filter_label }}</label>
+                <select id="filter-{{ block.id }}" name="{{ block.settings.filter_name }}">
+                  <option value="">{{ block.settings.all_option_text | default: 'All' }}</option>
+                  {%- assign filter_options = block.settings.filter_options | split: ',' -%}
+                  {%- for option in filter_options -%}
+                    {%- assign option_trimmed = option | strip -%}
+                    <option value="{{ option_trimmed | handle }}">{{ option_trimmed }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+
+        <div class="global-filters__actions">
+          <button type="submit" class="button">{{ section.settings.apply_text | default: 'Apply Filters' }}</button>
+          <button type="button" class="button button--secondary" onclick="clearFilters()">{{ section.settings.clear_text | default: 'Clear All' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'global-filters.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Global Filters",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Filter Products"
+    },
+    {
+      "type": "text",
+      "id": "toggle_text",
+      "label": "Toggle Button Text",
+      "default": "Show Filters"
+    },
+    {
+      "type": "header",
+      "content": "Search Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_label",
+      "label": "Search Label",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder",
+      "default": "Search products..."
+    },
+    {
+      "type": "header",
+      "content": "Filter Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_type",
+      "label": "Show Product Type Filter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_type_label",
+      "label": "Product Type Label",
+      "default": "Product Type"
+    },
+    {
+      "type": "text",
+      "id": "all_types_text",
+      "label": "All Types Text",
+      "default": "All Types"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor Filter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "vendor_label",
+      "label": "Vendor Label",
+      "default": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "all_brands_text",
+      "label": "All Brands Text",
+      "default": "All Brands"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_range",
+      "label": "Show Price Range Filter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_range_label",
+      "label": "Price Range Label",
+      "default": "Price Range"
+    },
+    {
+      "type": "text",
+      "id": "min_price_placeholder",
+      "label": "Min Price Placeholder",
+      "default": "Min"
+    },
+    {
+      "type": "text",
+      "id": "max_price_placeholder",
+      "label": "Max Price Placeholder", 
+      "default": "Max"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collections",
+      "label": "Show Collections Filter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "collection_label",
+      "label": "Collection Label",
+      "default": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "all_collections_text",
+      "label": "All Collections Text",
+      "default": "All Collections"
+    },
+    {
+      "type": "header",
+      "content": "Action Buttons"
+    },
+    {
+      "type": "text",
+      "id": "apply_text",
+      "label": "Apply Button Text",
+      "default": "Apply Filters"
+    },
+    {
+      "type": "text",
+      "id": "clear_text",
+      "label": "Clear Button Text",
+      "default": "Clear All"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_filter",
+      "name": "Custom Filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_label",
+          "label": "Filter Label",
+          "default": "Custom Filter"
+        },
+        {
+          "type": "text",
+          "id": "filter_name",
+          "label": "Filter Name",
+          "info": "The parameter name for the filter (e.g., 'color', 'size')"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_options",
+          "label": "Filter Options",
+          "info": "Comma-separated list of options (e.g., 'Red, Blue, Green')"
+        },
+        {
+          "type": "text",
+          "id": "all_option_text",
+          "label": "All Option Text",
+          "default": "All"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Global Filters"
+    }
+  ]
+}
+{% endschema %}

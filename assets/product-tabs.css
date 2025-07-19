@@ -1,0 +1,103 @@
+.product-tabs {
+  margin: 2rem 0;
+}
+
+.product-tabs__nav {
+  display: flex;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  margin-bottom: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.product-tabs__nav-item {
+  margin-right: 0;
+}
+
+.product-tabs__nav-link {
+  display: block;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: rgba(var(--color-foreground), 0.7);
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  font-family: var(--font-body-family);
+}
+
+.product-tabs__nav-link:hover {
+  color: rgb(var(--color-foreground));
+  border-bottom-color: rgba(var(--color-foreground), 0.3);
+}
+
+.product-tabs__nav-link.active {
+  color: rgb(var(--color-foreground));
+  border-bottom-color: rgb(var(--color-foreground));
+}
+
+.product-tabs__content {
+  min-height: 200px;
+}
+
+.product-tabs__panel {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.product-tabs__panel.active {
+  display: block;
+}
+
+.product-tabs__panel .rte {
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product-tabs__reviews-placeholder {
+  padding: 2rem;
+  background-color: rgba(var(--color-foreground), 0.05);
+  border-radius: 0.5rem;
+  text-align: center;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.product-tabs__reviews-count {
+  background-color: rgba(var(--color-foreground), 0.1);
+  color: rgb(var(--color-foreground));
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 749px) {
+  .product-tabs__nav {
+    flex-direction: column;
+  }
+  
+  .product-tabs__nav-link {
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+    border-right: none;
+  }
+  
+  .product-tabs__nav-link.active {
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+    background-color: rgba(var(--color-foreground), 0.05);
+  }
+}
