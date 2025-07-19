@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "sitemap_section": {
+      "type": "sitemap-content",
+      "settings": {
+        "show_all_pages": true,
+        "show_collections": true,
+        "show_products": false,
+        "show_blogs": true,
+        "group_by_category": true
+      }
+    }
+  },
+  "order": ["main", "sitemap_section"]
+}
