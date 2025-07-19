@@ -290,22 +290,21 @@
                         {%- assign key_features = block.settings.features_content -%}
                       {%- endif -%}
 
-                      {%- if key_features != blank -%}
-                        <div class="product-tabs__features">
-                          {%- comment -%} Always create interactive dropdowns - never show raw HTML {%- endcomment -%}
-                          {%- assign features_list = '' -%}
-                          
-                          {%- comment -%} Determine feature list based on content type {%- endcomment -%}
-                          {%- if key_features contains '<ul>' or key_features contains '<li>' or key_features contains 'Torque' or key_features contains 'Control' -%}
-                            {%- comment -%} For HTML content or specific motor features, use motor-specific list {%- endcomment -%}
-                            {%- assign features_list = 'High Torque Output|Durable Construction|Intelligent Control|Built-in Safety' | split: '|' -%}
-                          {%- elsif key_features contains '|' -%}
-                            {%- comment -%} Handle pipe-separated features {%- endcomment -%}
-                            {%- assign features_list = key_features | split: '|' -%}
-                          {%- else -%}
-                            {%- comment -%} Default feature set {%- endcomment -%}
-                            {%- assign features_list = 'High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed' | split: '|' -%}
-                          {%- endif -%}
+                      {%- comment -%} Always show interactive dropdowns regardless of product {%- endcomment -%}
+                      <div class="product-tabs__features">
+                        {%- comment -%} Determine appropriate feature set based on product content {%- endcomment -%}
+                        {%- assign features_list = '' -%}
+                        
+                        {%- if product.description contains 'Torque' or product.description contains 'Motor' or product.description contains 'Control' or product.title contains 'Motor' -%}
+                          {%- comment -%} Motor/mechanical products get specialized features {%- endcomment -%}
+                          {%- assign features_list = 'High Torque Output|Durable Construction|Intelligent Control|Built-in Safety' | split: '|' -%}
+                        {%- elsif key_features != blank and key_features contains '|' and key_features.size < 200 -%}
+                          {%- comment -%} Use custom features only if they're properly formatted and not HTML {%- endcomment -%}
+                          {%- assign features_list = key_features | split: '|' -%}
+                        {%- else -%}
+                          {%- comment -%} Default feature set for all other products {%- endcomment -%}
+                          {%- assign features_list = 'High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed' | split: '|' -%}
+                        {%- endif -%}
 
                           <ul class="product-tabs__features-list">
                             {%- for feature in features_list -%}
@@ -346,12 +345,6 @@
                             {%- endfor -%}
                           </ul>
                         </div>
-                      {%- else -%}
-                        <div class="product-tabs__reviews-placeholder">
-                          <h3>{{ block.settings.features_placeholder_title | default: 'Key Features' }}</h3>
-                          <p>{{ block.settings.features_placeholder_text | default: 'Product features will be displayed here.' }}</p>
-                        </div>
-                      {%- endif -%}
                     </div>
 
                     <div class="product-tabs__panel">
