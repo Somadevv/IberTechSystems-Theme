@@ -47,6 +47,9 @@ class ProductTabs extends HTMLElement {
   showReviewForm() {
     if (!this.reviewForm) return;
 
+    // First, switch to the Reviews tab (index 1)
+    this.switchTab(1);
+
     // Show the form with smooth animation
     this.reviewForm.style.display = 'block';
     this.reviewForm.style.opacity = '0';

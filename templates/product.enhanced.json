@@ -25,6 +25,23 @@
           }
         },
         "share": { "type": "share", "settings": { "share_label": "Share" } },
+        "product_tabs": {
+          "type": "product_tabs",
+          "settings": {
+            "description_tab_label": "Description",
+            "features_tab_label": "Features",
+            "reviews_tab_label": "Reviews",
+            "show_reviews_count": true,
+            "reviews_count": 1,
+            "reviews_placeholder_title": "Customer Reviews",
+            "reviews_placeholder_text": "No reviews yet. Be the first to review this product!",
+            "show_review_button": true,
+            "review_button_text": "Write a Review",
+            "features_content": "High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed",
+            "features_placeholder_title": "Key Features",
+            "features_placeholder_text": "Product features will be displayed here."
+          }
+        },
         "complementary": { "type": "complementary", "settings": {} }
       },
       "block_order": [
@@ -35,6 +52,7 @@
         "quantity_selector",
         "buy_buttons",
         "share",
+        "product_tabs",
         "complementary"
       ],
       "settings": {
@@ -51,43 +69,6 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
-      }
-    },
-    "product-tabs": {
-      "type": "product-tabs",
-      "settings": {
-        "description_tab_label": "Description",
-        "reviews_tab_label": "Reviews",
-        "show_reviews_count": true,
-        "reviews_count": 0,
-        "reviews_placeholder_title": "Customer Reviews",
-        "reviews_placeholder_text": "No reviews yet. Be the first to review this product!",
-        "show_review_button": true,
-        "review_button_text": "Write a Review"
-      },
-      "blocks": {
-        "care_instructions": {
-          "type": "custom_tab",
-          "settings": {
-            "tab_label": "Care Instructions",
-            "tab_content": "<p>Care instructions will be added here based on product type.</p>"
-          }
-        },
-        "shipping_returns": {
-          "type": "custom_tab", 
-          "settings": {
-            "tab_label": "Shipping & Returns",
-            "tab_content": "<p><strong>Shipping:</strong> Free shipping on orders over $50.<br><strong>Returns:</strong> 30-day return policy.</p>"
-          }
-        }
-      },
-      "block_order": ["care_instructions", "shipping_returns"]
-    },
-    "product-review-form": {
-      "type": "product-reviews-form",
-      "settings": {
-        "form_title": "Write a Review",
-        "success_message": "Thank you for your review! It will be published after moderation."
       }
     },
     "product-recommendations": {
@@ -109,5 +90,5 @@
       }
     }
   },
-  "order": ["main", "product-tabs", "product-review-form", "product-recommendations"]
+  "order": ["main", "product-recommendations"]
 }
