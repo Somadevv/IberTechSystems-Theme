@@ -38,13 +38,17 @@
           "type": "product_tabs",
           "settings": {
             "description_tab_label": "Description",
+            "features_tab_label": "Key Features",
             "reviews_tab_label": "Reviews",
             "show_reviews_count": true,
             "reviews_count": 1,
             "reviews_placeholder_title": "Customer Reviews",
             "reviews_placeholder_text": "No reviews yet. Be the first to review this product!",
             "show_review_button": true,
-            "review_button_text": "Write a Review"
+            "review_button_text": "Write a Review",
+            "features_content": "High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed",
+            "features_placeholder_title": "Key Features",
+            "features_placeholder_text": "Product features will be displayed here."
           }
         }
       },
