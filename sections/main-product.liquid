@@ -229,8 +229,27 @@
                   <div class="product-tabs__content">
                     <div class="product-tabs__panel">
                       {%- if product.description != blank -%}
+                        {%- comment -%} Parse and separate description from features {%- endcomment -%}
+                        {%- assign full_description = product.description -%}
+                        {%- assign description_only = '' -%}
+                        
+                        {%- comment -%} Split content at "Key Features:" or similar markers {%- endcomment -%}
+                        {%- if full_description contains 'Key Features:' -%}
+                          {%- assign description_parts = full_description | split: 'Key Features:' -%}
+                          {%- assign description_only = description_parts[0] | strip -%}
+                        {%- elsif full_description contains 'Features:' -%}
+                          {%- assign description_parts = full_description | split: 'Features:' -%}
+                          {%- assign description_only = description_parts[0] | strip -%}
+                        {%- elsif full_description contains '<ul>' or full_description contains '<li>' -%}
+                          {%- comment -%} If contains HTML lists, extract text before first list {%- endcomment -%}
+                          {%- assign description_parts = full_description | split: '<ul>' -%}
+                          {%- assign description_only = description_parts[0] | strip -%}
+                        {%- else -%}
+                          {%- assign description_only = full_description -%}
+                        {%- endif -%}
+                        
                         <div class="rte">
-                          {{ product.description }}
+                          {{ description_only }}
                         </div>
                       {%- else -%}
                         <div class="product-tabs__reviews-placeholder">
@@ -240,10 +259,38 @@
                     </div>
 
                     <div class="product-tabs__panel">
+                      {%- assign extracted_features = blank -%}
                       {%- assign key_features = blank -%}
                       
-                      {%- comment -%} Try to get features from product metafields first {%- endcomment -%}
-                      {%- if product.metafields.custom.key_features != blank -%}
+                      {%- comment -%} First, try to extract features from product description {%- endcomment -%}
+                      {%- if product.description != blank -%}
+                        {%- assign full_description = product.description -%}
+                        
+                        {%- comment -%} Extract content after "Key Features:" or "Features:" {%- endcomment -%}
+                        {%- if full_description contains 'Key Features:' -%}
+                          {%- assign description_parts = full_description | split: 'Key Features:' -%}
+                          {%- if description_parts.size > 1 -%}
+                            {%- assign extracted_features = description_parts[1] | strip -%}
+                          {%- endif -%}
+                        {%- elsif full_description contains 'Features:' -%}
+                          {%- assign description_parts = full_description | split: 'Features:' -%}
+                          {%- if description_parts.size > 1 -%}
+                            {%- assign extracted_features = description_parts[1] | strip -%}
+                          {%- endif -%}
+                        {%- elsif full_description contains '<ul>' -%}
+                          {%- comment -%} Extract HTML list content {%- endcomment -%}
+                          {%- assign ul_parts = full_description | split: '<ul>' -%}
+                          {%- if ul_parts.size > 1 -%}
+                            {%- assign list_content = ul_parts[1] | split: '</ul>' | first -%}
+                            {%- assign extracted_features = '<ul>' | append: list_content | append: '</ul>' -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                      
+                      {%- comment -%} Prioritize extracted features, then metafields, then manual settings {%- endcomment -%}
+                      {%- if extracted_features != blank -%}
+                        {%- assign key_features = extracted_features -%}
+                      {%- elsif product.metafields.custom.key_features != blank -%}
                         {%- assign key_features = product.metafields.custom.key_features -%}
                       {%- elsif block.settings.features_content != blank -%}
                         {%- assign key_features = block.settings.features_content -%}
@@ -251,25 +298,33 @@
 
                       {%- if key_features != blank -%}
                         <div class="product-tabs__features">
-                          {%- assign features_list = key_features | split: '|' -%}
-                          {%- if features_list.size > 1 -%}
-                            <ul class="product-tabs__features-list">
-                              {%- for feature in features_list -%}
-                                {%- assign feature_trimmed = feature | strip -%}
-                                {%- unless feature_trimmed == blank -%}
-                                  <li class="product-tabs__features-item">
-                                    <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
-                                    </svg>
-                                    <span>{{ feature_trimmed }}</span>
-                                  </li>
-                                {%- endunless -%}
-                              {%- endfor -%}
-                            </ul>
-                          {%- else -%}
+                          {%- comment -%} Check if content contains HTML lists {%- endcomment -%}
+                          {%- if key_features contains '<ul>' or key_features contains '<li>' -%}
                             <div class="rte">
                               {{ key_features }}
                             </div>
+                          {%- else -%}
+                            {%- comment -%} Handle pipe-separated or plain text features {%- endcomment -%}
+                            {%- assign features_list = key_features | split: '|' -%}
+                            {%- if features_list.size > 1 -%}
+                              <ul class="product-tabs__features-list">
+                                {%- for feature in features_list -%}
+                                  {%- assign feature_trimmed = feature | strip -%}
+                                  {%- unless feature_trimmed == blank -%}
+                                    <li class="product-tabs__features-item">
+                                      <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
+                                      </svg>
+                                      <span>{{ feature_trimmed }}</span>
+                                    </li>
+                                  {%- endunless -%}
+                                {%- endfor -%}
+                              </ul>
+                            {%- else -%}
+                              <div class="rte">
+                                {{ key_features }}
+                              </div>
+                            {%- endif -%}
                           {%- endif -%}
                         </div>
                       {%- else -%}
@@ -290,7 +345,15 @@
                           <h3>{{ block.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
                           <p>{{ block.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
                           {%- if block.settings.show_review_button -%}
-                            <button class="button" onclick="document.querySelector('#product-review-form')?.scrollIntoView({behavior: 'smooth'});">
+                            <button class="button" onclick="
+                              const reviewForm = document.querySelector('#product-review-form');
+                              if (reviewForm) {
+                                reviewForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              } else {
+                                console.warn('Review form not found. Looking for element with ID: product-review-form');
+                                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                              }
+                            ">
                               {{ block.settings.review_button_text | default: 'Write a Review' }}
                             </button>
                           {%- endif -%}
