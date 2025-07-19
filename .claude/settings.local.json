@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:help.vitals.app)",
-      "WebFetch(domain:design-system.service.gov.uk)"
+      "WebFetch(domain:design-system.service.gov.uk)",
+      "Bash(mv:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
