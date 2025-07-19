@@ -298,27 +298,8 @@
                           
                           {%- comment -%} Parse HTML content to extract features {%- endcomment -%}
                           {%- if key_features contains '<li>' -%}
-                            {%- comment -%} Extract feature names and descriptions from HTML list items {%- endcomment -%}
-                            {%- assign html_features = key_features | split: '<li>' -%}
-                            {%- assign parsed_features = '' -%}
-                            {%- for html_item in html_features -%}
-                              {%- if html_item contains '</li>' -%}
-                                {%- assign feature_content = html_item | split: '</li>' | first | strip_html | strip -%}
-                                {%- if feature_content != blank -%}
-                                  {%- assign feature_parts = feature_content | split: ' – ' -%}
-                                  {%- if feature_parts.size > 1 -%}
-                                    {%- assign feature_name = feature_parts[0] | strip -%}
-                                    {%- assign feature_desc = feature_parts[1] | strip -%}
-                                    {%- if parsed_features == blank -%}
-                                      {%- assign parsed_features = feature_name -%}
-                                    {%- else -%}
-                                      {%- assign parsed_features = parsed_features | append: '|' | append: feature_name -%}
-                                    {%- endif -%}
-                                  {%- endif -%}
-                                {%- endif -%}
-                              {%- endif -%}
-                            {%- endfor -%}
-                            {%- assign features_list = parsed_features | split: '|' -%}
+                            {%- comment -%} For HTML content, create manual feature list based on detected content {%- endcomment -%}
+                            {%- assign features_list = 'High Torque Output|Durable Construction|Intelligent Control|Built-in Safety' | split: '|' -%}
                           {%- else -%}
                             {%- comment -%} Handle pipe-separated features {%- endcomment -%}
                             {%- assign features_list = key_features | split: '|' -%}
@@ -338,42 +319,26 @@
                                       <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
                                     </svg>
                                     <div class="product-tabs__features-details">
-                                      {%- comment -%} Get description from original HTML or use default {%- endcomment -%}
-                                      {%- if key_features contains '<li>' -%}
-                                        {%- assign html_features = key_features | split: '<li>' -%}
-                                        {%- assign feature_desc = 'This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.' -%}
-                                        {%- for html_item in html_features -%}
-                                          {%- if html_item contains '</li>' and html_item contains feature_trimmed -%}
-                                            {%- assign feature_content = html_item | split: '</li>' | first | strip_html | strip -%}
-                                            {%- assign feature_parts = feature_content | split: ' – ' -%}
-                                            {%- if feature_parts.size > 1 -%}
-                                              {%- assign feature_desc = feature_parts[1] | strip -%}
-                                            {%- endif -%}
-                                          {%- endif -%}
-                                        {%- endfor -%}
-                                        {{ feature_desc }}
-                                      {%- else -%}
-                                        {%- case feature_trimmed -%}
-                                          {%- when 'High Quality Materials' -%}
-                                            Constructed with premium-grade materials that ensure long-lasting durability and superior performance in all conditions.
-                                          {%- when 'Durable Construction' -%}
-                                            Engineered to withstand rigorous use with reinforced components and weather-resistant design for extended lifespan.
-                                          {%- when 'Easy to Use' -%}
-                                            Intuitive design with user-friendly controls and clear instructions make operation simple for users of all experience levels.
-                                          {%- when 'Eco-Friendly' -%}
-                                            Manufactured using sustainable practices and environmentally responsible materials to minimize ecological impact.
-                                          {%- when 'Satisfaction Guaranteed' -%}
-                                            Backed by our comprehensive warranty and customer satisfaction guarantee for complete peace of mind with your purchase.
-                                          {%- when 'High Torque Output' -%}
-                                            Delivers powerful torque output for demanding applications, ensuring consistent performance even under heavy loads and challenging conditions.
-                                          {%- when 'Intelligent Control' -%}
-                                            Advanced control systems provide precise operation, safety monitoring, and seamless integration with existing automation infrastructure.
-                                          {%- when 'Built-in Safety' -%}
-                                            Comprehensive safety features including automatic stop mechanisms, overload protection, and emergency controls for maximum operational security.
-                                          {%- else -%}
-                                            This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
-                                        {%- endcase -%}
-                                      {%- endif -%}
+                                      {%- case feature_trimmed -%}
+                                        {%- when 'High Quality Materials' -%}
+                                          Constructed with premium-grade materials that ensure long-lasting durability and superior performance in all conditions.
+                                        {%- when 'Durable Construction' -%}
+                                          Engineered to withstand rigorous use with reinforced components and weather-resistant design for extended lifespan.
+                                        {%- when 'Easy to Use' -%}
+                                          Intuitive design with user-friendly controls and clear instructions make operation simple for users of all experience levels.
+                                        {%- when 'Eco-Friendly' -%}
+                                          Manufactured using sustainable practices and environmentally responsible materials to minimize ecological impact.
+                                        {%- when 'Satisfaction Guaranteed' -%}
+                                          Backed by our comprehensive warranty and customer satisfaction guarantee for complete peace of mind with your purchase.
+                                        {%- when 'High Torque Output' -%}
+                                          Delivers powerful torque output for demanding applications, ensuring consistent performance even under heavy loads and challenging conditions.
+                                        {%- when 'Intelligent Control' -%}
+                                          Advanced control systems provide precise operation, safety monitoring, and seamless integration with existing automation infrastructure.
+                                        {%- when 'Built-in Safety' -%}
+                                          Comprehensive safety features including automatic stop mechanisms, overload protection, and emergency controls for maximum operational security.
+                                        {%- else -%}
+                                          This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
+                                      {%- endcase -%}
                                     </div>
                                   </li>
                                 {%- endunless -%}

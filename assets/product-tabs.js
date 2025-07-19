@@ -56,6 +56,9 @@ class ProductTabs extends HTMLElement {
       reviewPlaceholder.style.display = 'none';
     }
 
+    // Remove margin-top from form container
+    this.reviewForm.classList.add('no-margin');
+
     // Show the form with smooth animation
     this.reviewForm.style.display = 'block';
     this.reviewForm.style.opacity = '0';
@@ -90,6 +93,8 @@ class ProductTabs extends HTMLElement {
     setTimeout(() => {
       this.reviewForm.style.display = 'none';
       this.reviewForm.style.transition = '';
+      // Restore margin-top
+      this.reviewForm.classList.remove('no-margin');
     }, 300);
 
     // Show the review placeholder again
