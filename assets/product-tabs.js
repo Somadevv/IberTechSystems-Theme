@@ -108,7 +108,7 @@ class ProductTabs extends HTMLElement {
     }
 
     // Hide review form if switching away from reviews tab
-    if (targetIndex !== 2 && this.reviewForm) { // Assuming reviews is the 3rd tab (index 2)
+    if (targetIndex !== 1 && this.reviewForm) { // Reviews is now the 2nd tab (index 1)
       this.hideReviewForm();
     }
   }

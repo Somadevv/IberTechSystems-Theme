@@ -213,9 +213,6 @@
                 <product-tabs class="product-tabs" {{ block.shopify_attributes }}>
                   <nav class="product-tabs__nav">
                     <button class="product-tabs__nav-link" type="button">
-                      {{ block.settings.description_tab_label | default: 'Description' }}
-                    </button>
-                    <button class="product-tabs__nav-link" type="button">
                       {{ block.settings.features_tab_label | default: 'Features' }}
                     </button>
                     <button class="product-tabs__nav-link" type="button">
@@ -228,8 +225,8 @@
 
                   <div class="product-tabs__content">
                     <div class="product-tabs__panel">
+                      {%- comment -%} Show product description at the top of Features tab {%- endcomment -%}
                       {%- if product.description != blank -%}
-                        {%- comment -%} Parse and separate description from features {%- endcomment -%}
                         {%- assign full_description = product.description -%}
                         {%- assign description_only = '' -%}
                         
@@ -248,21 +245,18 @@
                           {%- assign description_only = full_description -%}
                         {%- endif -%}
                         
-                        <div class="rte">
-                          {{ description_only }}
-                        </div>
-                      {%- else -%}
-                        <div class="product-tabs__reviews-placeholder">
-                          <p>{{ block.settings.no_description_text | default: 'No description available for this product.' }}</p>
+                        <div class="product-tabs__description-in-features">
+                          <h4>Product Overview</h4>
+                          <div class="rte">
+                            {{ description_only }}
+                          </div>
                         </div>
                       {%- endif -%}
-                    </div>
-
-                    <div class="product-tabs__panel">
+                      
                       {%- assign extracted_features = blank -%}
                       {%- assign key_features = blank -%}
                       
-                      {%- comment -%} First, try to extract features from product description {%- endcomment -%}
+                      {%- comment -%} Extract features from product description {%- endcomment -%}
                       {%- if product.description != blank -%}
                         {%- assign full_description = product.description -%}
                         
@@ -304,18 +298,37 @@
                               {{ key_features }}
                             </div>
                           {%- else -%}
-                            {%- comment -%} Handle pipe-separated or plain text features {%- endcomment -%}
+                            {%- comment -%} Create expandable features with sample detailed content {%- endcomment -%}
                             {%- assign features_list = key_features | split: '|' -%}
                             {%- if features_list.size > 1 -%}
                               <ul class="product-tabs__features-list">
                                 {%- for feature in features_list -%}
                                   {%- assign feature_trimmed = feature | strip -%}
                                   {%- unless feature_trimmed == blank -%}
-                                    <li class="product-tabs__features-item">
+                                    <li class="product-tabs__features-item" onclick="this.classList.toggle('expanded')">
                                       <svg class="product-tabs__features-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" fill="currentColor"/>
                                       </svg>
                                       <span>{{ feature_trimmed }}</span>
+                                      <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 4l-4 4h8l-4-4z" fill="currentColor"/>
+                                      </svg>
+                                      <div class="product-tabs__features-details">
+                                        {%- case feature_trimmed -%}
+                                          {%- when 'High Quality Materials' -%}
+                                            Constructed with premium-grade materials that ensure long-lasting durability and superior performance in all conditions.
+                                          {%- when 'Durable Construction' -%}
+                                            Engineered to withstand rigorous use with reinforced components and weather-resistant design for extended lifespan.
+                                          {%- when 'Easy to Use' -%}
+                                            Intuitive design with user-friendly controls and clear instructions make operation simple for users of all experience levels.
+                                          {%- when 'Eco-Friendly' -%}
+                                            Manufactured using sustainable practices and environmentally responsible materials to minimize ecological impact.
+                                          {%- when 'Satisfaction Guaranteed' -%}
+                                            Backed by our comprehensive warranty and customer satisfaction guarantee for complete peace of mind with your purchase.
+                                          {%- else -%}
+                                            This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
+                                        {%- endcase -%}
+                                      </div>
                                     </li>
                                   {%- endunless -%}
                                 {%- endfor -%}

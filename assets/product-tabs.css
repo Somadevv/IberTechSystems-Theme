@@ -159,11 +159,16 @@
   border-radius: 0.5rem;
   border-left: 3px solid rgb(var(--color-button));
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .product-tabs__features-item:hover {
   background: rgba(var(--color-base-background-2), 0.5);
   transform: translateX(2px);
+}
+
+.product-tabs__features-item.expanded {
+  background: rgba(var(--color-base-background-2), 0.4);
 }
 
 .product-tabs__features-icon {
@@ -179,6 +184,57 @@
   font-size: 1.4rem;
   line-height: 1.5;
   font-weight: 500;
+  flex: 1;
+}
+
+.product-tabs__features-item .feature-toggle {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: rgba(var(--color-foreground), 0.6);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  margin-left: auto;
+}
+
+.product-tabs__features-item.expanded .feature-toggle {
+  transform: rotate(180deg);
+}
+
+.product-tabs__features-details {
+  padding: 1rem 0 0 2.6rem;
+  color: rgba(var(--color-foreground), 0.8);
+  font-size: 1.3rem;
+  line-height: 1.6;
+  display: none;
+  animation: slideDown 0.3s ease-out;
+}
+
+.product-tabs__features-item.expanded .product-tabs__features-details {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product-tabs__description-in-features {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(var(--color-base-outline), 0.2);
+}
+
+.product-tabs__description-in-features h4 {
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
 }
 
 /* Review Form Styling */
