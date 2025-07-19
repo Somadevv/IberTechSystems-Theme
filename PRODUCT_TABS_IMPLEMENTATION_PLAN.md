@@ -139,3 +139,91 @@ D. **Simple mailto:** Open email client with pre-filled review request
 ```
 [General feedback, additional requirements, or changes to the plan]
 ```
+
+---
+
+## UPDATED IMPLEMENTATION PLAN (Based on Feedback)
+
+### **Issue Analysis:**
+1. ❌ Tab button styling doesn't match reference image (should be flat, minimal)
+2. ❌ "Write a Review" button is non-functional 
+3. ❌ Features are showing in Description tab instead of Features tab
+4. ❌ Need to rename "Key Features" to "Features"
+5. ❌ Need intelligent content parsing to separate description vs features
+
+### **New Implementation Approach:**
+
+#### **Task A: Fix Tab Button Styling**
+**Current:** Raised buttons with borders and shadows
+**Target:** Flat, minimal tabs matching reference image
+**Solution:** 
+- Remove borders, shadows, and raised appearance
+- Use simple underline for active state
+- Clean typography with subtle hover effects
+- Match exact reference design
+
+#### **Task B: Fix "Write a Review" Button**
+**Current:** Button tries to scroll to non-existent element
+**Proposed Solutions:**
+1. **Modal Review Form** - Open popup with review form
+2. **Anchor to Review Section** - Add review form section and scroll to it
+3. **External Integration** - Link to review platform
+4. **Contact Form Integration** - Use existing contact form system
+
+**Recommended:** Option 2 - Add review form section below tabs and scroll functionality
+
+#### **Task C: Intelligent Content Parsing**
+**Problem:** All content appears in Description tab, Features tab is empty
+**Solution:** Create smart parser that:
+1. Analyzes product description for feature-like content
+2. Extracts bullet points, lists, or feature keywords
+3. Automatically populates Features tab
+4. Leaves narrative description in Description tab
+
+**Logic:**
+- Look for HTML lists (`<ul>`, `<ol>`)
+- Detect bullet points or dashes
+- Find feature keywords (waterproof, durable, etc.)
+- Parse structured content vs prose
+
+#### **Task D: Content Distribution Controller**
+**Create JavaScript/Liquid logic:**
+```liquid
+{% comment %} Parse description for features {% endcomment %}
+{% assign description_content = product.description %}
+{% assign features_content = '' %}
+
+{% comment %} Extract features using pattern matching {% endcomment %}
+{% if description_content contains '<ul>' or description_content contains '<li>' %}
+  {% comment %} Extract list items as features {% endcomment %}
+{% elsif description_content contains '•' or description_content contains '-' %}
+  {% comment %} Extract bullet points as features {% endcomment %}
+{% endif %}
+```
+
+#### **Task E: Review Integration**
+**Add review form section after tabs:**
+- Use contact form as backend
+- Include product details in submission
+- Scroll functionality from "Write a Review" button
+- Form validation and success messaging
+
+### **Implementation Order:**
+1. ✅ Update tab styling to match reference
+2. ✅ Rename "Key Features" to "Features" 
+3. ✅ Create content parsing logic
+4. ✅ Add review form section and scroll functionality
+5. ✅ Test and validate all functionality
+
+### **Technical Files to Modify:**
+- `assets/product-tabs.css` - Fix styling to match reference
+- `sections/main-product.liquid` - Add content parsing logic
+- `sections/product-reviews-form.liquid` - Add to page after tabs
+- `assets/product-tabs.js` - Fix button functionality
+- `templates/product.json` - Update configuration
+
+**Expected Outcome:**
+- Clean, flat tabs matching reference design
+- Automatic feature extraction from descriptions
+- Working review button with form integration
+- Professional, user-friendly interface
