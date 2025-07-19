@@ -314,6 +314,21 @@
                 </li>
               {%- endif -%}
             {%- endfor -%}
+            {%- comment -%} Add Sitemap Link {%- endcomment -%}
+            <li>
+              <small class="copyright__content">
+                <a href="{{ pages.sitemap.url | default: '/pages/sitemap' }}">Sitemap</a>
+              </small>
+            </li>
+          </ul>
+        {%- else -%}
+          {%- comment -%} Show sitemap link even when policies are hidden {%- endcomment -%}
+          <ul class="policies list-unstyled">
+            <li>
+              <small class="copyright__content">
+                <a href="{{ pages.sitemap.url | default: '/pages/sitemap' }}">Sitemap</a>
+              </small>
+            </li>
           </ul>
         {%- endif -%}
       </div>

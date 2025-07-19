@@ -35,6 +35,36 @@
         </div>
       {%- endif -%}
 
+      {%- comment -%} Core Pages {%- endcomment -%}
+      {%- if section.settings.show_core_pages -%}
+        <div class="sitemap__section">
+          <h2>{{ section.settings.core_pages_title | default: 'Core Pages' }}</h2>
+          <ul class="sitemap__list">
+            <li class="sitemap__item">
+              <a href="{{ routes.root_url }}" class="sitemap__link">Home</a>
+            </li>
+            <li class="sitemap__item">
+              <a href="{{ routes.all_products_collection_url }}" class="sitemap__link">All Products</a>
+            </li>
+            <li class="sitemap__item">
+              <a href="{{ routes.cart_url }}" class="sitemap__link">Shopping Cart</a>
+            </li>
+            <li class="sitemap__item">
+              <a href="{{ routes.search_url }}" class="sitemap__link">Search</a>
+            </li>
+            {%- if customer -%}
+              <li class="sitemap__item">
+                <a href="{{ routes.account_url }}" class="sitemap__link">My Account</a>
+              </li>
+            {%- else -%}
+              <li class="sitemap__item">
+                <a href="{{ routes.account_login_url }}" class="sitemap__link">Customer Login</a>
+              </li>
+            {%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
       {%- comment -%} All Pages {%- endcomment -%}
       {%- if section.settings.show_all_pages -%}
         <div class="sitemap__section">
@@ -46,6 +76,8 @@
                   <a href="{{ page.url }}" class="sitemap__link">{{ page.title }}</a>
                   {%- if page.summary != blank -%}
                     <p class="sitemap__description">{{ page.summary | truncate: 100 }}</p>
+                  {%- else -%}
+                    <p class="sitemap__description">Updated: {{ page.updated_at | date: "%B %d, %Y" }}</p>
                   {%- endif -%}
                 </li>
               {%- endunless -%}
@@ -193,6 +225,22 @@
         "type": "richtext",
         "id": "description",
         "label": "Page Description"
+      },
+      {
+        "type": "header",
+        "content": "Core Pages"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_core_pages",
+        "label": "Show Core Pages",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "core_pages_title",
+        "label": "Core Pages Title",
+        "default": "Core Pages"
       },
       {
         "type": "header",
