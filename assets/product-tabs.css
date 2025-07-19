@@ -156,11 +156,9 @@
   width: 100%;
   padding: 0;
   background: transparent;
-  border-radius: 0.5rem;
-  border-left: 3px solid rgb(var(--color-button));
   transition: all 0.2s ease;
   cursor: pointer;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .product-tabs__features-header {
@@ -168,19 +166,20 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 1rem 2rem;
-  background: rgba(var(--color-base-background-2), 0.3);
-  border-radius: 0.5rem;
+  padding: 1.5rem 2rem;
+  background: transparent;
+  border-bottom: 1px solid rgba(var(--color-base-outline), 0.1);
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .product-tabs__features-item:hover .product-tabs__features-header {
-  background: rgba(var(--color-base-background-2), 0.4);
+  background: rgba(var(--color-base-background-2), 0.3);
 }
 
 .product-tabs__features-item.expanded .product-tabs__features-header {
-  background: rgba(var(--color-base-background-2), 0.4);
-  border-radius: 0.5rem 0.5rem 0 0;
+  background: rgba(var(--color-base-background-2), 0.3);
+  border-bottom-color: transparent;
 }
 
 .product-tabs__features-icon {
@@ -194,9 +193,12 @@
 .product-tabs__features-item span {
   color: rgb(var(--color-foreground));
   font-size: 1.4rem;
-  line-height: 1.5;
+  line-height: 1.2;
   font-weight: 500;
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-tabs__features-item .feature-toggle {
@@ -213,23 +215,22 @@
 }
 
 .product-tabs__features-details {
-  padding: 1.5rem 2rem;
-  background: rgba(var(--color-base-background-2), 0.2);
-  border-radius: 0 0 0.5rem 0.5rem;
+  padding: 0 2rem 1.5rem 2rem;
+  background: transparent;
   margin-top: 0;
-  color: rgba(var(--color-foreground), 0.8);
+  color: rgba(var(--color-foreground), 0.7);
   font-size: 1.3rem;
   line-height: 1.6;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
   opacity: 0;
-  border-left: 3px solid rgb(var(--color-button));
 }
 
 .product-tabs__features-item.expanded .product-tabs__features-details {
   max-height: 200px;
   opacity: 1;
+  padding-top: 1rem;
 }
 
 @keyframes slideDown {
