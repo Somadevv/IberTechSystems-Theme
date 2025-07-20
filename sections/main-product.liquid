@@ -243,7 +243,8 @@
                         <div class="product-tabs__description-in-features">
                           <h4>Product Overview</h4>
                           <div class="rte">
-                            {{ description_only }}
+                            {%- assign clean_description = description_only | replace: '---FEATURES---', '' | strip -%}
+                            {{ clean_description }}
                           </div>
                         </div>
                       {%- endif -%}
