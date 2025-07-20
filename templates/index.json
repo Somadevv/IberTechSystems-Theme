@@ -266,6 +266,157 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_testimonial": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_testimonial": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trusted by Thousands of Customers Worldwide",
+            "heading_size": "h1"
+          }
+        },
+        "text_testimonial": {
+          "type": "text",
+          "settings": {
+            "text": "<p>\"IberTechSystems transformed our security infrastructure. Their professional team installed a comprehensive access control system that gives us complete peace of mind. The remote monitoring capabilities and 24/7 support are exceptional.\"</p><p><strong>— Maria Rodriguez, Property Manager</strong></p>",
+            "text_style": "body"
+          }
+        },
+        "button_testimonial": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read More Reviews",
+            "button_link": "",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_testimonial",
+        "text_testimonial",
+        "button_testimonial"
+      ],
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_stats": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_stat1": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>10,000+</strong>",
+            "text": "<p>Systems Installed</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_stat2": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>40+</strong>",
+            "text": "<p>Years Experience</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_stat3": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>24/7</strong>",
+            "text": "<p>Support Available</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_stat4": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>99.9%</strong>",
+            "text": "<p>Uptime Guarantee</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_stat1",
+        "column_stat2",
+        "column_stat3",
+        "column_stat4"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_cta": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Ready to Secure Your Property?</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_cta": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Get a free consultation with our security experts. We'll assess your needs and recommend the perfect access control solution for your home or business.</p>"
+          }
+        },
+        "button_cta": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get Free Consultation",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "Browse Products",
+            "button_link_2": "/collections",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_cta",
+        "text_cta",
+        "button_cta"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
     "collapsible_content_7txCJT": {
       "type": "collapsible-content",
       "blocks": {
@@ -384,6 +535,9 @@
     "multicolumn_3H8KWU",
     "collection_list_TEMpXb",
     "featured_product_Hykw96",
+    "image_with_text_testimonial",
+    "multicolumn_stats",
+    "rich_text_cta",
     "collapsible_content_7txCJT"
   ]
 }
