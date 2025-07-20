@@ -55,7 +55,7 @@
           "type": "product_tabs",
           "settings": {
             "description_tab_label": "Description",
-            "features_tab_label": "Features",
+            "features_tab_label": "Product Details",
             "reviews_tab_label": "Reviews",
             "show_reviews_count": true,
             "reviews_count": 1,
