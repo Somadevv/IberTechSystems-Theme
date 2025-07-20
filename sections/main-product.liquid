@@ -15,6 +15,7 @@
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {{ 'product-enhancements.css' | asset_url | stylesheet_tag }}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -588,6 +589,102 @@
                   </div>
                 </product-tabs>
                 <script src="{{ 'product-tabs.js' | asset_url }}" defer="defer"></script>
+
+              {%- when 'trust_badges' -%}
+                <div class="product__trust-badges" {{ block.shopify_attributes }}>
+                  <div class="trust-badges">
+                    {%- if block.settings.show_secure_checkout -%}
+                      <div class="trust-badge">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M10 1L13 7H19L14 11L16 17L10 13L4 17L6 11L1 7H7L10 1Z" fill="currentColor"/>
+                        </svg>
+                        <span>{{ block.settings.secure_checkout_text | default: 'Secure Checkout' }}</span>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.show_free_shipping -%}
+                      <div class="trust-badge">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M1 4H17V12H19V14H17V16H15V14H5V16H3V14H1V4ZM3 6V12H15V6H3Z" fill="currentColor"/>
+                        </svg>
+                        <span>{{ block.settings.free_shipping_text | default: 'Free Shipping' }}</span>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.show_warranty -%}
+                      <div class="trust-badge">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M10 2L4 4V10C4 14 10 18 10 18S16 14 16 10V4L10 2ZM10 6C11.1 6 12 6.9 12 8S11.1 10 10 10S8 9.1 8 8S8.9 6 10 6Z" fill="currentColor"/>
+                        </svg>
+                        <span>{{ block.settings.warranty_text | default: 'Warranty Included' }}</span>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+
+              {%- when 'shipping_info' -%}
+                <div class="product__shipping-info" {{ block.shopify_attributes }}>
+                  <div class="shipping-info">
+                    <h4>{{ block.settings.shipping_title | default: 'Shipping Information' }}</h4>
+                    <div class="shipping-details">
+                      {%- if block.settings.free_shipping_threshold != blank -%}
+                        <div class="shipping-item">
+                          <strong>Free shipping</strong> on orders over {{ block.settings.free_shipping_threshold | money_without_currency | remove: '.00' }}{{ shop.currency }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.delivery_time != blank -%}
+                        <div class="shipping-item">
+                          <strong>Delivery:</strong> {{ block.settings.delivery_time }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.shipping_note != blank -%}
+                        <div class="shipping-item">
+                          {{ block.settings.shipping_note }}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+
+              {%- when 'payment_methods' -%}
+                <div class="product__payment-methods" {{ block.shopify_attributes }}>
+                  <div class="payment-methods">
+                    <h4>{{ block.settings.payment_title | default: 'We Accept' }}</h4>
+                    <div class="payment-icons">
+                      {%- if block.settings.show_visa -%}<span class="payment-icon">💳 Visa</span>{%- endif -%}
+                      {%- if block.settings.show_mastercard -%}<span class="payment-icon">💳 Mastercard</span>{%- endif -%}
+                      {%- if block.settings.show_amex -%}<span class="payment-icon">💳 Amex</span>{%- endif -%}
+                      {%- if block.settings.show_paypal -%}<span class="payment-icon">💙 PayPal</span>{%- endif -%}
+                      {%- if block.settings.show_apple_pay -%}<span class="payment-icon">🍎 Apple Pay</span>{%- endif -%}
+                      {%- if block.settings.show_google_pay -%}<span class="payment-icon">🎯 Google Pay</span>{%- endif -%}
+                    </div>
+                  </div>
+                </div>
+
+              {%- when 'product_guarantees' -%}
+                <div class="product__guarantees" {{ block.shopify_attributes }}>
+                  <div class="guarantees">
+                    <h4>{{ block.settings.guarantees_title | default: 'Our Promise' }}</h4>
+                    <div class="guarantee-list">
+                      {%- if block.settings.money_back != blank -%}
+                        <div class="guarantee-item">
+                          <span class="guarantee-icon">💰</span>
+                          <span>{{ block.settings.money_back }}</span>
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.quality_guarantee != blank -%}
+                        <div class="guarantee-item">
+                          <span class="guarantee-icon">✅</span>
+                          <span>{{ block.settings.quality_guarantee }}</span>
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.support_guarantee != blank -%}
+                        <div class="guarantee-item">
+                          <span class="guarantee-icon">🛠️</span>
+                          <span>{{ block.settings.support_guarantee }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
 
               {%- when 'sku' -%}
                 <p
@@ -2623,6 +2720,160 @@
           "default": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.default",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.label",
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
+        }
+      ]
+    },
+    {
+      "type": "trust_badges",
+      "name": "Trust Badges",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_secure_checkout",
+          "label": "Show Secure Checkout Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "secure_checkout_text",
+          "label": "Secure Checkout Text",
+          "default": "Secure Checkout"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_free_shipping",
+          "label": "Show Free Shipping Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "free_shipping_text",
+          "label": "Free Shipping Text",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_warranty",
+          "label": "Show Warranty Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "warranty_text",
+          "label": "Warranty Text",
+          "default": "Warranty Included"
+        }
+      ]
+    },
+    {
+      "type": "shipping_info",
+      "name": "Shipping Information",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "shipping_title",
+          "label": "Shipping Title",
+          "default": "Shipping Information"
+        },
+        {
+          "type": "number",
+          "id": "free_shipping_threshold",
+          "label": "Free Shipping Threshold",
+          "info": "Amount needed for free shipping (leave blank to hide)"
+        },
+        {
+          "type": "text",
+          "id": "delivery_time",
+          "label": "Delivery Time",
+          "placeholder": "e.g. 2-3 business days"
+        },
+        {
+          "type": "textarea",
+          "id": "shipping_note",
+          "label": "Additional Shipping Note",
+          "placeholder": "e.g. Express shipping available at checkout"
+        }
+      ]
+    },
+    {
+      "type": "payment_methods",
+      "name": "Payment Methods",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "payment_title",
+          "label": "Payment Title",
+          "default": "We Accept"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_visa",
+          "label": "Show Visa",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_mastercard",
+          "label": "Show Mastercard",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_amex",
+          "label": "Show American Express",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_paypal",
+          "label": "Show PayPal",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_apple_pay",
+          "label": "Show Apple Pay",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_google_pay",
+          "label": "Show Google Pay",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "product_guarantees",
+      "name": "Product Guarantees",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "guarantees_title",
+          "label": "Guarantees Title",
+          "default": "Our Promise"
+        },
+        {
+          "type": "text",
+          "id": "money_back",
+          "label": "Money Back Guarantee",
+          "placeholder": "e.g. 30-day money back guarantee"
+        },
+        {
+          "type": "text",
+          "id": "quality_guarantee",
+          "label": "Quality Guarantee",
+          "placeholder": "e.g. Premium quality materials"
+        },
+        {
+          "type": "text",
+          "id": "support_guarantee",
+          "label": "Support Guarantee",
+          "placeholder": "e.g. 24/7 customer support"
         }
       ]
     }

@@ -1,0 +1,162 @@
+/* Modern Product Page Enhancements */
+
+/* Trust Badges */
+.product__trust-badges {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 0.9rem;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.trust-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.trust-badge svg {
+  color: #4CAF50;
+  flex-shrink: 0;
+}
+
+/* Shipping Information */
+.product__shipping-info {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.shipping-info h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.shipping-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.shipping-item {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.shipping-item strong {
+  color: #007bff;
+}
+
+/* Payment Methods */
+.product__payment-methods {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.payment-methods h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.payment-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.payment-icon {
+  padding: 0.4rem 0.8rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #495057;
+  white-space: nowrap;
+}
+
+/* Product Guarantees */
+.product__guarantees {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+}
+
+.guarantees h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.guarantee-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.guarantee-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 749px) {
+  .trust-badges {
+    flex-direction: column;
+  }
+  
+  .trust-badge {
+    justify-content: center;
+  }
+  
+  .payment-icons {
+    gap: 0.5rem;
+  }
+  
+  .payment-icon {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .product__shipping-info,
+  .product__guarantees {
+    padding: 1rem;
+  }
+}
