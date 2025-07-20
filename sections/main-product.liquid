@@ -381,22 +381,29 @@
                                     </svg>
                                   </div>
                                   <div class="product-tabs__features-details">
-                                    {%- comment -%} Check if custom details exist for this feature {%- endcomment -%}
-                                    {%- assign custom_detail = '' -%}
-                                    {%- if features_details != blank -%}
-                                      {%- assign detail_pairs = features_details | split: '||' -%}
-                                      {%- for pair in detail_pairs -%}
-                                        {%- assign pair_parts = pair | split: ':' -%}
-                                        {%- if pair_parts[0] == feature_trimmed -%}
-                                          {%- assign custom_detail = pair_parts[1] | strip -%}
-                                          {%- break -%}
-                                        {%- endif -%}
-                                      {%- endfor -%}
-                                    {%- endif -%}
+                                    {%- comment -%} Check for individual metafield descriptions first {%- endcomment -%}
+                                    {%- assign feature_detail_key = 'feature_' | append: forloop.index -%}
+                                    {%- assign metafield_detail = product.metafields.custom[feature_detail_key] -%}
                                     
-                                    {%- if custom_detail != blank -%}
-                                      {{ custom_detail }}
+                                    {%- if metafield_detail != blank -%}
+                                      {{ metafield_detail }}
                                     {%- else -%}
+                                      {%- comment -%} Fallback: Check if custom details exist for this feature {%- endcomment -%}
+                                      {%- assign custom_detail = '' -%}
+                                      {%- if features_details != blank -%}
+                                        {%- assign detail_pairs = features_details | split: '||' -%}
+                                        {%- for pair in detail_pairs -%}
+                                          {%- assign pair_parts = pair | split: ':' -%}
+                                          {%- if pair_parts[0] == feature_trimmed -%}
+                                            {%- assign custom_detail = pair_parts[1] | strip -%}
+                                            {%- break -%}
+                                          {%- endif -%}
+                                        {%- endfor -%}
+                                      {%- endif -%}
+                                      
+                                      {%- if custom_detail != blank -%}
+                                        {{ custom_detail }}
+                                      {%- else -%}
                                       {%- comment -%} Default descriptions based on feature name {%- endcomment -%}
                                       {%- case feature_trimmed -%}
                                         {%- when 'High Quality Materials', 'Premium Quality' -%}
@@ -418,6 +425,7 @@
                                         {%- else -%}
                                           This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
                                       {%- endcase -%}
+                                      {%- endif -%}
                                     {%- endif -%}
                                   </div>
                                 </li>
