@@ -306,8 +306,43 @@
                         {%- assign features_list = '' -%}
                         {%- assign features_details = '' -%}
                         
-                        {%- comment -%} PRIORITY 1: Check for client-defined metafields first {%- endcomment -%}
-                        {%- if product.metafields.custom.features != blank -%}
+                        {%- comment -%} PRIORITY 1: Check for custom feature fields {%- endcomment -%}
+                        {%- assign custom_features = '' -%}
+                        {%- if block.settings.custom_feature_1_title != blank -%}
+                          {%- assign custom_features = block.settings.custom_feature_1_title -%}
+                        {%- endif -%}
+                        {%- if block.settings.custom_feature_2_title != blank -%}
+                          {%- if custom_features != blank -%}
+                            {%- assign custom_features = custom_features | append: '|' | append: block.settings.custom_feature_2_title -%}
+                          {%- else -%}
+                            {%- assign custom_features = block.settings.custom_feature_2_title -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                        {%- if block.settings.custom_feature_3_title != blank -%}
+                          {%- if custom_features != blank -%}
+                            {%- assign custom_features = custom_features | append: '|' | append: block.settings.custom_feature_3_title -%}
+                          {%- else -%}
+                            {%- assign custom_features = block.settings.custom_feature_3_title -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                        {%- if block.settings.custom_feature_4_title != blank -%}
+                          {%- if custom_features != blank -%}
+                            {%- assign custom_features = custom_features | append: '|' | append: block.settings.custom_feature_4_title -%}
+                          {%- else -%}
+                            {%- assign custom_features = block.settings.custom_feature_4_title -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                        {%- if block.settings.custom_feature_5_title != blank -%}
+                          {%- if custom_features != blank -%}
+                            {%- assign custom_features = custom_features | append: '|' | append: block.settings.custom_feature_5_title -%}
+                          {%- else -%}
+                            {%- assign custom_features = block.settings.custom_feature_5_title -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                        
+                        {%- if custom_features != blank -%}
+                          {%- assign features_list = custom_features | split: '|' -%}
+                        {%- elsif product.metafields.custom.features != blank -%}
                           {%- assign features_list = product.metafields.custom.features | split: '|' -%}
                           {%- assign features_details = product.metafields.custom.features_details -%}
                           
@@ -381,13 +416,33 @@
                                     </svg>
                                   </div>
                                   <div class="product-tabs__features-details">
-                                    {%- comment -%} Check for individual metafield descriptions first {%- endcomment -%}
-                                    {%- assign feature_detail_key = 'feature_' | append: forloop.index -%}
-                                    {%- assign metafield_detail = product.metafields.custom[feature_detail_key] -%}
+                                    {%- comment -%} Check for custom field descriptions first {%- endcomment -%}
+                                    {%- assign custom_description = '' -%}
+                                    {%- if custom_features != blank -%}
+                                      {%- case forloop.index -%}
+                                        {%- when 1 -%}
+                                          {%- assign custom_description = block.settings.custom_feature_1_description -%}
+                                        {%- when 2 -%}
+                                          {%- assign custom_description = block.settings.custom_feature_2_description -%}
+                                        {%- when 3 -%}
+                                          {%- assign custom_description = block.settings.custom_feature_3_description -%}
+                                        {%- when 4 -%}
+                                          {%- assign custom_description = block.settings.custom_feature_4_description -%}
+                                        {%- when 5 -%}
+                                          {%- assign custom_description = block.settings.custom_feature_5_description -%}
+                                      {%- endcase -%}
+                                    {%- endif -%}
                                     
-                                    {%- if metafield_detail != blank -%}
-                                      {{ metafield_detail }}
+                                    {%- if custom_description != blank -%}
+                                      {{ custom_description }}
                                     {%- else -%}
+                                      {%- comment -%} Check for individual metafield descriptions {%- endcomment -%}
+                                      {%- assign feature_detail_key = 'feature_' | append: forloop.index -%}
+                                      {%- assign metafield_detail = product.metafields.custom[feature_detail_key] -%}
+                                      
+                                      {%- if metafield_detail != blank -%}
+                                        {{ metafield_detail }}
+                                      {%- else -%}
                                       {%- comment -%} Fallback: Check if custom details exist for this feature {%- endcomment -%}
                                       {%- assign custom_detail = '' -%}
                                       {%- if features_details != blank -%}
@@ -425,6 +480,7 @@
                                         {%- else -%}
                                           This feature provides enhanced functionality and value to ensure optimal performance and user satisfaction.
                                       {%- endcase -%}
+                                      {%- endif -%}
                                       {%- endif -%}
                                     {%- endif -%}
                                   </div>
@@ -1347,6 +1403,70 @@
           "id": "features_placeholder_text",
           "label": "Features Placeholder Text",
           "default": "Product features will be displayed here."
+        },
+        {
+          "type": "header",
+          "content": "Custom Features (Easy Setup)"
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_1_title",
+          "label": "Feature 1 - Title",
+          "placeholder": "e.g. High Torque Motor"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_1_description",
+          "label": "Feature 1 - Description",
+          "placeholder": "Detailed description of this feature..."
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_2_title",
+          "label": "Feature 2 - Title",
+          "placeholder": "e.g. Weather Resistant Build"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_2_description",
+          "label": "Feature 2 - Description",
+          "placeholder": "Detailed description of this feature..."
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_3_title",
+          "label": "Feature 3 - Title",
+          "placeholder": "e.g. Smart Control Compatibility"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_3_description",
+          "label": "Feature 3 - Description",
+          "placeholder": "Detailed description of this feature..."
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_4_title",
+          "label": "Feature 4 - Title",
+          "placeholder": "e.g. Obstacle Detection"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_4_description",
+          "label": "Feature 4 - Description",
+          "placeholder": "Detailed description of this feature..."
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_5_title",
+          "label": "Feature 5 - Title",
+          "placeholder": "e.g. Versatile Application"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_5_description",
+          "label": "Feature 5 - Description",
+          "placeholder": "Detailed description of this feature..."
         }
       ]
     },
