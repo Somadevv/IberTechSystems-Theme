@@ -1,0 +1,180 @@
+{%- comment -%}
+  METAFIELDS-BASED PRODUCT TABS SYSTEM
+  
+  CLIENT SETUP GUIDE:
+  For each product, add these metafields in Shopify Admin > Products > [Product] > Metafields:
+  
+  1. Namespace: custom, Key: features
+     Type: Single line text
+     Value: "Feature 1|Feature 2|Feature 3|Feature 4|Feature 5"
+     
+  2. Namespace: custom, Key: feature_1
+     Type: Multi-line text
+     Value: "Description for Feature 1"
+     
+  3. Namespace: custom, Key: feature_2
+     Type: Multi-line text  
+     Value: "Description for Feature 2"
+     
+  (Continue for feature_3, feature_4, feature_5, etc.)
+  
+  If no metafields are set, default features will be used.
+{%- endcomment -%}
+
+{{ 'product-tabs.css' | asset_url | stylesheet_tag }}
+<product-tabs class="product-tabs">
+  <nav class="product-tabs__nav">
+    <button class="product-tabs__nav-link" type="button">
+      Features
+    </button>
+    <button class="product-tabs__nav-link" type="button">
+      Reviews
+      <span class="product-tabs__reviews-count">1</span>
+    </button>
+  </nav>
+
+  <div class="product-tabs__content">
+    <!-- Features Tab -->
+    <div class="product-tabs__panel">
+      {%- if product.description != blank -%}
+        <div class="product-tabs__description">
+          <h4>Product Overview</h4>
+          <div class="rte">
+            {{ product.description }}
+          </div>
+        </div>
+      {%- endif -%}
+      
+      <div class="product-tabs__features">
+        <h4>Key Features</h4>
+        
+        {%- assign features_list = '' -%}
+        {%- if product.metafields.custom.features != blank -%}
+          {%- assign features_list = product.metafields.custom.features | split: '|' -%}
+        {%- else -%}
+          {%- assign features_list = 'High Torque Motor|Weather Resistant Build|Smart Control Compatibility|Obstacle Detection|Versatile Application' | split: '|' -%}
+        {%- endif -%}
+
+        <ul class="product-tabs__features-list">
+          {%- for feature in features_list -%}
+            {%- assign feature_name = feature | strip -%}
+            {%- unless feature_name == blank -%}
+              <li class="product-tabs__features-item" onclick="toggleFeature(this)">
+                <div class="product-tabs__features-header">
+                  <span>{{ feature_name }}</span>
+                  <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 12l-4-4h8l-4 4z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div class="product-tabs__features-details">
+                  {%- assign feature_detail_key = 'feature_' | append: forloop.index -%}
+                  {%- assign custom_detail = product.metafields.custom[feature_detail_key] -%}
+                  
+                  {%- if custom_detail != blank -%}
+                    {{ custom_detail }}
+                  {%- else -%}
+                    {%- case feature_name -%}
+                      {%- when 'High Torque Motor' -%}
+                        Provides consistent, powerful motion for heavy gates with reliable performance under demanding conditions.
+                      {%- when 'Weather Resistant Build' -%}
+                        Durable housing designed for long-term outdoor use with protection against rain, dust, and temperature extremes.
+                      {%- when 'Smart Control Compatibility' -%}
+                        Works with Motorline control boards and remote systems for convenient operation and integration.
+                      {%- when 'Obstacle Detection' -%}
+                        Automatically stops when obstacles are detected for added safety and equipment protection.
+                      {%- when 'Versatile Application' -%}
+                        Suitable for residential, commercial, and industrial setups with flexible installation options.
+                      {%- else -%}
+                        Professional-grade feature designed for optimal performance and reliability.
+                    {%- endcase -%}
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Reviews Tab -->
+    <div class="product-tabs__panel">
+      <div class="product-tabs__reviews-placeholder">
+        <h3>Customer Reviews</h3>
+        <p>No reviews yet. Be the first to review this product!</p>
+        <button class="button" id="show-review-form-btn">
+          Write a Review
+        </button>
+      </div>
+      
+      <div class="product-review-form-container" id="product-review-form" style="display: none;">
+        {{ 'product-reviews.css' | asset_url | stylesheet_tag }}
+        <div class="product-reviews-form">
+          <h3>Write a Review</h3>
+          
+          {%- form 'contact', class: 'review-form' -%}
+            {%- if form.posted_successfully? -%}
+              <div class="review-form__success">
+                <p>Thank you for your review! It will be published after moderation.</p>
+              </div>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <div class="review-form__errors">
+                <h4>{{ 'contact.form.error_heading' | t }}</h4>
+                <ul>
+                  {%- for field in form.errors -%}
+                    <li>
+                      {%- if field == 'form' -%}
+                        {{ form.errors.messages[field] }}
+                      {%- else -%}
+                        {{ 'contact.form.error' | t: field: field }}
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+            <div class="review-form__fields">
+              <div class="field">
+                <label for="ContactForm-name">Your Name *</label>
+                <input type="text" id="ContactForm-name" name="contact[name]" value="{{ form.name }}" required>
+              </div>
+
+              <div class="field">
+                <label for="ContactForm-email">Email *</label>
+                <input type="email" id="ContactForm-email" name="contact[email]" value="{{ form.email }}" required>
+              </div>
+
+              <div class="field">
+                <label for="ContactForm-rating">Rating *</label>
+                <select id="ContactForm-rating" name="contact[rating]" required>
+                  <option value="">Select a rating</option>
+                  <option value="5">★★★★★ - Excellent</option>
+                  <option value="4">★★★★☆ - Very Good</option>
+                  <option value="3">★★★☆☆ - Good</option>
+                  <option value="2">★★☆☆☆ - Fair</option>
+                  <option value="1">★☆☆☆☆ - Poor</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="ContactForm-body">Review *</label>
+                <textarea id="ContactForm-body" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+              </div>
+
+              <input type="hidden" name="contact[product]" value="{{ product.title }}">
+            </div>
+
+            <div class="review-form__buttons">
+              <button type="submit" class="button">Submit Review</button>
+              <button type="button" class="button button--secondary" id="cancel-review-btn">Cancel</button>
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</product-tabs>
+
+<script src="{{ 'product-tabs.js' | asset_url }}" defer="defer"></script>
