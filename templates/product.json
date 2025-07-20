@@ -27,6 +27,10 @@
           "type": "price",
           "settings": {}
         },
+        "vitals_reviews_carousel_Ca8Fgf": {
+          "type": "shopify://apps/vitals/blocks/reviews-carousel/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -85,6 +89,7 @@
         "vendor",
         "title",
         "price",
+        "vitals_reviews_carousel_Ca8Fgf",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
