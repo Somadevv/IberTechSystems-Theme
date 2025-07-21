@@ -40,7 +40,10 @@
     </div>
 
     <div class="product-tabs__panel">
-      {%- if section.settings.reviews_content != blank -%}
+      {%- comment -%} Vitals Reviews Integration in Reviews Tab {%- endcomment -%}
+      {%- if section.settings.use_vitals_reviews -%}
+        {% render 'vitals-reviews-widget', product: product %}
+      {%- elsif section.settings.reviews_content != blank -%}
         <div class="rte">
           {{ section.settings.reviews_content }}
         </div>
@@ -110,6 +113,13 @@
     {
       "type": "header",
       "content": "Reviews Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_vitals_reviews",
+      "label": "Use Vitals Reviews Widget",
+      "info": "Enable to show Vitals reviews in the Reviews tab",
+      "default": true
     },
     {
       "type": "checkbox",
