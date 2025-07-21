@@ -85,51 +85,53 @@
   {%- comment -%} Vitals Integration JavaScript {%- endcomment -%}
   <script>
     function triggerVitalsReview(productId, productHandle) {
-      console.log('=== VITALS REVIEW TRIGGER v5.0 - CUSTOM EVENTS ===');
+      console.log('=== VITALS REVIEW TRIGGER v6.0 - VITALS.init APPROACH ===');
       console.log('Attempting to trigger Vitals review for product:', productId);
       
-      // Method 1: Try custom Vitals events that the app might be listening for
-      var vitalsReviewsElement = document.getElementById('vitals-reviews-' + productId);
-      if (vitalsReviewsElement) {
-        console.log('Found vitals-reviews element:', vitalsReviewsElement);
+      // Method 1: Try VITALS.init with different review actions
+      if (window.VITALS && window.VITALS.init) {
+        console.log('Found VITALS.init, trying various review actions...');
         
-        // Try various Vitals-specific custom events
-        var customEvents = [
-          'vitals:open-review-form',
-          'vitals-review-form-open',
-          'vitals:show-write-review',
-          'vitals-open-write-review',
-          'open-review-modal',
-          'show-review-form'
+        var initActions = [
+          { action: 'open-review-form', productId: productId },
+          { action: 'show-review-modal', productId: productId },
+          { action: 'write-review', productId: productId },
+          { action: 'reviews', productId: productId, command: 'open' },
+          { module: 'reviews', action: 'open-form', productId: productId },
+          { reviews: { action: 'open', productId: productId } }
         ];
         
-        customEvents.forEach(function(eventName) {
-          var customEvent = new CustomEvent(eventName, {
-            detail: { 
-              productId: productId, 
-              productHandle: productHandle,
-              action: 'open-review-form'
-            },
-            bubbles: true,
-            cancelable: true
-          });
-          
-          // Dispatch on both the element and document
-          vitalsReviewsElement.dispatchEvent(customEvent);
-          document.dispatchEvent(customEvent);
-          console.log('Dispatched custom event:', eventName);
+        initActions.forEach(function(actionConfig, index) {
+          try {
+            window.VITALS.init(actionConfig);
+            console.log('Tried VITALS.init config ' + index + ':', actionConfig);
+          } catch (e) {
+            console.log('Error with VITALS.init config ' + index + ':', e.message);
+          }
         });
         
-        // Try focus and then keyboard events
-        vitalsReviewsElement.focus();
-        var enterEvent = new KeyboardEvent('keydown', {
-          key: 'Enter',
-          code: 'Enter',
-          bubbles: true
-        });
-        vitalsReviewsElement.dispatchEvent(enterEvent);
-        console.log('Tried focus and Enter key');
+        // Wait a moment then check if anything happened
+        setTimeout(function() {
+          var modal = document.querySelector('[class*="modal"], [class*="popup"], [class*="overlay"]');
+          if (modal && modal.style.display !== 'none') {
+            console.log('Possible modal/popup appeared:', modal);
+          }
+        }, 500);
         
+        return;
+      }
+      
+      // Method 2: Try to directly manipulate the Vitals reviews element
+      var vitalsReviewsElement = document.getElementById('vitals-reviews-' + productId);
+      if (vitalsReviewsElement) {
+        console.log('Found vitals-reviews element, trying direct manipulation...');
+        
+        // Try to make it visible and interactive
+        vitalsReviewsElement.style.display = 'block';
+        vitalsReviewsElement.style.visibility = 'visible';
+        vitalsReviewsElement.innerHTML = '<button onclick="console.log(\'Review button clicked!\')">Write a Review</button>';
+        
+        console.log('Added temporary review button to Vitals element');
         return;
       }
       
