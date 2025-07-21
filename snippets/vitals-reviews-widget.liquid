@@ -85,31 +85,77 @@
   {%- comment -%} Vitals Integration JavaScript {%- endcomment -%}
   <script>
     function triggerVitalsReview(productId, productHandle) {
+      console.log('=== VITALS REVIEW TRIGGER v3.0 ===');
       console.log('Attempting to trigger Vitals review for product:', productId);
       
+      // IMMEDIATE: Log VITALS.states structure first
+      if (window.VITALS && window.VITALS.states) {
+        console.log('VITALS.states immediate inspection:');
+        console.log('- VITALS.states keys:', Object.keys(window.VITALS.states));
+        console.log('- VITALS.states full object:', window.VITALS.states);
+        
+        // Log each state's structure
+        Object.keys(window.VITALS.states).forEach(function(key) {
+          var state = window.VITALS.states[key];
+          console.log('- VITALS.states.' + key + ':', typeof state === 'object' ? Object.keys(state) : state);
+        });
+      }
+      
       // Method 1: Look for Vitals-generated review elements on the page
-      console.log('Searching for Vitals review elements...');
+      console.log('=== DOM SEARCH FOR VITALS ELEMENTS ===');
+      
+      // Search for ALL elements with 'vitals' in their id or class
+      var allVitalsElements = document.querySelectorAll('[id*="vitals"], [class*="vitals"]');
+      console.log('Total Vitals elements found:', allVitalsElements.length);
+      
+      for (var i = 0; i < allVitalsElements.length; i++) {
+        var elem = allVitalsElements[i];
+        console.log('Vitals element ' + i + ':', {
+          id: elem.id,
+          className: elem.className,
+          tagName: elem.tagName,
+          textContent: elem.textContent.substring(0, 100),
+          hasOnClick: !!elem.onclick,
+          hasDataAttrs: Array.from(elem.attributes).filter(attr => attr.name.startsWith('data-')).map(attr => attr.name)
+        });
+      }
       
       // First, look for the existing Vitals reviews carousel
-      var vitalsCarousel = document.querySelector('[id*="vitals"][id*="reviews"], [class*="vitals"][class*="carousel"], [data-vitals-reviews]');
+      var carouselSelectors = ['[id*="vitals"][id*="reviews"]', '[class*="vitals"][class*="carousel"]', '[data-vitals-reviews]'];
+      var vitalsCarousel = null;
+      
+      for (var cs = 0; cs < carouselSelectors.length; cs++) {
+        vitalsCarousel = document.querySelector(carouselSelectors[cs]);
+        if (vitalsCarousel) {
+          console.log('Found Vitals carousel with selector "' + carouselSelectors[cs] + '":', vitalsCarousel);
+          break;
+        }
+      }
+      
       if (vitalsCarousel) {
-        console.log('Found Vitals carousel:', vitalsCarousel);
-        
         // Look for any clickable elements within the carousel
         var carouselButtons = vitalsCarousel.querySelectorAll('button, a, [role="button"], [onclick], [data-action]');
-        console.log('Buttons in carousel:', carouselButtons.length);
+        console.log('Interactive elements in carousel:', carouselButtons.length);
         
         for (var j = 0; j < carouselButtons.length; j++) {
           var carouselBtn = carouselButtons[j];
-          var btnText = carouselBtn.textContent.toLowerCase();
-          console.log('Carousel button:', btnText, carouselBtn);
+          var btnText = carouselBtn.textContent.toLowerCase().trim();
+          console.log('Carousel element ' + j + ':', {
+            text: btnText,
+            tagName: carouselBtn.tagName,
+            className: carouselBtn.className,
+            id: carouselBtn.id,
+            onclick: carouselBtn.onclick ? 'has onclick' : 'no onclick'
+          });
           
           if (btnText.includes('write') || btnText.includes('review') || btnText.includes('add') || btnText.includes('leave')) {
-            console.log('Found and clicking carousel review button:', carouselBtn);
+            console.log('FOUND REVIEW TRIGGER! Clicking:', carouselBtn);
             carouselBtn.click();
             return;
           }
         }
+      } else {
+        console.log('No Vitals carousel found');
       }
       
       // Look for any Vitals review buttons on the page
