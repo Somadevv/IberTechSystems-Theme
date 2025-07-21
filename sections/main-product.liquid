@@ -204,7 +204,8 @@
   </div>
 {% endif %}
 
-              {%- when 'product_tabs' -%}
+              {%- comment -%} product_tabs block removed - use standalone product-tabs.liquid section instead {%- endcomment -%}
+              {%- when 'REMOVED_product_tabs' -%}
                 {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
                 <product-tabs class="product-tabs" {{ block.shopify_attributes }}>
                   <nav class="product-tabs__nav">
@@ -1341,8 +1342,8 @@
       "limit": 1
     },
     {
-      "type": "product_tabs",
-      "name": "Product Tabs",
+      "type": "REMOVED_product_tabs",
+      "name": "REMOVED - Use Product Tabs Section Instead",
       "limit": 1,
       "settings": [
         {
