@@ -496,22 +496,9 @@
                       {%- comment -%} Vitals Reviews Integration {%- endcomment -%}
                       <div class="vitals-reviews-container">
                         {%- if block.settings.use_vitals_reviews -%}
-                          {%- comment -%} Vitals Reviews Widget {%- endcomment -%}
+                          {%- comment -%} Vitals Reviews Widget - Using proper app blocks {%- endcomment -%}
                           <div class="vitals-reviews">
-                            {%- comment -%} Vitals Product Reviews - this renders automatically {%- endcomment -%}
-                            <div class="vitals-product-reviews" data-product-id="{{ product.id }}">
-                              <script>
-                                window.VitalsProductReviews = window.VitalsProductReviews || {};
-                                window.VitalsProductReviews.productId = '{{ product.id }}';
-                              </script>
-                            </div>
-                            
-                            {%- comment -%} Fallback if Vitals doesn't load {%- endcomment -%}
-                            <noscript>
-                              <div class="vitals-reviews-fallback">
-                                <p>Reviews require JavaScript to load. Please enable JavaScript to see customer reviews.</p>
-                              </div>
-                            </noscript>
+                            {%- render 'vitals-reviews-widget', product: product -%}
                           </div>
                         {%- else -%}
                           {%- comment -%} Fallback: Manual reviews content or placeholder {%- endcomment -%}

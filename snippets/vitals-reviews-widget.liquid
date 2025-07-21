@@ -1,0 +1,107 @@
+{%- comment -%}
+  Vitals Reviews Widget Snippet
+  This snippet renders the Vitals third-party app reviews widget
+  instead of in-house reviews, using proper Vitals integration.
+  
+  Parameters:
+  - product: Required. The product object for which to show reviews
+{%- endcomment -%}
+
+{%- if product -%}
+  {%- comment -%} Vitals Reviews Display {%- endcomment -%}
+  <div class="vitals-reviews-display" data-product-id="{{ product.id }}">
+    {%- comment -%} 
+      Vitals Reviews Widget Container
+      The Vitals app automatically detects this container and injects reviews
+    {%- endcomment -%}
+    <div 
+      id="vitals-reviews-widget-{{ product.id }}" 
+      class="vitals-reviews-widget"
+      data-vitals-reviews
+      data-product-id="{{ product.id }}"
+      data-shop="{{ shop.permanent_domain }}"
+    >
+      {%- comment -%} Loading state {%- endcomment -%}
+      <div class="vitals-reviews-loading" style="text-align: center; padding: 2rem;">
+        <div style="display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #333; border-radius: 50%; animation: spin 2s linear infinite;"></div>
+        <p style="margin-top: 1rem;">Loading reviews...</p>
+      </div>
+    </div>
+    
+    {%- comment -%} No JavaScript fallback {%- endcomment -%}
+    <noscript>
+      <div class="vitals-reviews-noscript" style="padding: 2rem; text-align: center; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+        <h4 style="margin-bottom: 1rem;">Customer Reviews</h4>
+        <p>Reviews are powered by Vitals and require JavaScript to load. Please enable JavaScript in your browser to see customer reviews for this product.</p>
+      </div>
+    </noscript>
+  </div>
+  
+  {%- comment -%} Styles for loading animation {%- endcomment -%}
+  <style>
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .vitals-reviews-widget {
+      min-height: 200px;
+      position: relative;
+    }
+    
+    .vitals-reviews-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+    
+    /* Hide loading when Vitals content appears */
+    .vitals-reviews-widget:not(:empty) .vitals-reviews-loading {
+      display: none;
+    }
+  </style>
+  
+  {%- comment -%} Initialize Vitals reviews {%- endcomment -%}
+  <script>
+    (function() {
+      // Wait for DOM and Vitals to be ready
+      function initVitalsReviews() {
+        // Check if Vitals is loaded
+        if (typeof window.Vitals !== 'undefined' && window.Vitals.reviews) {
+          // Initialize Vitals reviews for this product
+          window.Vitals.reviews.init({
+            productId: '{{ product.id }}',
+            containerId: 'vitals-reviews-widget-{{ product.id }}',
+            shopDomain: '{{ shop.permanent_domain }}'
+          });
+          
+          // Hide loading after a short delay to allow content to appear
+          setTimeout(function() {
+            var loadingEl = document.querySelector('#vitals-reviews-widget-{{ product.id }} .vitals-reviews-loading');
+            if (loadingEl) {
+              loadingEl.style.display = 'none';
+            }
+          }, 2000);
+        } else {
+          // Retry after a short delay
+          setTimeout(initVitalsReviews, 500);
+        }
+      }
+      
+      // Start initialization when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initVitalsReviews);
+      } else {
+        initVitalsReviews();
+      }
+    })();
+  </script>
+{%- else -%}
+  {%- comment -%} Error state - no product provided {%- endcomment -%}
+  <div class="vitals-reviews-error" style="padding: 2rem; text-align: center; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px;">
+    <h4 style="color: #856404; margin-bottom: 0.5rem;">Reviews Unavailable</h4>
+    <p style="color: #856404; margin: 0;">Unable to load reviews: No product specified.</p>
+  </div>
+{%- endif -%}
