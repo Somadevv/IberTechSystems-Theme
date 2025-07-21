@@ -12,9 +12,6 @@
     </button>
     <button class="product-tabs__nav-link" type="button">
       {{ section.settings.reviews_tab_label | default: 'Reviews' }}
-      {%- if section.settings.show_reviews_count -%}
-        <span class="product-tabs__reviews-count">{{ section.settings.reviews_count | default: 0 }}</span>
-      {%- endif -%}
     </button>
     {%- for block in section.blocks -%}
       {%- case block.type -%}
@@ -43,19 +40,10 @@
       {%- comment -%} Vitals Reviews Integration in Reviews Tab {%- endcomment -%}
       {%- if section.settings.use_vitals_reviews -%}
         {% render 'vitals-reviews-widget', product: product %}
-      {%- elsif section.settings.reviews_content != blank -%}
-        <div class="rte">
-          {{ section.settings.reviews_content }}
-        </div>
       {%- else -%}
         <div class="product-tabs__reviews-placeholder">
-          <h3>{{ section.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
-          <p>{{ section.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
-          {%- if section.settings.show_review_button -%}
-            <button class="button" onclick="document.querySelector('#product-review-form')?.scrollIntoView({behavior: 'smooth'});">
-              {{ section.settings.review_button_text | default: 'Write a Review' }}
-            </button>
-          {%- endif -%}
+          <h3>Customer Reviews</h3>
+          <p>Reviews functionality is managed by the Vitals app. Please enable "Use Vitals Reviews Widget" in the theme settings.</p>
         </div>
       {%- endif -%}
     </div>
@@ -120,48 +108,6 @@
       "label": "Use Vitals Reviews Widget",
       "info": "Enable to show Vitals reviews in the Reviews tab",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_reviews_count",
-      "label": "Show Reviews Count",
-      "default": true
-    },
-    {
-      "type": "number",
-      "id": "reviews_count",
-      "label": "Reviews Count",
-      "default": 0
-    },
-    {
-      "type": "richtext",
-      "id": "reviews_content",
-      "label": "Reviews Content",
-      "info": "Custom content for reviews tab (leave empty to show placeholder)"
-    },
-    {
-      "type": "text",
-      "id": "reviews_placeholder_title",
-      "label": "Reviews Placeholder Title",
-      "default": "Customer Reviews"
-    },
-    {
-      "type": "text",
-      "id": "reviews_placeholder_text",
-      "label": "Reviews Placeholder Text",
-      "default": "No reviews yet. Be the first to review this product!"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_review_button",
-      "label": "Show Review Button",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "review_button_text",
-      "label": "Review Button Text",
-      "default": "Write a Review"
     },
     {
       "type": "header",
