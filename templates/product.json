@@ -81,7 +81,8 @@
             "custom_feature_4_title": "",
             "custom_feature_4_description": "",
             "custom_feature_5_title": "",
-            "custom_feature_5_description": ""
+            "custom_feature_5_description": "",
+            "use_vitals_reviews": true
           }
         }
       },

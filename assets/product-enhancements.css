@@ -136,6 +136,41 @@
   flex-shrink: 0;
 }
 
+/* Vitals Reviews Integration */
+.vitals-reviews-container {
+  margin: 1rem 0;
+}
+
+.vitals-reviews {
+  min-height: 100px;
+}
+
+.vitals-product-reviews {
+  width: 100%;
+}
+
+.vitals-reviews-fallback {
+  padding: 2rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #6c757d;
+}
+
+/* Override Vitals default styles to match theme */
+.vitals-reviews .vitals-review-item {
+  border-radius: 8px !important;
+  margin-bottom: 1rem !important;
+}
+
+.vitals-reviews .vitals-review-header {
+  padding: 1rem !important;
+}
+
+.vitals-reviews .vitals-review-content {
+  padding: 0 1rem 1rem !important;
+}
+
 /* Mobile Responsiveness */
 @media screen and (max-width: 749px) {
   .trust-badges {
@@ -158,5 +193,9 @@
   .product__shipping-info,
   .product__guarantees {
     padding: 1rem;
+  }
+  
+  .vitals-reviews-container {
+    margin: 0.5rem 0;
   }
 }

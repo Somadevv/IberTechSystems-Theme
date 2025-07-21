@@ -493,21 +493,41 @@
                     </div>
 
                     <div class="product-tabs__panel">
-                      {%- if block.settings.reviews_content != blank -%}
-                        <div class="rte">
-                          {{ block.settings.reviews_content }}
-                        </div>
-                      {%- else -%}
-                        <div class="product-tabs__reviews-placeholder">
-                          <h3>{{ block.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
-                          <p>{{ block.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
-                          {%- if block.settings.show_review_button -%}
-                            <button class="button" id="show-review-form-btn">
-                              {{ block.settings.review_button_text | default: 'Write a Review' }}
-                            </button>
+                      {%- comment -%} Vitals Reviews Integration {%- endcomment -%}
+                      <div class="vitals-reviews-container">
+                        {%- if block.settings.use_vitals_reviews -%}
+                          {%- comment -%} Vitals Reviews Widget {%- endcomment -%}
+                          <div class="vitals-reviews">
+                            {%- comment -%} Vitals Product Reviews - this renders automatically {%- endcomment -%}
+                            <div class="vitals-product-reviews" data-product-id="{{ product.id }}">
+                              <script>
+                                window.VitalsProductReviews = window.VitalsProductReviews || {};
+                                window.VitalsProductReviews.productId = '{{ product.id }}';
+                              </script>
+                            </div>
+                            
+                            {%- comment -%} Fallback if Vitals doesn't load {%- endcomment -%}
+                            <noscript>
+                              <div class="vitals-reviews-fallback">
+                                <p>Reviews require JavaScript to load. Please enable JavaScript to see customer reviews.</p>
+                              </div>
+                            </noscript>
+                          </div>
+                        {%- else -%}
+                          {%- comment -%} Fallback: Manual reviews content or placeholder {%- endcomment -%}
+                          {%- if block.settings.reviews_content != blank -%}
+                            <div class="rte">
+                              {{ block.settings.reviews_content }}
+                            </div>
+                          {%- else -%}
+                            <div class="product-tabs__reviews-placeholder">
+                              <h3>{{ block.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
+                              <p>{{ block.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
+                              <p><small>Reviews are managed through Vitals app. Enable "Use Vitals Reviews" in the product tabs settings to display them automatically.</small></p>
+                            </div>
                           {%- endif -%}
-                        </div>
-                      {%- endif -%}
+                        {%- endif -%}
+                      </div>
                       
                     </div>
                   </div>
@@ -1397,6 +1417,17 @@
           "id": "review_button_text",
           "label": "Review Button Text",
           "default": "Write a Review"
+        },
+        {
+          "type": "header",
+          "content": "Vitals Reviews Integration"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_vitals_reviews",
+          "label": "Use Vitals Reviews",
+          "info": "Enable this to show Vitals reviews widget instead of manual content",
+          "default": true
         },
         {
           "type": "text",
