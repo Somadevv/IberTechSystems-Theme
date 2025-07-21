@@ -40,8 +40,40 @@
 
     {%- if section.settings.show_reviews_tab -%}
       <div class="product-tabs__panel">
-        {%- comment -%} Vitals Reviews Integration in Reviews Tab {%- endcomment -%}
-        {% render 'vitals-reviews-widget', product: product %}
+        {%- comment -%} Vitals App Block Integration in Reviews Tab {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              <div class="vitals-app-block" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+            {%- when 'vitals_reviews' -%}
+              <div class="vitals-reviews-block" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+        
+        {%- comment -%} Show message if no app blocks added {%- endcomment -%}
+        {%- assign has_app_blocks = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == '@app' or block.type == 'vitals_reviews' -%}
+            {%- assign has_app_blocks = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        
+        {%- unless has_app_blocks -%}
+          <div class="reviews-setup-message" style="padding: 2rem; text-align: center; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+            <h4 style="color: #333; margin-bottom: 1rem;">Add Vitals Reviews</h4>
+            <p style="color: #666; margin-bottom: 1rem;">To show reviews here, add the Vitals Reviews app block:</p>
+            <ol style="text-align: left; max-width: 400px; margin: 0 auto; color: #666;">
+              <li>Click "Add block" below this section</li>
+              <li>Select "Vitals Reviews" from the app blocks</li>
+              <li>Configure the reviews settings</li>
+            </ol>
+          </div>
+        {%- endunless -%}
       </div>
     {%- endif -%}
 
@@ -129,6 +161,9 @@
     }
   ],
   "blocks": [
+    {
+      "type": "@app"
+    },
     {
       "type": "custom_tab",
       "name": "Custom Tab",
