@@ -85,35 +85,50 @@
   {%- comment -%} Vitals Integration JavaScript {%- endcomment -%}
   <script>
     function triggerVitalsReview(productId, productHandle) {
-      console.log('=== VITALS REVIEW TRIGGER v4.0 - TARGETED FIX ===');
+      console.log('=== VITALS REVIEW TRIGGER v5.0 - CUSTOM EVENTS ===');
       console.log('Attempting to trigger Vitals review for product:', productId);
       
-      // Method 1: Try to click the specific Vitals reviews widget element
+      // Method 1: Try custom Vitals events that the app might be listening for
       var vitalsReviewsElement = document.getElementById('vitals-reviews-' + productId);
       if (vitalsReviewsElement) {
         console.log('Found vitals-reviews element:', vitalsReviewsElement);
         
-        // Try clicking the element itself
-        vitalsReviewsElement.click();
-        console.log('Clicked vitals-reviews element');
+        // Try various Vitals-specific custom events
+        var customEvents = [
+          'vitals:open-review-form',
+          'vitals-review-form-open',
+          'vitals:show-write-review',
+          'vitals-open-write-review',
+          'open-review-modal',
+          'show-review-form'
+        ];
         
-        // Try triggering various events on it
-        var clickEvent = new MouseEvent('click', {
-          bubbles: true,
-          cancelable: true,
-          view: window
+        customEvents.forEach(function(eventName) {
+          var customEvent = new CustomEvent(eventName, {
+            detail: { 
+              productId: productId, 
+              productHandle: productHandle,
+              action: 'open-review-form'
+            },
+            bubbles: true,
+            cancelable: true
+          });
+          
+          // Dispatch on both the element and document
+          vitalsReviewsElement.dispatchEvent(customEvent);
+          document.dispatchEvent(customEvent);
+          console.log('Dispatched custom event:', eventName);
         });
-        vitalsReviewsElement.dispatchEvent(clickEvent);
-        console.log('Dispatched click event');
         
-        // Try double click
-        var dblClickEvent = new MouseEvent('dblclick', {
-          bubbles: true,
-          cancelable: true,
-          view: window
+        // Try focus and then keyboard events
+        vitalsReviewsElement.focus();
+        var enterEvent = new KeyboardEvent('keydown', {
+          key: 'Enter',
+          code: 'Enter',
+          bubbles: true
         });
-        vitalsReviewsElement.dispatchEvent(dblClickEvent);
-        console.log('Dispatched double-click event');
+        vitalsReviewsElement.dispatchEvent(enterEvent);
+        console.log('Tried focus and Enter key');
         
         return;
       }
