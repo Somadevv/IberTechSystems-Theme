@@ -1,75 +1,192 @@
 {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  Check for Vitals app integration
-  If Vitals Product Description Tabs is enabled, this section will be hidden
+  Smart Product Tabs - Metafield Driven
+  Automatically shows relevant tabs based on available content
+  Minimal configuration, maximum functionality
 {%- endcomment -%}
-{%- unless shop.metafields.vitals.product_tabs_enabled -%}
-<product-tabs class="product-tabs page-width" data-vitals-compatible="true">
-  <nav class="product-tabs__nav">
-    <button class="product-tabs__nav-link" type="button">
-      {{ section.settings.description_tab_label | default: 'Description' }}
-    </button>
-    {%- if section.settings.show_reviews_tab -%}
-      <button class="product-tabs__nav-link" type="button">
-        {{ section.settings.reviews_tab_label | default: 'Reviews' }}
+
+{%- comment -%} Check content availability {%- endcomment -%}
+{%- assign has_description = product.description != blank and section.settings.show_description_tab -%}
+{%- assign has_reviews = section.settings.show_reviews_tab -%}
+{%- assign has_features = product.metafields.product.features != blank -%}
+{%- assign has_specifications = product.metafields.product.specifications != blank -%}
+{%- assign has_care = product.metafields.product.care_instructions != blank -%}
+
+{%- comment -%} Count visible tabs {%- endcomment -%}
+{%- assign tab_count = 0 -%}
+{%- if has_description -%}{%- assign tab_count = tab_count | plus: 1 -%}{%- endif -%}
+{%- if has_reviews -%}{%- assign tab_count = tab_count | plus: 1 -%}{%- endif -%}
+{%- if has_features -%}{%- assign tab_count = tab_count | plus: 1 -%}{%- endif -%}
+{%- if has_specifications -%}{%- assign tab_count = tab_count | plus: 1 -%}{%- endif -%}
+{%- if has_care -%}{%- assign tab_count = tab_count | plus: 1 -%}{%- endif -%}
+
+{%- comment -%} Only show tabs if there are multiple tabs or forced single tab display {%- endcomment -%}
+{%- if tab_count > 1 or section.settings.always_show_tabs -%}
+
+<product-tabs class="product-tabs page-width" data-tab-count="{{ tab_count }}">
+  
+  {%- comment -%} Tab Navigation {%- endcomment -%}
+  <nav class="product-tabs__nav" role="tablist">
+    
+    {%- if has_description -%}
+      <button class="product-tabs__nav-link" 
+              type="button" 
+              role="tab"
+              aria-selected="true"
+              aria-controls="tab-description">
+        {{ section.settings.description_tab_label }}
       </button>
     {%- endif -%}
-    {%- for block in section.blocks -%}
-      {%- case block.type -%}
-        {%- when 'custom_tab' -%}
-          <button class="product-tabs__nav-link" type="button" {{ block.shopify_attributes }}>
-            {{ block.settings.tab_label | default: 'Custom Tab' }}
-          </button>
-      {%- endcase -%}
-    {%- endfor -%}
+    
+    {%- if has_reviews -%}
+      <button class="product-tabs__nav-link" 
+              type="button" 
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-reviews">
+        {{ section.settings.reviews_tab_label }}
+      </button>
+    {%- endif -%}
+    
+    {%- if has_features -%}
+      <button class="product-tabs__nav-link" 
+              type="button" 
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-features">
+        {{ section.settings.features_tab_label }}
+      </button>
+    {%- endif -%}
+    
+    {%- if has_specifications -%}
+      <button class="product-tabs__nav-link" 
+              type="button" 
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-specifications">
+        {{ section.settings.specifications_tab_label }}
+      </button>
+    {%- endif -%}
+    
+    {%- if has_care -%}
+      <button class="product-tabs__nav-link" 
+              type="button" 
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-care">
+        {{ section.settings.care_tab_label }}
+      </button>
+    {%- endif -%}
+    
   </nav>
 
+  {%- comment -%} Tab Content Panels {%- endcomment -%}
   <div class="product-tabs__content">
-    <div class="product-tabs__panel">
-      {%- if product.description != blank -%}
-        <div class="rte">
+    
+    {%- if has_description -%}
+      <div class="product-tabs__panel" 
+           id="tab-description" 
+           role="tabpanel"
+           aria-labelledby="tab-description">
+        <div class="product-tabs__description rte">
           {{ product.description }}
         </div>
-      {%- else -%}
-        <div class="product-tabs__reviews-placeholder">
-          <p>{{ section.settings.no_description_text | default: 'No description available for this product.' }}</p>
-        </div>
-      {%- endif -%}
-    </div>
-
-    {%- if section.settings.show_reviews_tab -%}
-      <div class="product-tabs__panel">
-        {%- comment -%} Vitals Reviews Integration in Reviews Tab {%- endcomment -%}
-        {% render 'vitals-reviews-widget', product: product %}
       </div>
     {%- endif -%}
-
-    {%- for block in section.blocks -%}
-      {%- case block.type -%}
-        {%- when 'custom_tab' -%}
-          <div class="product-tabs__panel" {{ block.shopify_attributes }}>
-            {%- if block.settings.tab_content != blank -%}
-              <div class="rte">
-                {{ block.settings.tab_content }}
+    
+    {%- if has_reviews -%}
+      <div class="product-tabs__panel" 
+           id="tab-reviews" 
+           role="tabpanel"
+           aria-labelledby="tab-reviews">
+        <div class="product-tabs__reviews">
+          {% render 'vitals-reviews-widget', product: product %}
+        </div>
+      </div>
+    {%- endif -%}
+    
+    {%- if has_features -%}
+      <div class="product-tabs__panel" 
+           id="tab-features" 
+           role="tabpanel"
+           aria-labelledby="tab-features">
+        <div class="product-tabs__features">
+          <ul class="product-features-list">
+            {%- for feature in product.metafields.product.features.value -%}
+              <li class="product-features-list__item">
+                <svg class="product-features-list__icon" width="16" height="16" viewBox="0 0 16 16">
+                  <path d="M13.5 3.5L6 11l-3.5-3.5L1 9l5 5 9-9-1.5-1.5z" fill="currentColor"/>
+                </svg>
+                {{ feature }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    {%- endif -%}
+    
+    {%- if has_specifications -%}
+      <div class="product-tabs__panel" 
+           id="tab-specifications" 
+           role="tabpanel"
+           aria-labelledby="tab-specifications">
+        <div class="product-tabs__specifications">
+          <dl class="product-specifications-list">
+            {%- assign specs = product.metafields.product.specifications.value -%}
+            {%- for spec in specs -%}
+              <div class="product-specifications-list__item">
+                <dt class="product-specifications-list__term">{{ spec[0] }}</dt>
+                <dd class="product-specifications-list__definition">{{ spec[1] }}</dd>
               </div>
-            {%- else -%}
-              <div class="product-tabs__reviews-placeholder">
-                <p>{{ block.settings.placeholder_text | default: 'Content coming soon...' }}</p>
-              </div>
-            {%- endif -%}
-          </div>
-      {%- endcase -%}
-    {%- endfor -%}
+            {%- endfor -%}
+          </dl>
+        </div>
+      </div>
+    {%- endif -%}
+    
+    {%- if has_care -%}
+      <div class="product-tabs__panel" 
+           id="tab-care" 
+           role="tabpanel"
+           aria-labelledby="tab-care">
+        <div class="product-tabs__care">
+          <ul class="product-care-list">
+            {%- for instruction in product.metafields.product.care_instructions.value -%}
+              <li class="product-care-list__item">
+                <svg class="product-care-list__icon" width="16" height="16" viewBox="0 0 16 16">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                </svg>
+                {{ instruction }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    {%- endif -%}
+    
   </div>
 </product-tabs>
 
-{%- comment -%}
-  Vitals Product Description Tabs Integration Area
-  When Vitals is enabled, tabs will appear here automatically
-{%- endcomment -%}
-<div id="vitals-product-tabs-container" data-product-id="{{ product.id }}"></div>
-{%- endunless -%}
+{%- else -%}
+
+  {%- comment -%} Single content display (no tabs needed) {%- endcomment -%}
+  <div class="product-single-content page-width">
+    {%- if has_description -%}
+      <div class="product-single-content__description rte">
+        {{ product.description }}
+      </div>
+    {%- endif -%}
+    
+    {%- if has_reviews -%}
+      <div class="product-single-content__reviews">
+        {% render 'vitals-reviews-widget', product: product %}
+      </div>
+    {%- endif -%}
+  </div>
+
+{%- endif -%}
 
 <script src="{{ 'product-tabs.js' | asset_url }}" defer="defer"></script>
 
@@ -81,7 +198,24 @@
   "settings": [
     {
       "type": "header",
-      "content": "Tab Labels"
+      "content": "Tab Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "always_show_tabs",
+      "label": "Always show tab interface",
+      "info": "Show tabs even when only one tab is available",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Core Tabs"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description_tab",
+      "label": "Show Description Tab",
+      "default": true
     },
     {
       "type": "text",
@@ -90,67 +224,65 @@
       "default": "Description"
     },
     {
+      "type": "checkbox",
+      "id": "show_reviews_tab",
+      "label": "Show Reviews Tab",
+      "default": true
+    },
+    {
       "type": "text",
-      "id": "reviews_tab_label", 
+      "id": "reviews_tab_label",
       "label": "Reviews Tab Label",
       "default": "Reviews"
     },
     {
       "type": "header",
-      "content": "Reviews Settings"
+      "content": "Metafield-Driven Tabs"
     },
     {
-      "type": "checkbox",
-      "id": "show_reviews_tab",
-      "label": "Show Reviews Tab",
-      "info": "Enable to show the Reviews tab with Vitals reviews widget",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Description Settings"
+      "type": "paragraph",
+      "content": "The following tabs automatically appear when product metafields contain data:"
     },
     {
       "type": "text",
-      "id": "no_description_text",
-      "label": "No Description Text",
-      "default": "No description available for this product."
+      "id": "features_tab_label",
+      "label": "Features Tab Label",
+      "info": "Shown when product.metafields.product.features has data",
+      "default": "Features"
+    },
+    {
+      "type": "text",
+      "id": "specifications_tab_label",
+      "label": "Specifications Tab Label", 
+      "info": "Shown when product.metafields.product.specifications has data",
+      "default": "Specifications"
+    },
+    {
+      "type": "text",
+      "id": "care_tab_label",
+      "label": "Care Instructions Tab Label",
+      "info": "Shown when product.metafields.product.care_instructions has data",
+      "default": "Care Instructions"
     },
     {
       "type": "header",
-      "content": "Vitals Integration"
+      "content": "Metafield Setup Guide"
     },
     {
-      "type": "checkbox",
-      "id": "enable_vitals_integration",
-      "label": "Enable Vitals Product Tabs Integration",
-      "info": "When enabled, this section will be hidden if Vitals Product Description Tabs app is active",
-      "default": true
-    }
-  ],
-  "blocks": [
+      "type": "paragraph",
+      "content": "To enable dynamic tabs, create these metafields in your admin:"
+    },
     {
-      "type": "custom_tab",
-      "name": "Custom Tab",
-      "settings": [
-        {
-          "type": "text",
-          "id": "tab_label",
-          "label": "Tab Label",
-          "default": "Custom Tab"
-        },
-        {
-          "type": "richtext",
-          "id": "tab_content",
-          "label": "Tab Content"
-        },
-        {
-          "type": "text",
-          "id": "placeholder_text",
-          "label": "Placeholder Text",
-          "default": "Content coming soon..."
-        }
-      ]
+      "type": "paragraph",
+      "content": "• Features: product.features (list.single_line_text_field)"
+    },
+    {
+      "type": "paragraph", 
+      "content": "• Specifications: product.specifications (json)"
+    },
+    {
+      "type": "paragraph",
+      "content": "• Care: product.care_instructions (list.single_line_text_field)"
     }
   ],
   "presets": [
