@@ -52,22 +52,21 @@
           data-product-id="{{ product.id }}"
           data-product-handle="{{ product.handle }}"
           style="
-            background: #007bff; 
+            background: #5534eb; 
             color: white; 
             border: none; 
             padding: 10px 20px; 
-            border-radius: 8px; 
             cursor: pointer; 
             font-size: 16px; 
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+            box-shadow: 0 2px 4px rgba(85,52,235,0.2);
           "
-          onclick="openVitalsReviewModal(this)"
-          onmouseover="this.style.backgroundColor='#0056b3'"
-          onmouseout="this.style.backgroundColor='#007bff'"
+          onclick="triggerVitalsReview({{ product.id }}, '{{ product.handle }}')"
+          onmouseover="this.style.backgroundColor='#4a2bc7'"
+          onmouseout="this.style.backgroundColor='#5534eb'"
         >
           ✍️ Leave a Review
         </button>
@@ -85,88 +84,98 @@
   
   {%- comment -%} Vitals Integration JavaScript {%- endcomment -%}
   <script>
-    function openVitalsReviewModal(button) {
-      var productId = button.getAttribute('data-product-id');
-      var productHandle = button.getAttribute('data-product-handle');
+    function triggerVitalsReview(productId, productHandle) {
+      console.log('Attempting to trigger Vitals review for product:', productId);
       
-      // Method 1: Check for Vitals global object and trigger review form
-      if (typeof window.Vitals !== 'undefined' && window.Vitals) {
-        // Try the most common Vitals methods
-        if (window.Vitals.reviews && typeof window.Vitals.reviews.openReviewForm === 'function') {
-          window.Vitals.reviews.openReviewForm(productId);
+      // Method 1: Direct Vitals API calls
+      if (window.Vitals) {
+        console.log('Vitals object found:', window.Vitals);
+        
+        // Try different Vitals method signatures
+        try {
+          if (window.Vitals.reviews && window.Vitals.reviews.openForm) {
+            window.Vitals.reviews.openForm(productId);
+            console.log('Triggered via Vitals.reviews.openForm');
+            return;
+          }
+          if (window.Vitals.reviews && window.Vitals.reviews.showWriteReviewForm) {
+            window.Vitals.reviews.showWriteReviewForm(productId);
+            console.log('Triggered via Vitals.reviews.showWriteReviewForm');
+            return;
+          }
+          if (window.Vitals.openReviewForm) {
+            window.Vitals.openReviewForm(productId);
+            console.log('Triggered via Vitals.openReviewForm');
+            return;
+          }
+          if (window.Vitals.showWriteReview) {
+            window.Vitals.showWriteReview(productId);
+            console.log('Triggered via Vitals.showWriteReview');
+            return;
+          }
+        } catch (e) {
+          console.log('Error calling Vitals methods:', e);
+        }
+      }
+      
+      // Method 2: Look for existing Vitals elements and click them
+      var vitalsSelectors = [
+        '[data-vitals-write-review]',
+        '[data-vitals-review-button]',
+        '.vitals-review-button',
+        '.vitals-write-review',
+        '[onclick*="vitals"]',
+        'button[data-product-id*="' + productId + '"][class*="review"]',
+        '[data-review-form]'
+      ];
+      
+      for (var i = 0; i < vitalsSelectors.length; i++) {
+        var element = document.querySelector(vitalsSelectors[i]);
+        if (element) {
+          console.log('Found Vitals element:', element);
+          element.click();
           return;
         }
-        if (window.Vitals.openReviewForm && typeof window.Vitals.openReviewForm === 'function') {
-          window.Vitals.openReviewForm(productId);
-          return;
-        }
-        if (window.Vitals.showReviewForm && typeof window.Vitals.showReviewForm === 'function') {
-          window.Vitals.showReviewForm(productId);
-          return;
-        }
       }
       
-      // Method 2: Look for existing Vitals review buttons on the page and trigger them
-      var existingVitalsButton = document.querySelector(
-        '[data-vitals-review-form], ' +
-        '[data-vitals-write-review], ' +
-        '.vitals-review-btn, ' +
-        '.vitals-write-review-btn, ' +
-        '[onclick*="vitals"], ' +
-        '[onclick*="review"]'
-      );
-      if (existingVitalsButton && existingVitalsButton !== button) {
-        existingVitalsButton.click();
-        return;
-      }
-      
-      // Method 3: Try window-level Vitals functions
-      if (typeof window.openVitalsReviewForm === 'function') {
-        window.openVitalsReviewForm(productId);
-        return;
-      }
-      if (typeof window.showVitalsReviewForm === 'function') {
-        window.showVitalsReviewForm(productId);
-        return;
-      }
-      
-      // Method 4: Dispatch custom events that Vitals might listen for
-      var customEvent = new CustomEvent('vitals-open-review-form', {
-        detail: { productId: productId, productHandle: productHandle },
-        bubbles: true
-      });
-      document.dispatchEvent(customEvent);
-      
-      var openReviewEvent = new CustomEvent('open-review-form', {
-        detail: { productId: productId, productHandle: productHandle },
-        bubbles: true
-      });
-      document.dispatchEvent(openReviewEvent);
-      
-      // Method 5: Try to find and trigger any Vitals modal triggers
-      setTimeout(function() {
-        var modalTriggers = document.querySelectorAll('[data-modal="review"], [data-toggle="review-modal"], .review-modal-trigger');
-        for (var i = 0; i < modalTriggers.length; i++) {
-          if (modalTriggers[i] !== button) {
-            modalTriggers[i].click();
+      // Method 3: Try to find the Vitals reviews carousel and look for review buttons
+      var vitalsCarousel = document.querySelector('[data-vitals-reviews], .vitals-reviews-carousel, #vitals-reviews-' + productId);
+      if (vitalsCarousel) {
+        var reviewButtons = vitalsCarousel.querySelectorAll('button, [role="button"], a');
+        for (var j = 0; j < reviewButtons.length; j++) {
+          var buttonText = reviewButtons[j].textContent.toLowerCase();
+          if (buttonText.includes('write') || buttonText.includes('review') || buttonText.includes('add')) {
+            console.log('Found review button in carousel:', reviewButtons[j]);
+            reviewButtons[j].click();
             return;
           }
         }
-        
-        // Final fallback - show user guidance
-        var message = 'To leave a review:\\n\\n' +
-                     '1. Look for a "Write Review" button elsewhere on this page\\n' +
-                     '2. Check below the product images or description\\n' +
-                     '3. Scroll down to find the Vitals review section\\n\\n' +
-                     'If you don\\'t see review options, reviews may not be enabled for this product.';
-        alert(message);
-        
-        console.log('Vitals review form trigger attempted for product:', productId);
-        console.log('Available Vitals objects:', {
-          Vitals: typeof window.Vitals !== 'undefined' ? Object.keys(window.Vitals || {}) : 'undefined',
-          VitalsReviews: typeof window.VitalsReviews !== 'undefined' ? Object.keys(window.VitalsReviews || {}) : 'undefined'
+      }
+      
+      // Method 4: Trigger custom events
+      var events = ['vitals:openReviewForm', 'vitals-review-form-open', 'open-review-modal'];
+      events.forEach(function(eventName) {
+        var event = new CustomEvent(eventName, {
+          detail: { productId: productId, productHandle: productHandle },
+          bubbles: true
         });
-      }, 100);
+        document.dispatchEvent(event);
+      });
+      
+      // Method 5: Direct DOM manipulation - create a temporary form
+      setTimeout(function() {
+        // Try to create a simple review form as fallback
+        var existingModal = document.querySelector('#vitals-review-modal');
+        if (existingModal) {
+          existingModal.style.display = 'block';
+          return;
+        }
+        
+        // Final fallback - helpful message
+        alert('Review form could not be opened automatically. Please look for a "Write Review" or "Leave Review" button elsewhere on this product page to submit your review.');
+        console.log('All Vitals integration methods attempted for product:', productId);
+        console.log('Window objects available:', Object.keys(window).filter(k => k.toLowerCase().includes('vital')));
+      }, 200);
     }
     
     // Initialize and check for Vitals content
