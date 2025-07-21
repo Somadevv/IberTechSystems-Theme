@@ -115,39 +115,94 @@
         }
       }
       
-      // Method 2: Direct Vitals API calls
-      if (window.Vitals) {
-        console.log('Vitals object found, trying direct API calls');
+      // Method 2: Direct Vitals API calls using correct objects
+      // Try VITALS (uppercase) object first
+      if (window.VITALS) {
+        console.log('VITALS object found:', window.VITALS);
+        console.log('VITALS methods available:', Object.keys(window.VITALS));
         
         try {
-          // Try the most common Vitals API methods
-          if (window.Vitals.reviews) {
-            if (typeof window.Vitals.reviews.openWriteReviewModal === 'function') {
-              window.Vitals.reviews.openWriteReviewModal(productId);
-              console.log('Triggered via Vitals.reviews.openWriteReviewModal');
+          // Try common VITALS API methods
+          if (window.VITALS.reviews) {
+            console.log('VITALS.reviews found:', Object.keys(window.VITALS.reviews));
+            
+            if (typeof window.VITALS.reviews.openWriteReviewModal === 'function') {
+              window.VITALS.reviews.openWriteReviewModal(productId);
+              console.log('Triggered via VITALS.reviews.openWriteReviewModal');
               return;
             }
-            if (typeof window.Vitals.reviews.openForm === 'function') {
-              window.Vitals.reviews.openForm(productId);
-              console.log('Triggered via Vitals.reviews.openForm');
+            if (typeof window.VITALS.reviews.openForm === 'function') {
+              window.VITALS.reviews.openForm(productId);
+              console.log('Triggered via VITALS.reviews.openForm');
               return;
             }
-            if (typeof window.Vitals.reviews.showWriteReviewForm === 'function') {
-              window.Vitals.reviews.showWriteReviewForm(productId);
-              console.log('Triggered via Vitals.reviews.showWriteReviewForm');
+            if (typeof window.VITALS.reviews.showModal === 'function') {
+              window.VITALS.reviews.showModal(productId);
+              console.log('Triggered via VITALS.reviews.showModal');
               return;
             }
           }
           
-          // Try window-level Vitals functions
-          if (typeof window.Vitals.openReviewModal === 'function') {
-            window.Vitals.openReviewModal(productId);
-            console.log('Triggered via Vitals.openReviewModal');
+          if (typeof window.VITALS.openReviewForm === 'function') {
+            window.VITALS.openReviewForm(productId);
+            console.log('Triggered via VITALS.openReviewForm');
+            return;
+          }
+          
+          if (typeof window.VITALS.showWriteReview === 'function') {
+            window.VITALS.showWriteReview(productId);
+            console.log('Triggered via VITALS.showWriteReview');
             return;
           }
           
         } catch (e) {
-          console.log('Error calling Vitals API methods:', e);
+          console.log('Error calling VITALS methods:', e);
+        }
+      }
+      
+      // Try vitalsLibrary object
+      if (window.vitalsLibrary) {
+        console.log('vitalsLibrary object found:', window.vitalsLibrary);
+        console.log('vitalsLibrary methods available:', Object.keys(window.vitalsLibrary));
+        
+        try {
+          if (window.vitalsLibrary.reviews) {
+            console.log('vitalsLibrary.reviews found:', Object.keys(window.vitalsLibrary.reviews));
+            
+            if (typeof window.vitalsLibrary.reviews.openModal === 'function') {
+              window.vitalsLibrary.reviews.openModal(productId);
+              console.log('Triggered via vitalsLibrary.reviews.openModal');
+              return;
+            }
+            if (typeof window.vitalsLibrary.reviews.showWriteForm === 'function') {
+              window.vitalsLibrary.reviews.showWriteForm(productId);
+              console.log('Triggered via vitalsLibrary.reviews.showWriteForm');
+              return;
+            }
+          }
+          
+          if (typeof window.vitalsLibrary.openReviewForm === 'function') {
+            window.vitalsLibrary.openReviewForm(productId);
+            console.log('Triggered via vitalsLibrary.openReviewForm');
+            return;
+          }
+          
+        } catch (e) {
+          console.log('Error calling vitalsLibrary methods:', e);
+        }
+      }
+      
+      // Try lowercase vitals as fallback
+      if (window.Vitals) {
+        console.log('Vitals (lowercase) object found for fallback');
+        try {
+          if (window.Vitals.reviews && typeof window.Vitals.reviews.openForm === 'function') {
+            window.Vitals.reviews.openForm(productId);
+            console.log('Triggered via Vitals.reviews.openForm');
+            return;
+          }
+        } catch (e) {
+          console.log('Error calling lowercase Vitals methods:', e);
         }
       }
       
@@ -181,18 +236,20 @@
         }
       }
       
-      // Method 5: Create a simple modal as last resort
+      // Method 5: Final logging and guidance
       setTimeout(function() {
-        console.log('No Vitals review trigger found, showing guidance');
-        console.log('Available window objects:', Object.keys(window).filter(k => k.toLowerCase().includes('vital')));
+        console.log('No Vitals review trigger found');
+        console.log('Available Vitals objects:', Object.keys(window).filter(k => k.toLowerCase().includes('vital')));
+        console.log('VITALS object structure:', window.VITALS ? Object.keys(window.VITALS) : 'not available');
+        console.log('vitalsLibrary object structure:', window.vitalsLibrary ? Object.keys(window.vitalsLibrary) : 'not available');
         
-        // Show helpful guidance
-        var message = 'To leave a review for this product:\n\n' +
-                     '1. Check if there\'s a "Write Review" button in the product description area\n' +
-                     '2. Look for review options below the product images\n' +
-                     '3. Scroll to the bottom of the page for review sections\n\n' +
-                     'If no review options are visible, reviews may need to be enabled in your store settings.';
-        alert(message);
+        // Log helpful guidance instead of showing alert
+        console.log('=== VITALS REVIEW TROUBLESHOOTING ===');
+        console.log('1. Check if there\'s a "Write Review" button in the product description area');
+        console.log('2. Look for review options below the product images');
+        console.log('3. Scroll to the bottom of the page for review sections');
+        console.log('4. Check if Vitals reviews are enabled in your store settings');
+        console.log('=====================================');
       }, 100);
     }
     
