@@ -101,7 +101,20 @@
            role="tabpanel"
            aria-labelledby="tab-reviews">
         <div class="product-tabs__reviews">
-          {% render 'vitals-reviews-widget', product: product %}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% render block %}
+            {%- endcase -%}
+          {%- endfor -%}
+          
+          {%- comment -%} Fallback for when no Vitals app block is added {%- endcomment -%}
+          {%- unless section.blocks.size > 0 -%}
+            <div class="vitals-reviews-placeholder">
+              <h4>Add Vitals Reviews</h4>
+              <p>To show reviews here, add the Vitals Reviews app block to this section in the theme customizer.</p>
+            </div>
+          {%- endunless -%}
         </div>
       </div>
     {%- endif -%}
@@ -283,6 +296,11 @@
     {
       "type": "paragraph",
       "content": "• Care: product.care_instructions (list.single_line_text_field)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
     }
   ],
   "presets": [
