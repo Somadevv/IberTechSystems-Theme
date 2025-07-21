@@ -1,11 +1,12 @@
 {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  Check for Vitals app integration
-  If Vitals Product Description Tabs is enabled, this section will be hidden
+  Simple Product Tabs with Vitals Integration
+  Clean settings with app block support for Vitals reviews
 {%- endcomment -%}
+
 {%- unless shop.metafields.vitals.product_tabs_enabled -%}
-<product-tabs class="product-tabs page-width" data-vitals-compatible="true">
+<product-tabs class="product-tabs page-width">
   <nav class="product-tabs__nav">
     <button class="product-tabs__nav-link" type="button">
       {{ section.settings.description_tab_label | default: 'Description' }}
@@ -32,7 +33,7 @@
           {{ product.description }}
         </div>
       {%- else -%}
-        <div class="product-tabs__reviews-placeholder">
+        <div class="product-tabs__placeholder">
           <p>{{ section.settings.no_description_text | default: 'No description available for this product.' }}</p>
         </div>
       {%- endif -%}
@@ -40,7 +41,7 @@
 
     {%- if section.settings.show_reviews_tab -%}
       <div class="product-tabs__panel">
-        {%- comment -%} Vitals App Block Integration in Reviews Tab {%- endcomment -%}
+        {%- comment -%} Vitals App Block Integration {%- endcomment -%}
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when '@app' -%}
@@ -50,7 +51,7 @@
           {%- endcase -%}
         {%- endfor -%}
         
-        {%- comment -%} Show message if no app blocks added {%- endcomment -%}
+        {%- comment -%} Show setup message if no app blocks added {%- endcomment -%}
         {%- assign has_app_blocks = false -%}
         {%- for block in section.blocks -%}
           {%- if block.type == '@app' -%}
@@ -82,7 +83,7 @@
                 {{ block.settings.tab_content }}
               </div>
             {%- else -%}
-              <div class="product-tabs__reviews-placeholder">
+              <div class="product-tabs__placeholder">
                 <p>{{ block.settings.placeholder_text | default: 'Content coming soon...' }}</p>
               </div>
             {%- endif -%}
@@ -92,10 +93,6 @@
   </div>
 </product-tabs>
 
-{%- comment -%}
-  Vitals Product Description Tabs Integration Area
-  When Vitals is enabled, tabs will appear here automatically
-{%- endcomment -%}
 <div id="vitals-product-tabs-container" data-product-id="{{ product.id }}"></div>
 {%- endunless -%}
 
@@ -131,7 +128,7 @@
       "type": "checkbox",
       "id": "show_reviews_tab",
       "label": "Show Reviews Tab",
-      "info": "Enable to show the Reviews tab with Vitals reviews widget",
+      "info": "Enable to show the Reviews tab with Vitals app blocks",
       "default": true
     },
     {
@@ -143,17 +140,6 @@
       "id": "no_description_text",
       "label": "No Description Text",
       "default": "No description available for this product."
-    },
-    {
-      "type": "header",
-      "content": "Vitals Integration"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_vitals_integration",
-      "label": "Enable Vitals Product Tabs Integration",
-      "info": "When enabled, this section will be hidden if Vitals Product Description Tabs app is active",
-      "default": true
     }
   ],
   "blocks": [
