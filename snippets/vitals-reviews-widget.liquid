@@ -85,20 +85,65 @@
   {%- comment -%} Vitals Integration JavaScript {%- endcomment -%}
   <script>
     function triggerVitalsReview(productId, productHandle) {
-      console.log('=== VITALS REVIEW TRIGGER v3.0 ===');
+      console.log('=== VITALS REVIEW TRIGGER v4.0 - TARGETED FIX ===');
       console.log('Attempting to trigger Vitals review for product:', productId);
       
-      // IMMEDIATE: Log VITALS.states structure first
-      if (window.VITALS && window.VITALS.states) {
-        console.log('VITALS.states immediate inspection:');
-        console.log('- VITALS.states keys:', Object.keys(window.VITALS.states));
-        console.log('- VITALS.states full object:', window.VITALS.states);
+      // Method 1: Try to click the specific Vitals reviews widget element
+      var vitalsReviewsElement = document.getElementById('vitals-reviews-' + productId);
+      if (vitalsReviewsElement) {
+        console.log('Found vitals-reviews element:', vitalsReviewsElement);
         
-        // Log each state's structure
-        Object.keys(window.VITALS.states).forEach(function(key) {
-          var state = window.VITALS.states[key];
-          console.log('- VITALS.states.' + key + ':', typeof state === 'object' ? Object.keys(state) : state);
+        // Try clicking the element itself
+        vitalsReviewsElement.click();
+        console.log('Clicked vitals-reviews element');
+        
+        // Try triggering various events on it
+        var clickEvent = new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window
         });
+        vitalsReviewsElement.dispatchEvent(clickEvent);
+        console.log('Dispatched click event');
+        
+        // Try double click
+        var dblClickEvent = new MouseEvent('dblclick', {
+          bubbles: true,
+          cancelable: true,
+          view: window
+        });
+        vitalsReviewsElement.dispatchEvent(dblClickEvent);
+        console.log('Dispatched double-click event');
+        
+        return;
+      }
+      
+      // Method 2: Look for the vitals-reviews-widget class
+      var vitalsWidget = document.querySelector('.vitals-reviews-widget[data-product-id="' + productId + '"]');
+      if (vitalsWidget) {
+        console.log('Found vitals-reviews-widget:', vitalsWidget);
+        vitalsWidget.click();
+        console.log('Clicked vitals-reviews-widget');
+        return;
+      }
+      
+      // Method 3: Try VITALS.states.attribution approach
+      if (window.VITALS && window.VITALS.states && window.VITALS.states.attribution) {
+        console.log('Trying VITALS.states.attribution approach...');
+        try {
+          // Try to trigger review form through attribution state
+          if (typeof window.VITALS.states.attribution === 'function') {
+            window.VITALS.states.attribution('openReviewForm', productId);
+            console.log('Called VITALS.states.attribution as function');
+            return;
+          } else if (window.VITALS.states.attribution.openReviewForm) {
+            window.VITALS.states.attribution.openReviewForm(productId);
+            console.log('Called VITALS.states.attribution.openReviewForm');
+            return;
+          }
+        } catch (e) {
+          console.log('Error with VITALS.states.attribution:', e);
+        }
       }
       
       // Method 1: Look for Vitals-generated review elements on the page
