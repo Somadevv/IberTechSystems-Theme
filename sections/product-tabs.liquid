@@ -10,9 +10,11 @@
     <button class="product-tabs__nav-link" type="button">
       {{ section.settings.description_tab_label | default: 'Description' }}
     </button>
-    <button class="product-tabs__nav-link" type="button">
-      {{ section.settings.reviews_tab_label | default: 'Reviews' }}
-    </button>
+    {%- if section.settings.show_reviews_tab -%}
+      <button class="product-tabs__nav-link" type="button">
+        {{ section.settings.reviews_tab_label | default: 'Reviews' }}
+      </button>
+    {%- endif -%}
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'custom_tab' -%}
@@ -36,17 +38,12 @@
       {%- endif -%}
     </div>
 
-    <div class="product-tabs__panel">
-      {%- comment -%} Vitals Reviews Integration in Reviews Tab {%- endcomment -%}
-      {%- if section.settings.use_vitals_reviews -%}
+    {%- if section.settings.show_reviews_tab -%}
+      <div class="product-tabs__panel">
+        {%- comment -%} Vitals Reviews Integration in Reviews Tab {%- endcomment -%}
         {% render 'vitals-reviews-widget', product: product %}
-      {%- else -%}
-        <div class="product-tabs__reviews-placeholder">
-          <h3>Customer Reviews</h3>
-          <p>Reviews functionality is managed by the Vitals app. Please enable "Use Vitals Reviews Widget" in the theme settings.</p>
-        </div>
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
 
     {%- for block in section.blocks -%}
       {%- case block.type -%}
@@ -104,9 +101,9 @@
     },
     {
       "type": "checkbox",
-      "id": "use_vitals_reviews",
-      "label": "Use Vitals Reviews Widget",
-      "info": "Enable to show Vitals reviews in the Reviews tab",
+      "id": "show_reviews_tab",
+      "label": "Show Reviews Tab",
+      "info": "Enable to show the Reviews tab with Vitals reviews widget",
       "default": true
     },
     {
