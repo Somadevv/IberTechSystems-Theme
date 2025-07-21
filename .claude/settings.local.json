@@ -12,7 +12,11 @@
       "Bash(git pull:*)",
       "Bash(git checkout:*)",
       "Bash(git branch:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(find:*)",
+      "Bash(git stash:*)",
+      "Bash(shopify theme dev:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   }
