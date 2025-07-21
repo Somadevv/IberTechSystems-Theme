@@ -68,6 +68,7 @@
             "reviews_placeholder_text": "No reviews yet. Be the first to review this product!",
             "show_review_button": true,
             "review_button_text": "Write a Review",
+            "use_vitals_reviews": true,
             "no_description_text": "No description available for this product.",
             "features_content": "High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed",
             "features_placeholder_title": "Key Features",
@@ -81,9 +82,12 @@
             "custom_feature_4_title": "",
             "custom_feature_4_description": "",
             "custom_feature_5_title": "",
-            "custom_feature_5_description": "",
-            "use_vitals_reviews": true
+            "custom_feature_5_description": ""
           }
+        },
+        "vitals_product_reviews_VEXMci": {
+          "type": "shopify://apps/vitals/blocks/product-reviews/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
         }
       },
       "block_order": [
@@ -95,7 +99,8 @@
         "quantity_selector",
         "buy_buttons",
         "share",
-        "product_tabs"
+        "product_tabs",
+        "vitals_product_reviews_VEXMci"
       ],
       "settings": {
         "enable_sticky_info": true,
