@@ -1,107 +1,195 @@
 {%- comment -%}
   Vitals Reviews Widget Snippet
-  This snippet renders the Vitals third-party app reviews widget
-  instead of in-house reviews, using proper Vitals integration.
+  This snippet creates a container for Vitals third-party app reviews
+  with proper integration for the Vitals app to inject content.
   
   Parameters:
   - product: Required. The product object for which to show reviews
 {%- endcomment -%}
 
 {%- if product -%}
-  {%- comment -%} Vitals Reviews Display {%- endcomment -%}
-  <div class="vitals-reviews-display" data-product-id="{{ product.id }}">
+  {%- comment -%} Vitals Reviews Container {%- endcomment -%}
+  <div class="vitals-reviews-container" data-product-id="{{ product.id }}">
+    
+    {%- comment -%} Primary Vitals Reviews Widget Container {%- endcomment -%}
+    <div 
+      id="vitals-reviews-{{ product.id }}"
+      class="vitals-reviews-widget" 
+      data-vitals-reviews
+      data-vitals-product-id="{{ product.id }}"
+      data-product-id="{{ product.id }}"
+      data-product-handle="{{ product.handle }}"
+    >
+      {%- comment -%} This is where Vitals will inject the reviews widget {%- endcomment -%}
+    </div>
+    
     {%- comment -%} 
-      Vitals Reviews Widget Container
-      The Vitals app automatically detects this container and injects reviews
+      Alternative container for Write Review functionality 
+      Some Vitals configurations look for specific containers
     {%- endcomment -%}
     <div 
-      id="vitals-reviews-widget-{{ product.id }}" 
-      class="vitals-reviews-widget"
-      data-vitals-reviews
+      id="vitals-write-review-{{ product.id }}"
+      class="vitals-write-review-widget"
+      data-vitals-write-review
       data-product-id="{{ product.id }}"
-      data-shop="{{ shop.permanent_domain }}"
+      data-product-handle="{{ product.handle }}"
     >
-      {%- comment -%} Loading state {%- endcomment -%}
-      <div class="vitals-reviews-loading" style="text-align: center; padding: 2rem;">
-        <div style="display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #333; border-radius: 50%; animation: spin 2s linear infinite;"></div>
-        <p style="margin-top: 1rem;">Loading reviews...</p>
+      {%- comment -%} Vitals write review widget will render here {%- endcomment -%}
+    </div>
+    
+    {%- comment -%} Fallback content with Leave a Review button {%- endcomment -%}
+    <div class="vitals-reviews-fallback" style="padding: 2rem; text-align: center; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+      <div class="reviews-header" style="margin-bottom: 2rem;">
+        <h4 style="margin-bottom: 0.5rem; color: #333; font-size: 1.25rem;">Customer Reviews</h4>
+        <p style="color: #666; margin: 0;">Share your experience with this product</p>
+      </div>
+      
+      {%- comment -%} Leave a Review Button {%- endcomment -%}
+      <div class="leave-review-section" style="margin-bottom: 2rem;">
+        <button 
+          type="button" 
+          class="leave-review-btn"
+          style="
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 14px 28px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+          "
+          onclick="triggerVitalsReviewForm()"
+          onmouseover="this.style.backgroundColor='#0056b3'"
+          onmouseout="this.style.backgroundColor='#007bff'"
+        >
+          ✍️ Leave a Review
+        </button>
+      </div>
+      
+      {%- comment -%} Reviews placeholder area {%- endcomment -%}
+      <div class="reviews-placeholder" style="padding-top: 2rem; border-top: 1px solid #dee2e6;">
+        <div style="color: #868e96; font-size: 14px; line-height: 1.5;">
+          <p style="margin-bottom: 0.5rem;">
+            <strong>Reviews are managed by Vitals</strong>
+          </p>
+          <p style="margin: 0;">
+            If the review interface doesn't appear, please ensure Vitals reviews are enabled in your store settings.
+          </p>
+        </div>
       </div>
     </div>
     
     {%- comment -%} No JavaScript fallback {%- endcomment -%}
     <noscript>
-      <div class="vitals-reviews-noscript" style="padding: 2rem; text-align: center; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
-        <h4 style="margin-bottom: 1rem;">Customer Reviews</h4>
-        <p>Reviews are powered by Vitals and require JavaScript to load. Please enable JavaScript in your browser to see customer reviews for this product.</p>
+      <div class="vitals-reviews-noscript" style="padding: 2rem; text-align: center; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px;">
+        <h4 style="color: #856404; margin-bottom: 0.5rem;">JavaScript Required</h4>
+        <p style="color: #856404; margin: 0;">Please enable JavaScript to view reviews and leave feedback for this product.</p>
       </div>
     </noscript>
   </div>
   
-  {%- comment -%} Styles for loading animation {%- endcomment -%}
-  <style>
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .vitals-reviews-widget {
-      min-height: 200px;
-      position: relative;
-    }
-    
-    .vitals-reviews-loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-    }
-    
-    /* Hide loading when Vitals content appears */
-    .vitals-reviews-widget:not(:empty) .vitals-reviews-loading {
-      display: none;
-    }
-  </style>
-  
-  {%- comment -%} Initialize Vitals reviews {%- endcomment -%}
+  {%- comment -%} Vitals Integration JavaScript {%- endcomment -%}
   <script>
-    (function() {
-      // Wait for DOM and Vitals to be ready
-      function initVitalsReviews() {
-        // Check if Vitals is loaded
-        if (typeof window.Vitals !== 'undefined' && window.Vitals.reviews) {
-          // Initialize Vitals reviews for this product
-          window.Vitals.reviews.init({
-            productId: '{{ product.id }}',
-            containerId: 'vitals-reviews-widget-{{ product.id }}',
-            shopDomain: '{{ shop.permanent_domain }}'
-          });
-          
-          // Hide loading after a short delay to allow content to appear
-          setTimeout(function() {
-            var loadingEl = document.querySelector('#vitals-reviews-widget-{{ product.id }} .vitals-reviews-loading');
-            if (loadingEl) {
-              loadingEl.style.display = 'none';
-            }
-          }, 2000);
-        } else {
-          // Retry after a short delay
-          setTimeout(initVitalsReviews, 500);
+    function triggerVitalsReviewForm() {
+      // Multiple approaches to trigger Vitals review form
+      
+      // Method 1: Standard Vitals API
+      if (window.Vitals && window.Vitals.reviews) {
+        if (typeof window.Vitals.reviews.openForm === 'function') {
+          window.Vitals.reviews.openForm('{{ product.id }}');
+          return;
+        }
+        if (typeof window.Vitals.reviews.showWriteReview === 'function') {
+          window.Vitals.reviews.showWriteReview('{{ product.id }}');
+          return;
         }
       }
       
-      // Start initialization when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initVitalsReviews);
-      } else {
-        initVitalsReviews();
+      // Method 2: VitalsReviews global object
+      if (window.VitalsReviews && typeof window.VitalsReviews.openReviewForm === 'function') {
+        window.VitalsReviews.openReviewForm({
+          productId: '{{ product.id }}',
+          productHandle: '{{ product.handle }}',
+          productTitle: '{{ product.title | escape }}'
+        });
+        return;
       }
-    })();
+      
+      // Method 3: Trigger by clicking hidden Vitals button (if it exists)
+      var vitalsButton = document.querySelector('[data-vitals-review-button], .vitals-review-button, #vitals-review-btn-{{ product.id }}');
+      if (vitalsButton) {
+        vitalsButton.click();
+        return;
+      }
+      
+      // Method 4: Custom event trigger
+      var event = new CustomEvent('vitals:openReviewForm', {
+        detail: {
+          productId: '{{ product.id }}',
+          productHandle: '{{ product.handle }}'
+        }
+      });
+      document.dispatchEvent(event);
+      
+      // Fallback message
+      setTimeout(function() {
+        alert('Review form is opening... If it doesn\'t appear, please ensure you have Vitals reviews enabled in your store.');
+        console.log('Attempted to open Vitals review form for product:', '{{ product.id }}');
+      }, 500);
+    }
+    
+    // Initialize and check for Vitals content
+    document.addEventListener('DOMContentLoaded', function() {
+      var fallback = document.querySelector('.vitals-reviews-fallback');
+      var vitalsContainer = document.querySelector('#vitals-reviews-{{ product.id }}');
+      var writeReviewContainer = document.querySelector('#vitals-write-review-{{ product.id }}');
+      
+      // Function to check if Vitals has loaded content
+      function checkVitalsContent() {
+        var hasVitalsContent = false;
+        
+        // Check for Vitals-injected content
+        if (vitalsContainer && vitalsContainer.children.length > 0) {
+          hasVitalsContent = true;
+        }
+        if (writeReviewContainer && writeReviewContainer.children.length > 0) {
+          hasVitalsContent = true;
+        }
+        
+        // Check for any element with Vitals-specific classes or attributes
+        var vitalsElements = document.querySelectorAll('[data-vitals], .vitals-widget, .vitals-reviews-widget-loaded');
+        if (vitalsElements.length > 0) {
+          hasVitalsContent = true;
+        }
+        
+        // Hide fallback if Vitals content is found
+        if (hasVitalsContent && fallback) {
+          fallback.style.display = 'none';
+        }
+        
+        return hasVitalsContent;
+      }
+      
+      // Check immediately and then periodically
+      checkVitalsContent();
+      setTimeout(checkVitalsContent, 2000);
+      setTimeout(checkVitalsContent, 5000);
+      
+      // Listen for Vitals-specific events
+      document.addEventListener('vitals:loaded', checkVitalsContent);
+      document.addEventListener('vitals:reviews:loaded', checkVitalsContent);
+    });
   </script>
+
 {%- else -%}
   {%- comment -%} Error state - no product provided {%- endcomment -%}
-  <div class="vitals-reviews-error" style="padding: 2rem; text-align: center; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px;">
-    <h4 style="color: #856404; margin-bottom: 0.5rem;">Reviews Unavailable</h4>
-    <p style="color: #856404; margin: 0;">Unable to load reviews: No product specified.</p>
+  <div class="vitals-reviews-error" style="padding: 2rem; text-align: center; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px;">
+    <h4 style="color: #721c24; margin-bottom: 0.5rem;">Unable to Load Reviews</h4>
+    <p style="color: #721c24; margin: 0;">No product specified for reviews display.</p>
   </div>
 {%- endif -%}
