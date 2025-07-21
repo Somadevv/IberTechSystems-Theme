@@ -27,12 +27,116 @@
 
   <div class="product-tabs__content">
     <div class="product-tabs__panel">
+      {%- comment -%} Show product description at the top {%- endcomment -%}
       {%- if product.description != blank -%}
-        <div class="rte">
-          {{ product.description }}
+        {%- assign full_description = product.description -%}
+        {%- assign description_only = '' -%}
+        
+        {%- comment -%} Split content at "Key Features:" or similar markers {%- endcomment -%}
+        {%- if full_description contains 'Key Features:' -%}
+          {%- assign description_parts = full_description | split: 'Key Features:' -%}
+          {%- assign description_only = description_parts[0] | strip -%}
+        {%- elsif full_description contains 'Features:' -%}
+          {%- assign description_parts = full_description | split: 'Features:' -%}
+          {%- assign description_only = description_parts[0] | strip -%}
+        {%- elsif full_description contains '<ul>' or full_description contains '<li>' -%}
+          {%- comment -%} If contains HTML lists, extract text before first list {%- endcomment -%}
+          {%- assign description_parts = full_description | split: '<ul>' -%}
+          {%- assign description_only = description_parts[0] | strip -%}
+        {%- else -%}
+          {%- assign description_only = full_description -%}
+        {%- endif -%}
+        
+        <div class="product-tabs__description">
+          <h4>Product Overview</h4>
+          <div class="rte">
+            {%- assign clean_description = description_only | replace: '---FEATURES---', '' | strip -%}
+            {{ clean_description }}
+          </div>
+        </div>
+      {%- endif -%}
+      
+      {%- comment -%} Features section with dropdown functionality {%- endcomment -%}
+      {%- assign extracted_features = blank -%}
+      {%- assign key_features = blank -%}
+      
+      {%- comment -%} Extract features from product description {%- endcomment -%}
+      {%- if product.description != blank -%}
+        {%- assign full_description = product.description -%}
+        
+        {%- comment -%} Extract content after "Key Features:" or "Features:" {%- endcomment -%}
+        {%- if full_description contains 'Key Features:' -%}
+          {%- assign description_parts = full_description | split: 'Key Features:' -%}
+          {%- if description_parts.size > 1 -%}
+            {%- assign extracted_features = description_parts[1] | strip -%}
+          {%- endif -%}
+        {%- elsif full_description contains 'Features:' -%}
+          {%- assign description_parts = full_description | split: 'Features:' -%}
+          {%- if description_parts.size > 1 -%}
+            {%- assign extracted_features = description_parts[1] | strip -%}
+          {%- endif -%}
+        {%- elsif full_description contains '<ul>' -%}
+          {%- comment -%} Extract HTML list content {%- endcomment -%}
+          {%- assign ul_parts = full_description | split: '<ul>' -%}
+          {%- if ul_parts.size > 1 -%}
+            {%- assign list_content = ul_parts[1] | split: '</ul>' | first -%}
+            {%- assign extracted_features = '<ul>' | append: list_content | append: '</ul>' -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+      
+      {%- comment -%} Prioritize extracted features, then metafields {%- endcomment -%}
+      {%- if extracted_features != blank -%}
+        {%- assign key_features = extracted_features -%}
+      {%- elsif product.metafields.custom.key_features != blank -%}
+        {%- assign key_features = product.metafields.custom.key_features -%}
+      {%- endif -%}
+
+      {%- if key_features != blank -%}
+        <div class="product-tabs__features">
+          <h4 style="margin-bottom: 1rem;">Key Features</h4>
+          
+          {%- comment -%} Parse features into dropdown list {%- endcomment -%}
+          {%- assign features_list = blank -%}
+          {%- if key_features contains '|' -%}
+            {%- assign features_list = key_features | split: '|' -%}
+          {%- elsif key_features contains '<li>' -%}
+            {%- assign li_items = key_features | split: '<li>' -%}
+            {%- assign features_list = '' | split: ',' -%}
+            {%- for item in li_items -%}
+              {%- unless forloop.first -%}
+                {%- assign clean_item = item | split: '</li>' | first | strip_html | strip -%}
+                {%- if clean_item != blank -%}
+                  {%- assign features_list = features_list | append: clean_item | append: '|' | split: '|' -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- assign features_list = key_features | split: '
+' -%}
+          {%- endif -%}
+
+          <ul class="product-tabs__features-list">
+            {%- for feature in features_list -%}
+              {%- assign feature_trimmed = feature | strip -%}
+              {%- unless feature_trimmed == blank -%}
+                <li class="product-tabs__features-item">
+                  <div class="product-tabs__features-header" onclick="toggleFeature(this)" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee;">
+                    <span style="flex: 1;">{{ feature_trimmed }}</span>
+                    <svg class="feature-toggle" viewBox="0 0 16 16" style="width: 16px; height: 16px; transition: transform 0.3s ease;">
+                      <path d="M8 12l-4-4h8l-4 4z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div class="product-tabs__features-details" style="display: none; padding: 0.5rem 0; color: #666;">
+                    <p>{{ feature_trimmed | append: ' - Professional grade component designed for optimal performance and reliability.' }}</p>
+                  </div>
+                </li>
+              {%- endunless -%}
+            {%- endfor -%}
+          </ul>
         </div>
       {%- else -%}
-        <div class="product-tabs__reviews-placeholder">
+        <div class="product-tabs__features-placeholder">
           <p>{{ section.settings.no_description_text | default: 'No description available for this product.' }}</p>
         </div>
       {%- endif -%}
@@ -103,6 +207,20 @@
 <div id="vitals-product-tabs-container" data-product-id="{{ product.id }}"></div>
 {%- endunless -%}
 
+<script>
+  function toggleFeature(element) {
+    const details = element.nextElementSibling;
+    const toggle = element.querySelector('.feature-toggle');
+    
+    if (details.style.display === 'none' || !details.style.display) {
+      details.style.display = 'block';
+      toggle.style.transform = 'rotate(180deg)';
+    } else {
+      details.style.display = 'none';
+      toggle.style.transform = 'rotate(0deg)';
+    }
+  }
+</script>
 <script src="{{ 'product-tabs.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
