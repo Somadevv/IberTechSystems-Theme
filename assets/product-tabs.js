@@ -3,9 +3,6 @@ class ProductTabs extends HTMLElement {
     super();
     this.tabs = this.querySelectorAll('.product-tabs__nav-link');
     this.panels = this.querySelectorAll('.product-tabs__panel');
-    this.reviewForm = this.querySelector('#product-review-form');
-    this.showReviewBtn = this.querySelector('#show-review-form-btn');
-    this.cancelReviewBtn = this.querySelector('#cancel-review-btn');
     
     this.init();
   }
@@ -34,86 +31,8 @@ class ProductTabs extends HTMLElement {
     if (this.tabs.length > 0) {
       this.switchTab(0);
     }
-
-    // Add review form toggle functionality
-    this.initReviewForm();
   }
 
-  initReviewForm() {
-    if (this.showReviewBtn && this.reviewForm) {
-      this.showReviewBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.showReviewForm();
-      });
-    }
-
-    if (this.cancelReviewBtn && this.reviewForm) {
-      this.cancelReviewBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.hideReviewForm();
-      });
-    }
-  }
-
-  showReviewForm() {
-    if (!this.reviewForm) return;
-
-    // First, switch to the Reviews tab (index 1)
-    this.switchTab(1);
-
-    // Hide the review placeholder (including title and text)
-    const reviewPlaceholder = this.querySelector('.product-tabs__reviews-placeholder');
-    if (reviewPlaceholder) {
-      reviewPlaceholder.style.display = 'none';
-    }
-
-    // Remove margin-top from form container
-    this.reviewForm.classList.add('no-margin');
-
-    // Show the form with smooth animation
-    this.reviewForm.style.display = 'block';
-    this.reviewForm.style.opacity = '0';
-    this.reviewForm.style.transform = 'translateY(-20px)';
-    
-    // Trigger reflow to ensure the initial styles are applied
-    this.reviewForm.offsetHeight;
-    
-    // Animate to visible state
-    this.reviewForm.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    this.reviewForm.style.opacity = '1';
-    this.reviewForm.style.transform = 'translateY(0)';
-
-    // Focus on the first input field
-    setTimeout(() => {
-      const firstInput = this.reviewForm.querySelector('input[type="text"]');
-      if (firstInput) {
-        firstInput.focus();
-      }
-    }, 400);
-  }
-
-  hideReviewForm() {
-    if (!this.reviewForm) return;
-
-    // Animate to hidden state
-    this.reviewForm.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    this.reviewForm.style.opacity = '0';
-    this.reviewForm.style.transform = 'translateY(-20px)';
-
-    // Hide the form after animation completes
-    setTimeout(() => {
-      this.reviewForm.style.display = 'none';
-      this.reviewForm.style.transition = '';
-      // Restore margin-top
-      this.reviewForm.classList.remove('no-margin');
-    }, 300);
-
-    // Show the review placeholder again
-    const reviewPlaceholder = this.querySelector('.product-tabs__reviews-placeholder');
-    if (reviewPlaceholder) {
-      reviewPlaceholder.style.display = 'block';
-    }
-  }
 
   switchTab(targetIndex) {
     // Remove active class from all tabs and panels
@@ -138,10 +57,6 @@ class ProductTabs extends HTMLElement {
       this.panels[targetIndex].setAttribute('aria-hidden', 'false');
     }
 
-    // Hide review form if switching away from reviews tab
-    if (targetIndex !== 1 && this.reviewForm) { // Reviews is now the 2nd tab (index 1)
-      this.hideReviewForm();
-    }
   }
 }
 

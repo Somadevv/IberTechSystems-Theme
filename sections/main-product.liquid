@@ -764,7 +764,6 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product_tabs' -%}
-                <!-- DEBUG: Product tabs block rendering -->
                 <div class="product-tabs-block" {{ block.shopify_attributes }}>
                   {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
                   <product-tabs class="product-tabs page-width">
@@ -777,9 +776,6 @@
                       </button>
                       <button class="product-tabs__nav-link" type="button" role="tab" aria-controls="reviews-panel" aria-selected="false" id="reviews-tab">
                         {{ block.settings.reviews_tab_label | default: 'Reviews' }}
-                        {%- if block.settings.show_reviews_count and block.settings.reviews_count > 0 -%}
-                          <span class="product-tabs__reviews-count">{{ block.settings.reviews_count }}</span>
-                        {%- endif -%}
                       </button>
                     </nav>
 
@@ -866,16 +862,10 @@
                         </div>
                       </div>
 
-                      <!-- Reviews Tab -->
+                      <!-- Reviews Tab - Vitals Integration -->
                       <div class="product-tabs__panel" role="tabpanel" id="reviews-panel" aria-labelledby="reviews-tab">
-                        <div class="product-tabs__reviews-placeholder">
-                          <h3>{{ block.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
-                          <p>{{ block.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
-                          {%- if block.settings.show_review_button -%}
-                            <button class="button" id="show-review-form-btn">
-                              {{ block.settings.review_button_text | default: 'Write a Review' }}
-                            </button>
-                          {%- endif -%}
+                        <div id="vitals-product-reviews" data-product-id="{{ product.id }}">
+                          <!-- Vitals reviews will be loaded here -->
                         </div>
                       </div>
                     </div>
@@ -2472,42 +2462,6 @@
           "id": "reviews_tab_label",
           "label": "Reviews Tab Label",
           "default": "Reviews"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_reviews_count",
-          "label": "Show Reviews Count",
-          "default": false
-        },
-        {
-          "type": "number",
-          "id": "reviews_count",
-          "label": "Reviews Count",
-          "default": 0
-        },
-        {
-          "type": "text",
-          "id": "reviews_placeholder_title",
-          "label": "Reviews Placeholder Title",
-          "default": "Customer Reviews"
-        },
-        {
-          "type": "text",
-          "id": "reviews_placeholder_text",
-          "label": "Reviews Placeholder Text",
-          "default": "No reviews yet. Be the first to review this product!"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_review_button",
-          "label": "Show Review Button",
-          "default": true
-        },
-        {
-          "type": "text",
-          "id": "review_button_text",
-          "label": "Review Button Text",
-          "default": "Write a Review"
         },
         {
           "type": "text",
