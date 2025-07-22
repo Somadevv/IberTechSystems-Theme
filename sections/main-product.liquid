@@ -764,6 +764,7 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product_tabs' -%}
+                <!-- DEBUG: Product tabs block rendering -->
                 <div class="product-tabs-block" {{ block.shopify_attributes }}>
                   {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
                   <product-tabs class="product-tabs page-width">
@@ -2452,7 +2453,132 @@
     {
       "type": "product_tabs",
       "name": "Product Tabs",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "description_tab_label",
+          "label": "Description Tab Label",
+          "default": "Description"
+        },
+        {
+          "type": "text",
+          "id": "features_tab_label",
+          "label": "Features Tab Label",
+          "default": "Features"
+        },
+        {
+          "type": "text",
+          "id": "reviews_tab_label",
+          "label": "Reviews Tab Label",
+          "default": "Reviews"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reviews_count",
+          "label": "Show Reviews Count",
+          "default": false
+        },
+        {
+          "type": "number",
+          "id": "reviews_count",
+          "label": "Reviews Count",
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "reviews_placeholder_title",
+          "label": "Reviews Placeholder Title",
+          "default": "Customer Reviews"
+        },
+        {
+          "type": "text",
+          "id": "reviews_placeholder_text",
+          "label": "Reviews Placeholder Text",
+          "default": "No reviews yet. Be the first to review this product!"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_button",
+          "label": "Show Review Button",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "review_button_text",
+          "label": "Review Button Text",
+          "default": "Write a Review"
+        },
+        {
+          "type": "text",
+          "id": "no_description_text",
+          "label": "No Description Text",
+          "default": "No description available for this product."
+        },
+        {
+          "type": "text",
+          "id": "features_content",
+          "label": "Features List (separated by |)",
+          "default": "High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed",
+          "info": "Enter feature names separated by pipe (|) characters"
+        },
+        {
+          "type": "text",
+          "id": "features_placeholder_title",
+          "label": "Features Section Title",
+          "default": "Key Features"
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_1_title",
+          "label": "Custom Feature 1 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_1_description",
+          "label": "Custom Feature 1 Description"
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_2_title",
+          "label": "Custom Feature 2 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_2_description",
+          "label": "Custom Feature 2 Description"
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_3_title",
+          "label": "Custom Feature 3 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_3_description",
+          "label": "Custom Feature 3 Description"
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_4_title",
+          "label": "Custom Feature 4 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_4_description",
+          "label": "Custom Feature 4 Description"
+        },
+        {
+          "type": "text",
+          "id": "custom_feature_5_title",
+          "label": "Custom Feature 5 Title"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_feature_5_description",
+          "label": "Custom Feature 5 Description"
+        }
+      ]
     }
   ],
   "settings": [
