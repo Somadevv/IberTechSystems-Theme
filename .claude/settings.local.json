@@ -18,7 +18,8 @@
       "Bash(shopify theme dev:*)",
       "Bash(git rm:*)",
       "Bash(grep:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

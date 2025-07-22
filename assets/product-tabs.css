@@ -177,6 +177,10 @@
   cursor: pointer;
   position: relative;
   z-index: 2;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: left;
 }
 
 .product-tabs__features-item:hover .product-tabs__features-header {

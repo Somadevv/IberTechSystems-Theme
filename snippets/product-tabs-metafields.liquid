@@ -23,11 +23,11 @@
 
 {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
 <product-tabs class="product-tabs">
-  <nav class="product-tabs__nav">
-    <button class="product-tabs__nav-link" type="button">
+  <nav class="product-tabs__nav" role="tablist" aria-label="Product information tabs">
+    <button class="product-tabs__nav-link" type="button" role="tab" aria-controls="features-panel" aria-selected="true" id="features-tab">
       Features
     </button>
-    <button class="product-tabs__nav-link" type="button">
+    <button class="product-tabs__nav-link" type="button" role="tab" aria-controls="reviews-panel" aria-selected="false" id="reviews-tab">
       Reviews
       <span class="product-tabs__reviews-count">1</span>
     </button>
@@ -35,7 +35,7 @@
 
   <div class="product-tabs__content">
     <!-- Features Tab -->
-    <div class="product-tabs__panel">
+    <div class="product-tabs__panel" role="tabpanel" id="features-panel" aria-labelledby="features-tab">
       {%- if product.description != blank -%}
         <div class="product-tabs__description">
           <h4>Product Overview</h4>
@@ -59,14 +59,14 @@
           {%- for feature in features_list -%}
             {%- assign feature_name = feature | strip -%}
             {%- unless feature_name == blank -%}
-              <li class="product-tabs__features-item" onclick="toggleFeature(this)">
-                <div class="product-tabs__features-header">
+              <li class="product-tabs__features-item">
+                <button class="product-tabs__features-header" type="button" aria-expanded="false" aria-controls="feature-{{ forloop.index }}-details" onclick="toggleFeature(this.parentElement)">
                   <span>{{ feature_name }}</span>
-                  <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg class="feature-toggle" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M8 12l-4-4h8l-4 4z" fill="currentColor"/>
                   </svg>
-                </div>
-                <div class="product-tabs__features-details">
+                </button>
+                <div class="product-tabs__features-details" id="feature-{{ forloop.index }}-details" aria-hidden="true">
                   {%- assign feature_detail_key = 'feature_' | append: forloop.index -%}
                   {%- assign custom_detail = product.metafields.custom[feature_detail_key] -%}
                   
@@ -97,7 +97,7 @@
     </div>
 
     <!-- Reviews Tab -->
-    <div class="product-tabs__panel">
+    <div class="product-tabs__panel" role="tabpanel" id="reviews-panel" aria-labelledby="reviews-tab">
       <div class="product-tabs__reviews-placeholder">
         <h3>Customer Reviews</h3>
         <p>No reviews yet. Be the first to review this product!</p>

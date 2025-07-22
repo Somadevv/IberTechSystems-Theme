@@ -763,6 +763,8 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+              {%- when 'product_tabs' -%}
+                {% render 'product-tabs-metafields' %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -2330,6 +2332,11 @@
           "placeholder": "e.g. 24/7 customer support"
         }
       ]
+    },
+    {
+      "type": "product_tabs",
+      "name": "Product Tabs",
+      "limit": 1
     }
   ],
   "settings": [

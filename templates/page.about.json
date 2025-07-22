@@ -1,0 +1,225 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "about_hero": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>About IberTechSystems</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>For over <strong>40 years</strong>, IberTechSystems has been a trusted leader in automation solutions, specializing in <strong>gate motors</strong>, <strong>access control systems</strong>, and <strong>security technology</strong>. We pride ourselves on delivering reliable, innovative products that ensure security, convenience, and seamless operation for both residential and commercial properties.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "company_values": {
+      "type": "multicolumn",
+      "blocks": {
+        "value_1": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Quality & Reliability</strong>",
+            "text": "<p>Every product we offer is rigorously tested to ensure long-lasting performance and dependability in all weather conditions.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "value_2": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Expert Support</strong>",
+            "text": "<p>Our technical team provides 24/7 support with deep expertise in automation systems and installation guidance.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "value_3": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Innovation</strong>",
+            "text": "<p>We continuously evolve our product lineup with the latest technology to meet changing security and automation needs.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "value_4": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Customer Focus</strong>",
+            "text": "<p>From homeowners to large commercial projects, we tailor our solutions to meet each customer's unique requirements.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3",
+        "value_4"
+      ],
+      "settings": {
+        "title": "<strong>Our Core Values</strong>",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "company_story": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Our Story</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Founded with a vision to make property security and automation accessible to everyone, IberTechSystems has grown from a small technical company to a leading provider of automation solutions across residential and commercial markets.</p><p>Our journey began with a simple goal: to create reliable, easy-to-install automation products that homeowners and businesses could trust. Today, we've installed over <strong>10,000+ systems</strong> worldwide and continue to expand our product range to meet evolving security needs.</p><p>What sets us apart is our commitment to both innovation and simplicity. Our products are designed to be powerful yet user-friendly, ensuring that advanced automation technology is accessible to everyone, from tech-savvy enthusiasts to first-time users.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "expertise_areas": {
+      "type": "multicolumn",
+      "blocks": {
+        "expertise_1": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Residential Solutions</strong>",
+            "text": "<p>Garage door openers, gate motors, and smart home integration systems designed for homeowners seeking convenience and security.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "expertise_2": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Commercial Systems</strong>",
+            "text": "<p>Heavy-duty access control, barrier systems, and high-security solutions for businesses, warehouses, and industrial facilities.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "expertise_3": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Access Control</strong>",
+            "text": "<p>Advanced keypad systems, remote controls, and smart access solutions that provide secure, convenient property access.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "expertise_1",
+        "expertise_2",
+        "expertise_3"
+      ],
+      "settings": {
+        "title": "<strong>Areas of Expertise</strong>",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "commitment_section": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Our Commitment to You</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At IberTechSystems, we understand that security is personal. Whether you're protecting your family home or securing a commercial facility, our team is dedicated to providing you with the most reliable automation solutions backed by expert support and comprehensive warranties.</p><p>We're not just a product supplier – we're your automation partner. From initial consultation to installation support and ongoing maintenance, we're here to ensure your system operates flawlessly for years to come.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 36,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "about_hero",
+    "company_values",
+    "company_story",
+    "expertise_areas",
+    "commitment_section"
+  ]
+}
