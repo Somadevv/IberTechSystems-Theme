@@ -96,82 +96,10 @@
       </div>
     </div>
 
-    <!-- Reviews Tab -->
+    <!-- Reviews Tab - Vitals Integration -->
     <div class="product-tabs__panel" role="tabpanel" id="reviews-panel" aria-labelledby="reviews-tab">
-      <div class="product-tabs__reviews-placeholder">
-        <h3>Customer Reviews</h3>
-        <p>No reviews yet. Be the first to review this product!</p>
-        <button class="button" id="show-review-form-btn">
-          Write a Review
-        </button>
-      </div>
-      
-      <div class="product-review-form-container" id="product-review-form" style="display: none;">
-        {{ 'product-reviews.css' | asset_url | stylesheet_tag }}
-        <div class="product-reviews-form">
-          <h3>Write a Review</h3>
-          
-          {%- form 'contact', class: 'review-form' -%}
-            {%- if form.posted_successfully? -%}
-              <div class="review-form__success">
-                <p>Thank you for your review! It will be published after moderation.</p>
-              </div>
-            {%- endif -%}
-
-            {%- if form.errors -%}
-              <div class="review-form__errors">
-                <h4>{{ 'contact.form.error_heading' | t }}</h4>
-                <ul>
-                  {%- for field in form.errors -%}
-                    <li>
-                      {%- if field == 'form' -%}
-                        {{ form.errors.messages[field] }}
-                      {%- else -%}
-                        {{ 'contact.form.error' | t: field: field }}
-                      {%- endif -%}
-                    </li>
-                  {%- endfor -%}
-                </ul>
-              </div>
-            {%- endif -%}
-
-            <div class="review-form__fields">
-              <div class="field">
-                <label for="ContactForm-name">Your Name *</label>
-                <input type="text" id="ContactForm-name" name="contact[name]" value="{{ form.name }}" required>
-              </div>
-
-              <div class="field">
-                <label for="ContactForm-email">Email *</label>
-                <input type="email" id="ContactForm-email" name="contact[email]" value="{{ form.email }}" required>
-              </div>
-
-              <div class="field">
-                <label for="ContactForm-rating">Rating *</label>
-                <select id="ContactForm-rating" name="contact[rating]" required>
-                  <option value="">Select a rating</option>
-                  <option value="5">★★★★★ - Excellent</option>
-                  <option value="4">★★★★☆ - Very Good</option>
-                  <option value="3">★★★☆☆ - Good</option>
-                  <option value="2">★★☆☆☆ - Fair</option>
-                  <option value="1">★☆☆☆☆ - Poor</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="ContactForm-body">Review *</label>
-                <textarea id="ContactForm-body" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
-              </div>
-
-              <input type="hidden" name="contact[product]" value="{{ product.title }}">
-            </div>
-
-            <div class="review-form__buttons">
-              <button type="submit" class="button">Submit Review</button>
-              <button type="button" class="button button--secondary" id="cancel-review-btn">Cancel</button>
-            </div>
-          {%- endform -%}
-        </div>
+      <div id="vitals-product-reviews" data-product-id="{{ product.id }}">
+        <!-- Vitals reviews will be loaded here -->
       </div>
     </div>
   </div>

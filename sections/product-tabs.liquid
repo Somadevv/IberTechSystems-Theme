@@ -51,26 +51,10 @@
           {%- endcase -%}
         {%- endfor -%}
         
-        {%- comment -%} Show setup message if no app blocks added {%- endcomment -%}
-        {%- assign has_app_blocks = false -%}
-        {%- for block in section.blocks -%}
-          {%- if block.type == '@app' -%}
-            {%- assign has_app_blocks = true -%}
-            {%- break -%}
-          {%- endif -%}
-        {%- endfor -%}
-        
-        {%- unless has_app_blocks -%}
-          <div class="reviews-setup-message" style="padding: 2rem; text-align: center; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
-            <h4 style="color: #333; margin-bottom: 1rem;">Add Vitals Reviews</h4>
-            <p style="color: #666; margin-bottom: 1rem;">To show reviews here, add the Vitals Reviews app block:</p>
-            <ol style="text-align: left; max-width: 400px; margin: 0 auto; color: #666;">
-              <li>Click "Add block" below this section</li>
-              <li>Select "Vitals Reviews" from the app blocks</li>
-              <li>Configure the reviews settings</li>
-            </ol>
-          </div>
-        {%- endunless -%}
+        {%- comment -%} Direct Vitals Integration {%- endcomment -%}
+        <div id="vitals-product-reviews" data-product-id="{{ product.id }}">
+          <!-- Vitals reviews will be loaded here -->
+        </div>
       </div>
     {%- endif -%}
 
