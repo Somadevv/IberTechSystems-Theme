@@ -1,0 +1,234 @@
+{{ 'section-product-documents.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="product-documents section-{{ section.id }}-padding">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="product-documents__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    
+    {% if section.settings.description != blank %}
+      <div class="product-documents__description rte">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    {% assign has_documents = false %}
+    {% for i in (1..5) %}
+      {% assign document_title_key = 'document_' | append: i | append: '_title' %}
+      {% assign document_url_key = 'document_' | append: i | append: '_url' %}
+      {% assign document_description_key = 'document_' | append: i | append: '_description' %}
+      
+      {% assign document_title = product.metafields.custom[document_title_key] %}
+      {% assign document_url = product.metafields.custom[document_url_key] %}
+      {% assign document_description = product.metafields.custom[document_description_key] %}
+      
+      {% if document_title != blank and document_url != blank %}
+        {% assign has_documents = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_documents %}
+      <div class="product-documents__grid{% if section.settings.layout == 'list' %} product-documents__grid--list{% endif %}">
+        {% for i in (1..5) %}
+          {% assign document_title_key = 'document_' | append: i | append: '_title' %}
+          {% assign document_url_key = 'document_' | append: i | append: '_url' %}
+          {% assign document_description_key = 'document_' | append: i | append: '_description' %}
+          
+          {% assign document_title = product.metafields.custom[document_title_key] %}
+          {% assign document_url = product.metafields.custom[document_url_key] %}
+          {% assign document_description = product.metafields.custom[document_description_key] %}
+          
+          {% if document_title != blank and document_url != blank %}
+            <div class="product-documents__item">
+              <div class="product-documents__icon">
+                {% comment %} File type icon based on URL extension {% endcomment %}
+                {% assign file_extension = document_url | split: '.' | last | downcase %}
+                {% case file_extension %}
+                  {% when 'pdf' %}
+                    <svg class="icon icon-pdf" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L13.09 8.26L18 7L16.74 12.26L23 12L16.74 17.74L18 23L13.09 21.74L12 28L10.91 21.74L6 23L7.26 17.74L1 17.74L7.26 12.26L6 7L10.91 8.26L12 2Z" fill="currentColor"/>
+                    </svg>
+                  {% when 'doc', 'docx' %}
+                    <svg class="icon icon-doc" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    </svg>
+                  {% else %}
+                    <svg class="icon icon-file" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>
+                    </svg>
+                {% endcase %}
+              </div>
+              
+              <div class="product-documents__content">
+                <h3 class="product-documents__title">{{ document_title }}</h3>
+                
+                {% if document_description != blank and section.settings.show_descriptions %}
+                  <p class="product-documents__description">{{ document_description }}</p>
+                {% endif %}
+                
+                <div class="product-documents__meta">
+                  <span class="product-documents__type">{{ file_extension | upcase }}</span>
+                  {% comment %} Could add file size here if available in metafields {% endcomment %}
+                </div>
+              </div>
+              
+              <a href="{{ document_url }}" 
+                 class="product-documents__download button button--{{ section.settings.button_style }}"
+                 target="_blank"
+                 download>
+                {{ section.settings.button_text | default: 'Download' }}
+                <svg class="icon icon-download" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 15L7 10H11V3H13V10H17L12 15Z" fill="currentColor"/>
+                  <path d="M20 18H4V20H20V18Z" fill="currentColor"/>
+                </svg>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      {% if section.settings.show_when_empty %}
+        <div class="product-documents__empty">
+          <p>{{ section.settings.empty_message | default: 'No documents available for this product.' }}</p>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Documents",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Product Documents",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Optional description text to show above documents"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "list",
+          "label": "List"
+        }
+      ],
+      "default": "grid",
+      "label": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_descriptions",
+      "default": true,
+      "label": "Show document descriptions"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Download",
+      "label": "Button text"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "tertiary",
+          "label": "Tertiary"
+        }
+      ],
+      "default": "primary",
+      "label": "Button style"
+    },
+    {
+      "type": "header",
+      "content": "Empty State"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_when_empty",
+      "default": false,
+      "label": "Show section when no documents"
+    },
+    {
+      "type": "text",
+      "id": "empty_message",
+      "default": "No documents available for this product.",
+      "label": "Empty state message"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

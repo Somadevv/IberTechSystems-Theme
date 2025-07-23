@@ -65,6 +65,21 @@
         "padding_bottom": 12
       }
     },
+    "product-documents": {
+      "type": "product-documents",
+      "settings": {
+        "heading": "Product Documents",
+        "description": "",
+        "layout": "grid",
+        "show_descriptions": true,
+        "button_text": "Download",
+        "button_style": "primary",
+        "show_when_empty": false,
+        "empty_message": "No documents available for this product.",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "product-recommendations": {
       "type": "product-recommendations",
       "settings": {
@@ -84,5 +99,5 @@
       }
     }
   },
-  "order": ["main", "product-recommendations"]
+  "order": ["main", "product-documents", "product-recommendations"]
 }
