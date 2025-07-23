@@ -21,7 +21,9 @@
       "Bash(sed:*)",
       "Bash(rg:*)",
       "Bash(cp:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git remote get-url:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": []
   }
