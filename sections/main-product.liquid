@@ -764,12 +764,7 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product_tabs' -%}
-                <!-- Product tabs replaced with Vitals - just show description -->
-                {%- if product.description != blank -%}
-                  <div class="product__description rte" {{ block.shopify_attributes }}>
-                    {{ product.description }}
-                  </div>
-                {%- endif -%}
+                {% render 'product-tabs', block: block, product: product %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -2335,6 +2330,86 @@
           "id": "support_guarantee",
           "label": "Support Guarantee",
           "placeholder": "e.g. 24/7 customer support"
+        }
+      ]
+    },
+    {
+      "type": "product_tabs",
+      "name": "Product Tabs",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "description_tab_label",
+          "label": "Description Tab Label",
+          "default": "Description"
+        },
+        {
+          "type": "text",
+          "id": "features_tab_label",
+          "label": "Features Tab Label",
+          "default": "Features"
+        },
+        {
+          "type": "text",
+          "id": "reviews_tab_label",
+          "label": "Reviews Tab Label",
+          "default": "Reviews"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reviews_count",
+          "label": "Show Reviews Count",
+          "default": false
+        },
+        {
+          "type": "number",
+          "id": "reviews_count",
+          "label": "Reviews Count",
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "reviews_placeholder_title",
+          "label": "Reviews Placeholder Title",
+          "default": "Customer Reviews"
+        },
+        {
+          "type": "textarea",
+          "id": "reviews_placeholder_text",
+          "label": "Reviews Placeholder Text",
+          "default": "No reviews yet. Be the first to review this product!"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_button",
+          "label": "Show Review Button",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "review_button_text",
+          "label": "Review Button Text",
+          "default": "Write a Review"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_vitals_reviews",
+          "label": "Use Vitals Reviews Integration",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "no_description_text",
+          "label": "No Description Text",
+          "default": "No description available for this product."
+        },
+        {
+          "type": "text",
+          "id": "features_content",
+          "label": "Default Features (pipe separated)",
+          "default": "High Quality Materials|Durable Construction|Easy to Use|Professional Grade|Satisfaction Guaranteed",
+          "info": "Fallback features used when no metafields are set. Separate with | character."
         }
       ]
     }

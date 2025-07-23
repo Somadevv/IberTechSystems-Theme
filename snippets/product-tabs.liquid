@@ -1,0 +1,180 @@
+<!-- Product Tabs Section -->
+<div class="product-tabs" {{ block.shopify_attributes }}>
+  {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
+  
+  <div class="tabs-wrapper">
+    <!-- Tab Navigation -->
+    <div class="tab-nav" role="tablist">
+      <button class="tab-button active" data-tab="description" role="tab" aria-selected="true" aria-controls="tab-description">
+        {{ block.settings.description_tab_label | default: 'Description' }}
+      </button>
+      
+      {%- assign has_features = false -%}
+      {%- if product.metafields.custom.features != blank -%}
+        {%- assign has_features = true -%}
+      {%- elsif block.settings.features_content != blank -%}
+        {%- assign has_features = true -%}
+      {%- endif -%}
+      
+      {%- if has_features -%}
+        <button class="tab-button" data-tab="features" role="tab" aria-selected="false" aria-controls="tab-features">
+          {{ block.settings.features_tab_label | default: 'Features' }}
+        </button>
+      {%- endif -%}
+      
+      {%- if block.settings.use_vitals_reviews -%}
+        <button class="tab-button" data-tab="reviews" role="tab" aria-selected="false" aria-controls="tab-reviews">
+          {{ block.settings.reviews_tab_label | default: 'Reviews' }}
+          {%- if block.settings.show_reviews_count and block.settings.reviews_count > 0 -%}
+            <span class="reviews-count">({{ block.settings.reviews_count }})</span>
+          {%- endif -%}
+        </button>
+      {%- endif -%}
+    </div>
+    
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- Description Tab -->
+      <div id="tab-description" class="tab-panel active" role="tabpanel" aria-labelledby="description-tab">
+        {%- if product.description != blank -%}
+          <div class="product-description rte">
+            {{ product.description }}
+          </div>
+        {%- else -%}
+          <p>{{ block.settings.no_description_text | default: 'No description available for this product.' }}</p>
+        {%- endif -%}
+      </div>
+      
+      <!-- Features Tab -->
+      {%- if has_features -%}
+        <div id="tab-features" class="tab-panel" role="tabpanel" aria-labelledby="features-tab">
+          <div class="product-features">
+            {%- if product.metafields.custom.features != blank -%}
+              {%- assign features_list = product.metafields.custom.features | split: '|' -%}
+              <div class="features-list">
+                {%- for feature in features_list -%}
+                  {%- assign feature_index = forloop.index -%}
+                  {%- assign feature_key = 'feature_' | append: feature_index -%}
+                  {%- assign feature_description = product.metafields.custom[feature_key] -%}
+                  
+                  <div class="feature-item">
+                    <button class="feature-toggle" type="button" aria-expanded="false">
+                      <h4 class="feature-title">{{ feature | strip }}</h4>
+                      <span class="feature-icon">+</span>
+                    </button>
+                    <div class="feature-content" style="display: none;">
+                      {%- if feature_description != blank -%}
+                        <p>{{ feature_description }}</p>
+                      {%- else -%}
+                        <p>{{ feature | strip }} - Premium quality feature designed for optimal performance.</p>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- elsif block.settings.features_content != blank -%}
+              {%- assign features_list = block.settings.features_content | split: '|' -%}
+              <div class="features-list">
+                {%- for feature in features_list -%}
+                  <div class="feature-item">
+                    <button class="feature-toggle" type="button" aria-expanded="false">
+                      <h4 class="feature-title">{{ feature | strip }}</h4>
+                      <span class="feature-icon">+</span>
+                    </button>
+                    <div class="feature-content" style="display: none;">
+                      <p>{{ feature | strip }} - High quality feature designed for superior performance.</p>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      
+      <!-- Reviews Tab -->
+      {%- if block.settings.use_vitals_reviews -%}
+        <div id="tab-reviews" class="tab-panel" role="tabpanel" aria-labelledby="reviews-tab">
+          <div class="product-reviews">
+            {%- if block.settings.show_review_button -%}
+              <div class="review-actions">
+                <button class="review-button btn btn-primary" onclick="scrollToReviewForm()">
+                  {{ block.settings.review_button_text | default: 'Write a Review' }}
+                </button>
+              </div>
+            {%- endif -%}
+            
+            <!-- Vitals reviews will be inserted here by the app -->
+            <div class="vitals-reviews-placeholder">
+              <h3>{{ block.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
+              <p>{{ block.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for tab functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  const featureToggles = document.querySelectorAll('.feature-toggle');
+  
+  // Tab switching functionality
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      
+      // Remove active class from all buttons and panels
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      tabPanels.forEach(panel => {
+        panel.classList.remove('active');
+      });
+      
+      // Add active class to clicked button and corresponding panel
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      document.getElementById('tab-' + targetTab).classList.add('active');
+    });
+  });
+  
+  // Feature toggle functionality
+  featureToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const content = this.nextElementSibling;
+      const icon = this.querySelector('.feature-icon');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      
+      if (isExpanded) {
+        content.style.display = 'none';
+        icon.textContent = '+';
+        this.setAttribute('aria-expanded', 'false');
+      } else {
+        content.style.display = 'block';
+        icon.textContent = '−';
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+});
+
+// Function to scroll to review form (if exists)
+function scrollToReviewForm() {
+  const reviewForm = document.getElementById('product-review-form');
+  if (reviewForm) {
+    reviewForm.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    // Fallback: scroll to Vitals reviews section
+    const vitalsReviews = document.querySelector('[data-vitals-reviews]');
+    if (vitalsReviews) {
+      vitalsReviews.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+</script>
