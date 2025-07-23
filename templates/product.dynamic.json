@@ -1,9 +1,9 @@
 {
   "sections": {
     "main": {
-      "type": "main-product",
+      "type": "main-product-dynamic",
       "settings": {
-        "color_scheme": "scheme-1", 
+        "color_scheme": "scheme-1",
         "media_size": "large",
         "constrain_to_viewport": true,
         "media_fit": "contain",
@@ -18,7 +18,7 @@
       }
     },
     "product-recommendations": {
-      "type": "product-recommendations", 
+      "type": "product-recommendations",
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
