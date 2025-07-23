@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        }
+      },
+      "block_order": ["title"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

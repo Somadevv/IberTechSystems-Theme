@@ -764,10 +764,7 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product_tabs' -%}
-                <div {{ block.shopify_attributes }}>
-                  <h3>Product Information</h3>
-                  {{ product.description }}
-                </div>
+                {% render 'product-tabs', block: block, product: product %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
