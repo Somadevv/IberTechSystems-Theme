@@ -764,7 +764,10 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product_tabs' -%}
-                {% render 'product-tabs', block: block, product: product %}
+                <div {{ block.shopify_attributes }}>
+                  <h3>Product Information</h3>
+                  {{ product.description }}
+                </div>
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -1025,6 +1028,7 @@
       "name": "t:sections.main-product.blocks.description.name",
       "limit": 1
     },
+    {
       "type": "share",
       "name": "t:sections.main-product.blocks.share.name",
       "limit": 1,
@@ -2330,17 +2334,6 @@
           "id": "support_guarantee",
           "label": "Support Guarantee",
           "placeholder": "e.g. 24/7 customer support"
-        }
-      ]
-    },
-    {
-      "type": "product_tabs",
-      "name": "Product Tabs", 
-      "limit": 1,
-      "settings": [
-        {
-          "type": "header",
-          "content": "Simple product tabs with description and features"
         }
       ]
     }

@@ -23,7 +23,9 @@
       "Bash(cp:*)",
       "Bash(git merge:*)",
       "Bash(git remote get-url:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(python3:*)",
+      "Bash(/dev/null)"
     ],
     "deny": []
   }
