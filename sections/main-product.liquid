@@ -764,13 +764,8 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product_tabs' -%}
-                <div class="product-description-simple" {{ block.shopify_attributes }}>
-                  <h3>Product Information</h3>
-                  {%- if product.description != blank -%}
-                    {{ product.description }}
-                  {%- else -%}
-                    <p>No description available for this product.</p>
-                  {%- endif -%}
+                <div {{ block.shopify_attributes }}>
+                  <p>Product tabs block is working</p>
                 </div>
             {%- endcase -%}
           {%- endfor -%}
