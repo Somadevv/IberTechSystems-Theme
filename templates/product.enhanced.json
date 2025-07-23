@@ -38,10 +38,7 @@
         },
         "product_tabs": {
           "type": "product_tabs",
-          "settings": {
-            "description_tab_label": "Description",
-            "features_tab_label": "Features"
-          }
+          "settings": {}
         }
       },
       "block_order": [

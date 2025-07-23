@@ -1,137 +1,85 @@
-<!-- Product Tabs Section -->
-<div class="product-tabs" {{ block.shopify_attributes }}>
-  {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
+<!-- Simple Product Tabs -->
+<div class="product-tabs-simple" {{ block.shopify_attributes }}>
+  <style>
+    .product-tabs-simple { margin: 2rem 0; }
+    .tab-nav-simple { display: flex; border-bottom: 1px solid #ddd; margin-bottom: 1.5rem; }
+    .tab-button-simple { background: none; border: none; padding: 1rem 1.5rem; cursor: pointer; font-size: 1.6rem; color: #666; border-bottom: 2px solid transparent; }
+    .tab-button-simple.active { color: #000; border-bottom-color: #000; }
+    .tab-panel-simple { display: none; }
+    .tab-panel-simple.active { display: block; }
+    .feature-item-simple { border: 1px solid #eee; margin-bottom: 1rem; border-radius: 4px; }
+    .feature-toggle-simple { width: 100%; padding: 1rem; background: none; border: none; text-align: left; cursor: pointer; display: flex; justify-content: space-between; }
+    .feature-content-simple { padding: 0 1rem 1rem; display: none; }
+  </style>
   
-  <div class="tabs-wrapper">
-    <!-- Tab Navigation -->
-    <div class="tab-nav" role="tablist">
-      <button class="tab-button active" data-tab="description" role="tab" aria-selected="true" aria-controls="tab-description">
-        {{ block.settings.description_tab_label | default: 'Description' }}
-      </button>
-      
-      {%- assign has_features = false -%}
-      {%- if product.metafields.custom.features != blank -%}
-        {%- assign has_features = true -%}
-      {%- elsif block.settings.features_content != blank -%}
-        {%- assign has_features = true -%}
-      {%- endif -%}
-      
-      {%- if has_features -%}
-        <button class="tab-button" data-tab="features" role="tab" aria-selected="false" aria-controls="tab-features">
-          {{ block.settings.features_tab_label | default: 'Features' }}
-        </button>
-      {%- endif -%}
-    </div>
-    
-    <!-- Tab Content -->
-    <div class="tab-content">
-      <!-- Description Tab -->
-      <div id="tab-description" class="tab-panel active" role="tabpanel" aria-labelledby="description-tab">
-        {%- if product.description != blank -%}
-          <div class="product-description rte">
-            {{ product.description }}
-          </div>
-        {%- else -%}
-          <p>{{ block.settings.no_description_text | default: 'No description available for this product.' }}</p>
-        {%- endif -%}
-      </div>
-      
-      <!-- Features Tab -->
-      {%- if has_features -%}
-        <div id="tab-features" class="tab-panel" role="tabpanel" aria-labelledby="features-tab">
-          <div class="product-features">
-            {%- if product.metafields.custom.features != blank -%}
-              {%- assign features_list = product.metafields.custom.features | split: '|' -%}
-              <div class="features-list">
-                {%- for feature in features_list -%}
-                  {%- assign feature_index = forloop.index -%}
-                  {%- assign feature_key = 'feature_' | append: feature_index -%}
-                  {%- assign feature_description = product.metafields.custom[feature_key] -%}
-                  
-                  <div class="feature-item">
-                    <button class="feature-toggle" type="button" aria-expanded="false">
-                      <h4 class="feature-title">{{ feature | strip }}</h4>
-                      <span class="feature-icon">+</span>
-                    </button>
-                    <div class="feature-content" style="display: none;">
-                      {%- if feature_description != blank -%}
-                        <p>{{ feature_description }}</p>
-                      {%- else -%}
-                        <p>{{ feature | strip }} - Premium quality feature designed for optimal performance.</p>
-                      {%- endif -%}
-                    </div>
-                  </div>
-                {%- endfor -%}
-              </div>
-            {%- elsif block.settings.features_content != blank -%}
-              {%- assign features_list = block.settings.features_content | split: '|' -%}
-              <div class="features-list">
-                {%- for feature in features_list -%}
-                  <div class="feature-item">
-                    <button class="feature-toggle" type="button" aria-expanded="false">
-                      <h4 class="feature-title">{{ feature | strip }}</h4>
-                      <span class="feature-icon">+</span>
-                    </button>
-                    <div class="feature-content" style="display: none;">
-                      <p>{{ feature | strip }} - High quality feature designed for superior performance.</p>
-                    </div>
-                  </div>
-                {%- endfor -%}
-              </div>
+  <div class="tab-nav-simple">
+    <button class="tab-button-simple active" onclick="showTab('description')">Description</button>
+    <button class="tab-button-simple" onclick="showTab('features')">Features</button>
+  </div>
+  
+  <div id="tab-description" class="tab-panel-simple active">
+    {%- if product.description != blank -%}
+      {{ product.description }}
+    {%- else -%}
+      <p>No description available.</p>
+    {%- endif -%}
+  </div>
+  
+  <div id="tab-features" class="tab-panel-simple">
+    {%- if product.metafields.custom.features != blank -%}
+      {%- assign features_list = product.metafields.custom.features | split: '|' -%}
+      {%- for feature in features_list -%}
+        {%- assign feature_index = forloop.index -%}
+        {%- assign feature_key = 'feature_' | append: feature_index -%}
+        {%- assign feature_description = product.metafields.custom[feature_key] -%}
+        
+        <div class="feature-item-simple">
+          <button class="feature-toggle-simple" onclick="toggleFeature(this)">
+            <span>{{ feature | strip }}</span>
+            <span>+</span>
+          </button>
+          <div class="feature-content-simple">
+            {%- if feature_description != blank -%}
+              <p>{{ feature_description }}</p>
+            {%- else -%}
+              <p>Premium quality feature designed for optimal performance.</p>
             {%- endif -%}
           </div>
         </div>
-      {%- endif -%}
-      
-    </div>
+      {%- endfor -%}
+    {%- else -%}
+      <ul>
+        <li>High Quality Materials</li>
+        <li>Durable Construction</li>
+        <li>Easy to Use</li>
+        <li>Professional Grade</li>
+        <li>Satisfaction Guaranteed</li>
+      </ul>
+    {%- endif -%}
   </div>
-</div>
-
-<!-- JavaScript for tab functionality -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabPanels = document.querySelectorAll('.tab-panel');
-  const featureToggles = document.querySelectorAll('.feature-toggle');
   
-  // Tab switching functionality
-  tabButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const targetTab = this.getAttribute('data-tab');
+  <script>
+    function showTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-panel-simple').forEach(panel => panel.classList.remove('active'));
+      document.querySelectorAll('.tab-button-simple').forEach(btn => btn.classList.remove('active'));
       
-      // Remove active class from all buttons and panels
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      tabPanels.forEach(panel => {
-        panel.classList.remove('active');
-      });
+      // Show selected tab
+      document.getElementById('tab-' + tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+    
+    function toggleFeature(button) {
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('span:last-child');
       
-      // Add active class to clicked button and corresponding panel
-      this.classList.add('active');
-      this.setAttribute('aria-selected', 'true');
-      document.getElementById('tab-' + targetTab).classList.add('active');
-    });
-  });
-  
-  // Feature toggle functionality
-  featureToggles.forEach(toggle => {
-    toggle.addEventListener('click', function() {
-      const content = this.nextElementSibling;
-      const icon = this.querySelector('.feature-icon');
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
-      
-      if (isExpanded) {
+      if (content.style.display === 'block') {
         content.style.display = 'none';
         icon.textContent = '+';
-        this.setAttribute('aria-expanded', 'false');
       } else {
         content.style.display = 'block';
         icon.textContent = '−';
-        this.setAttribute('aria-expanded', 'true');
       }
-    });
-  });
-});
-</script>
+    }
+  </script>
+</div>
