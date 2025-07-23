@@ -21,15 +21,6 @@
           {{ block.settings.features_tab_label | default: 'Features' }}
         </button>
       {%- endif -%}
-      
-      {%- if block.settings.use_vitals_reviews -%}
-        <button class="tab-button" data-tab="reviews" role="tab" aria-selected="false" aria-controls="tab-reviews">
-          {{ block.settings.reviews_tab_label | default: 'Reviews' }}
-          {%- if block.settings.show_reviews_count and block.settings.reviews_count > 0 -%}
-            <span class="reviews-count">({{ block.settings.reviews_count }})</span>
-          {%- endif -%}
-        </button>
-      {%- endif -%}
     </div>
     
     <!-- Tab Content -->
@@ -92,26 +83,6 @@
         </div>
       {%- endif -%}
       
-      <!-- Reviews Tab -->
-      {%- if block.settings.use_vitals_reviews -%}
-        <div id="tab-reviews" class="tab-panel" role="tabpanel" aria-labelledby="reviews-tab">
-          <div class="product-reviews">
-            {%- if block.settings.show_review_button -%}
-              <div class="review-actions">
-                <button class="review-button btn btn-primary" onclick="scrollToReviewForm()">
-                  {{ block.settings.review_button_text | default: 'Write a Review' }}
-                </button>
-              </div>
-            {%- endif -%}
-            
-            <!-- Vitals reviews will be inserted here by the app -->
-            <div class="vitals-reviews-placeholder">
-              <h3>{{ block.settings.reviews_placeholder_title | default: 'Customer Reviews' }}</h3>
-              <p>{{ block.settings.reviews_placeholder_text | default: 'No reviews yet. Be the first to review this product!' }}</p>
-            </div>
-          </div>
-        </div>
-      {%- endif -%}
     </div>
   </div>
 </div>
@@ -163,18 +134,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
-// Function to scroll to review form (if exists)
-function scrollToReviewForm() {
-  const reviewForm = document.getElementById('product-review-form');
-  if (reviewForm) {
-    reviewForm.scrollIntoView({ behavior: 'smooth' });
-  } else {
-    // Fallback: scroll to Vitals reviews section
-    const vitalsReviews = document.querySelector('[data-vitals-reviews]');
-    if (vitalsReviews) {
-      vitalsReviews.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-}
 </script>

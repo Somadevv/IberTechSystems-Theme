@@ -40,9 +40,7 @@
           "type": "product_tabs",
           "settings": {
             "description_tab_label": "Description",
-            "features_tab_label": "Features",
-            "reviews_tab_label": "Reviews",
-            "use_vitals_reviews": true
+            "features_tab_label": "Features"
           }
         }
       },

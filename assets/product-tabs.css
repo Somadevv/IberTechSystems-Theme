@@ -39,11 +39,6 @@
   border-bottom-color: rgb(var(--color-foreground));
 }
 
-.reviews-count {
-  font-size: 1.4rem;
-  opacity: 0.8;
-  margin-left: 0.5rem;
-}
 
 /* Tab Content */
 .tab-content {
@@ -151,52 +146,6 @@
   margin: 0;
 }
 
-/* Reviews Section */
-.product-reviews {
-  padding: 1rem 0;
-}
-
-.review-actions {
-  margin-bottom: 2rem;
-}
-
-.review-button {
-  background-color: rgb(var(--color-button));
-  color: rgb(var(--color-button-text));
-  border: none;
-  padding: 1.2rem 2.4rem;
-  border-radius: 4px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.review-button:hover {
-  background-color: rgba(var(--color-button), 0.9);
-  transform: translateY(-1px);
-}
-
-.vitals-reviews-placeholder {
-  text-align: center;
-  padding: 3rem 1rem;
-  background-color: rgba(var(--color-background), 0.5);
-  border-radius: 8px;
-}
-
-.vitals-reviews-placeholder h3 {
-  margin: 0 0 1rem 0;
-  font-size: 2rem;
-  color: rgb(var(--color-foreground));
-}
-
-.vitals-reviews-placeholder p {
-  margin: 0;
-  color: rgba(var(--color-foreground), 0.7);
-  font-size: 1.4rem;
-}
 
 /* Mobile Responsive */
 @media screen and (max-width: 749px) {
@@ -230,9 +179,5 @@
   .tab-button {
     padding: 0.8rem 0.5rem;
     font-size: 1.3rem;
-  }
-  
-  .reviews-count {
-    display: none; /* Hide review count on very small screens */
   }
 }
