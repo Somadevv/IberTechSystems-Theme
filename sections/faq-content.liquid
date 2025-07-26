@@ -1,0 +1,258 @@
+{{ 'section-faq-content.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="faq-content color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    
+    {% if section.settings.heading != blank %}
+      <h1 class="faq-content__heading center">{{ section.settings.heading }}</h1>
+    {% endif %}
+    
+    {% if section.settings.introduction != blank %}
+      <div class="faq-content__intro rte center">{{ section.settings.introduction }}</div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="faq-content__items">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'faq_item' %}
+              <details class="faq-content__item" {{ block.shopify_attributes }}>
+                <summary class="faq-content__question">
+                  <span>{{ block.settings.question }}</span>
+                  <svg class="faq-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </summary>
+                <div class="faq-content__answer">
+                  <div class="rte">{{ block.settings.answer }}</div>
+                </div>
+              </details>
+
+            {% when 'faq_category' %}
+              <div class="faq-content__category" {{ block.shopify_attributes }}>
+                <h2 class="faq-content__category-title">{{ block.settings.category_title }}</h2>
+                {% if block.settings.category_description != blank %}
+                  <div class="faq-content__category-description rte">{{ block.settings.category_description }}</div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.contact_section %}
+      <div class="faq-content__contact">
+        <h2>{{ section.settings.contact_title | default: 'Still have questions?' }}</h2>
+        <p>{{ section.settings.contact_text | default: 'Contact our support team for assistance.' }}</p>
+        {% if section.settings.contact_email != blank %}
+          <a href="mailto:{{ section.settings.contact_email }}" class="button">{{ section.settings.contact_button_text | default: 'Contact Support' }}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const faqItems = document.querySelectorAll('.faq-content__item');
+  
+  faqItems.forEach(item => {
+    const summary = item.querySelector('.faq-content__question');
+    
+    summary.addEventListener('click', function() {
+      // Close other open items if single open is enabled
+      {% if section.settings.single_open %}
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.hasAttribute('open')) {
+            otherItem.removeAttribute('open');
+          }
+        });
+      {% endif %}
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Content",
+  "tag": "section", 
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Frequently Asked Questions",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "single_open",
+      "default": true,
+      "label": "Allow only one FAQ open at a time"
+    },
+    {
+      "type": "header",
+      "content": "Contact Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "contact_section",
+      "default": true,
+      "label": "Show contact section"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "default": "Still have questions?",
+      "label": "Contact Title"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "default": "Contact our support team for assistance.",
+      "label": "Contact Text"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email"
+    },
+    {
+      "type": "text",
+      "id": "contact_button_text",
+      "default": "Contact Support",
+      "label": "Contact Button Text"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_category",
+      "name": "FAQ Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Category Title",
+          "default": "Category"
+        },
+        {
+          "type": "richtext",
+          "id": "category_description",
+          "label": "Category Description"
+        }
+      ]
+    },
+    {
+      "type": "faq_item", 
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question here?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Content",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I track my order?",
+            "answer": "<p>You can track your order using the tracking link sent to your email.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer 30-day returns on most items. See our return policy for details.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,1 +1,44 @@
-{"sections":{"multicolumn_L4kaPP":{"type":"multicolumn","blocks":{"column_WBcykQ":{"type":"column","settings":{"title":"<strong>Contact Information<\/strong>","text":"<p>For any product inquiries or technical support, please reach out to our dedicated team.<\/p><p>📞 <strong>Phone:<\/strong> +123 456 7890<br\/><br\/>📧 <strong>Email:<\/strong> <a>support@ibertechsystems.com<\/a><\/p><p><strong>Business Inquiries:<\/strong><br\/><br\/>Interested in bulk orders, business partnerships, or commercial solutions? Get in touch with our business team.<\/p><p>📧 <strong>Email:<\/strong> <a>business@ibertechsystems.com<\/a><\/p>","link_label":"","link":""}},"column_aJ7d4J":{"type":"column","settings":{"title":"<strong>Visit Our Office<\/strong>","text":"<p>If you're in the area, feel free to stop by and explore our range of automation solutions. We’d love to show you our products in person!<\/p><p>📍 <strong>Address: <\/strong>IberTechSystems<br\/>123 Innovation Drive,<br\/>Tech Park,<br\/>City, Country<\/p>","link_label":"","link":""}},"column_AUkTzg":{"type":"column","settings":{"title":"<strong>Hours of Operation<\/strong>","text":"<p><strong>Monday to Friday:<\/strong> 9:00 AM – 6:00 PM<\/p><p><strong>Saturday:<\/strong> 10:00 AM – 4:00 PM<\/p><p><strong>Sunday:<\/strong> Closed<\/p>","link_label":"","link":""}}},"block_order":["column_WBcykQ","column_aJ7d4J","column_AUkTzg"],"settings":{"title":"","heading_size":"h1","image_width":"full","image_ratio":"adapt","columns_desktop":3,"column_alignment":"left","background_style":"primary","button_label":"","button_link":"","color_scheme":"","columns_mobile":"1","swipe_on_mobile":false,"padding_top":36,"padding_bottom":36}},"rich_text_pxayim":{"type":"rich-text","blocks":{"text_3Wadhk":{"type":"text","settings":{"text":"<p>At IberTechSystems, we are committed to providing top-notch automation solutions for gates and garage doors. Whether you're a homeowner, installer, business, or property developer, we're here to assist you in finding the perfect products for your needs.<\/p><p>We value innovation, security, and convenience, and are always ready to answer any questions or assist with product inquiries.<\/p>"}}},"block_order":["text_3Wadhk"],"settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":36}},"form":{"type":"contact-form","settings":{"heading":"Get in Touch with IberTechSystems","heading_size":"h1","color_scheme":"scheme-1","padding_top":36,"padding_bottom":36}},"main":{"type":"main-page","settings":{"padding_top":36,"padding_bottom":36}}},"order":["form","multicolumn_L4kaPP","main","rich_text_pxayim"]}
+{
+  "sections": {
+    "main": {
+      "type": "general-content",
+      "blocks": {
+        "intro_text": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "Get in Touch",
+            "text_content": "<p>We're here to help with any questions about our automation solutions. Whether you need technical support, product recommendations, or installation assistance, our team is ready to assist you.</p>"
+          }
+        },
+        "contact_form": {
+          "type": "contact_form",
+          "settings": {
+            "form_title": "Send us a Message",
+            "form_description": "<p>Fill out the form below and we'll get back to you as soon as possible.</p>",
+            "submit_button_text": "Send Message"
+          }
+        },
+        "contact_info": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "Other Ways to Reach Us",
+            "text_content": "<p><strong>Email:</strong> support@ibertechsystems.com</p><p><strong>Phone:</strong> +123-456-7890</p><p><strong>Business Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM</p>"
+          }
+        }
+      },
+      "block_order": [
+        "intro_text",
+        "contact_form",
+        "contact_info"
+      ],
+      "settings": {
+        "heading": "Contact Us",
+        "introduction": "<p>Ready to automate your gate or garage door? Our experts are here to help you find the perfect solution.</p>",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": ["main"]
+}

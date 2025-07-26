@@ -1,0 +1,114 @@
+.policy-content {
+  overflow: hidden;
+}
+
+.policy-content__heading {
+  margin-bottom: 3rem;
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
+  line-height: calc(1 + 0.2 / var(--font-body-scale));
+  word-wrap: break-word;
+}
+
+.policy-content__intro {
+  margin-bottom: 4rem;
+  text-align: center;
+  font-size: 1.6rem;
+  line-height: calc(1 + 0.4 / var(--font-body-scale));
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.policy-content__blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.policy-content__section,
+.policy-content__list-section,
+.policy-content__contact {
+  background: rgba(var(--color-foreground), 0.02);
+  padding: 2.4rem;
+  border-radius: var(--border-radius);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
+.policy-content__section-title {
+  margin-bottom: 1.6rem;
+  font-size: calc(var(--font-heading-scale) * 1.8rem);
+  line-height: calc(1 + 0.2 / var(--font-body-scale));
+  color: rgb(var(--color-foreground));
+}
+
+.policy-content__section-content {
+  line-height: calc(1 + 0.6 / var(--font-body-scale));
+}
+
+.policy-content__list {
+  margin: 1.6rem 0;
+  padding-left: 2rem;
+}
+
+.policy-content__list li {
+  margin-bottom: 0.8rem;
+  line-height: calc(1 + 0.4 / var(--font-body-scale));
+}
+
+.policy-content__list-description {
+  margin-top: 1.6rem;
+  color: rgba(var(--color-foreground), 0.8);
+  line-height: calc(1 + 0.4 / var(--font-body-scale));
+}
+
+.policy-content__contact {
+  background: rgba(var(--color-base-accent-1), 0.05);
+  border-color: rgba(var(--color-base-accent-1), 0.15);
+}
+
+.policy-content__contact-details p {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.policy-content__contact-details a {
+  color: rgb(var(--color-base-accent-1));
+  text-decoration: none;
+}
+
+.policy-content__contact-details a:hover {
+  text-decoration: underline;
+}
+
+.policy-content__footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  text-align: center;
+  color: rgba(var(--color-foreground), 0.6);
+  font-size: 1.2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .policy-content__heading {
+    font-size: calc(var(--font-heading-scale) * 2rem);
+    margin-bottom: 2rem;
+  }
+  
+  .policy-content__intro {
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+  }
+  
+  .policy-content__section,
+  .policy-content__list-section,
+  .policy-content__contact {
+    padding: 1.6rem;
+  }
+  
+  .policy-content__blocks {
+    gap: 2rem;
+  }
+  
+  .policy-content__section-title {
+    font-size: calc(var(--font-heading-scale) * 1.6rem);
+  }
+}

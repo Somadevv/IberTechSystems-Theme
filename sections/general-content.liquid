@@ -1,0 +1,387 @@
+{{ 'section-general-content.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="general-content color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    
+    {% if section.settings.heading != blank %}
+      <h1 class="general-content__heading center">{{ section.settings.heading }}</h1>
+    {% endif %}
+    
+    {% if section.settings.introduction != blank %}
+      <div class="general-content__intro rte center">{{ section.settings.introduction }}</div>
+    {% endif %}
+
+    <div class="general-content__blocks">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'text_content' %}
+            <div class="general-content__text" {{ block.shopify_attributes }}>
+              {% if block.settings.text_title != blank %}
+                <h2 class="general-content__block-title">{{ block.settings.text_title }}</h2>
+              {% endif %}
+              
+              {% if block.settings.text_content != blank %}
+                <div class="rte">{{ block.settings.text_content }}</div>
+              {% endif %}
+            </div>
+
+          {% when 'image_text' %}
+            <div class="general-content__image-text general-content__image-text--{{ block.settings.layout }}" {{ block.shopify_attributes }}>
+              {% if block.settings.image != blank %}
+                <div class="general-content__image">
+                  {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.image.alt }}
+                </div>
+              {% endif %}
+              
+              <div class="general-content__text-content">
+                {% if block.settings.title != blank %}
+                  <h2 class="general-content__block-title">{{ block.settings.title }}</h2>
+                {% endif %}
+                
+                {% if block.settings.content != blank %}
+                  <div class="rte">{{ block.settings.content }}</div>
+                {% endif %}
+                
+                {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+                  <a href="{{ block.settings.button_link }}" class="button button--{{ block.settings.button_style }}">
+                    {{ block.settings.button_text }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+
+          {% when 'info_table' %}
+            <div class="general-content__table" {{ block.shopify_attributes }}>
+              {% if block.settings.table_title != blank %}
+                <h2 class="general-content__block-title">{{ block.settings.table_title }}</h2>
+              {% endif %}
+              
+              {% if block.settings.table_content != blank %}
+                <div class="general-content__table-wrapper">
+                  {{ block.settings.table_content }}
+                </div>
+              {% endif %}
+            </div>
+
+          {% when 'contact_form' %}
+            <div class="general-content__form" {{ block.shopify_attributes }}>
+              {% if block.settings.form_title != blank %}
+                <h2 class="general-content__block-title center">{{ block.settings.form_title }}</h2>
+              {% endif %}
+              
+              {% if block.settings.form_description != blank %}
+                <div class="general-content__form-description rte center">{{ block.settings.form_description }}</div>
+              {% endif %}
+              
+              <div class="contact-form">
+                {% form 'contact' %}
+                  <div class="contact-form__fields">
+                    <div class="field">
+                      <input type="text" name="contact[name]" id="ContactForm-name" placeholder="Name" required>
+                      <label for="ContactForm-name">Name</label>
+                    </div>
+                    
+                    <div class="field">
+                      <input type="email" name="contact[email]" id="ContactForm-email" placeholder="Email" required>
+                      <label for="ContactForm-email">Email</label>
+                    </div>
+                    
+                    <div class="field">
+                      <input type="tel" name="contact[phone]" id="ContactForm-phone" placeholder="Phone">
+                      <label for="ContactForm-phone">Phone</label>
+                    </div>
+                    
+                    <div class="field field--full">
+                      <textarea name="contact[message]" id="ContactForm-message" placeholder="Message" required></textarea>
+                      <label for="ContactForm-message">Message</label>
+                    </div>
+                  </div>
+                  
+                  <div class="contact-form__button">
+                    <button type="submit" class="button">{{ block.settings.submit_button_text | default: 'Send Message' }}</button>
+                  </div>
+                {% endform %}
+              </div>
+            </div>
+
+          {% when 'call_to_action' %}
+            <div class="general-content__cta" {{ block.shopify_attributes }}>
+              {% if block.settings.cta_title != blank %}
+                <h2 class="general-content__cta-title">{{ block.settings.cta_title }}</h2>
+              {% endif %}
+              
+              {% if block.settings.cta_text != blank %}
+                <div class="general-content__cta-text rte">{{ block.settings.cta_text }}</div>
+              {% endif %}
+              
+              {% if block.settings.cta_button_text != blank and block.settings.cta_button_link != blank %}
+                <a href="{{ block.settings.cta_button_link }}" class="button button--{{ block.settings.cta_button_style }}">
+                  {{ block.settings.cta_button_text }}
+                </a>
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "General Content",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction Text"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_content",
+      "name": "Text Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text_title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text_content",
+          "label": "Content"
+        }
+      ]
+    },
+    {
+      "type": "image_text",
+      "name": "Image with Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "options": [
+            {
+              "value": "left",
+              "label": "Image left"
+            },
+            {
+              "value": "right",
+              "label": "Image right"
+            }
+          ],
+          "default": "left",
+          "label": "Layout"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "primary",
+          "label": "Button Style"
+        }
+      ]
+    },
+    {
+      "type": "info_table",
+      "name": "Information Table",
+      "settings": [
+        {
+          "type": "text",
+          "id": "table_title",
+          "label": "Table Title"
+        },
+        {
+          "type": "html",
+          "id": "table_content",
+          "label": "Table Content",
+          "info": "Add your HTML table here"
+        }
+      ]
+    },
+    {
+      "type": "contact_form",
+      "name": "Contact Form",
+      "settings": [
+        {
+          "type": "text",
+          "id": "form_title",
+          "default": "Contact Us",
+          "label": "Form Title"
+        },
+        {
+          "type": "richtext",
+          "id": "form_description",
+          "label": "Form Description"
+        },
+        {
+          "type": "text",
+          "id": "submit_button_text",
+          "default": "Send Message",
+          "label": "Submit Button Text"
+        }
+      ]
+    },
+    {
+      "type": "call_to_action",
+      "name": "Call to Action",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_title",
+          "label": "CTA Title"
+        },
+        {
+          "type": "richtext",
+          "id": "cta_text",
+          "label": "CTA Text"
+        },
+        {
+          "type": "text",
+          "id": "cta_button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "cta_button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "cta_button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "primary",
+          "label": "Button Style"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "General Content",
+      "blocks": [
+        {
+          "type": "text_content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

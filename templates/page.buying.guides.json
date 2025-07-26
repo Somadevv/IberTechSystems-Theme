@@ -1,1 +1,70 @@
-{"sections": {"custom_liquid_iTgHtx": {"type": "custom-liquid", "settings": {"custom_liquid": "<style>\n\n        body {\n\n            text-align: center;\n        }\n\n        .container {\n            max-width: 1000px;\n            margin: auto;\n            background: #fff;\n            padding: 30px;\n            border-radius: 8px;\n\n        }\n\n        ul {\n            display: inline-block;\n            text-align: left;\n            margin: 10px auto;\n            padding-left: 20px;\n        }\n\n        .guide-section {\n            margin: 20px 0;\n            padding: 15px;\n            border-radius: 6px;\n            text-align: left;\n        }\n\n        a {\n            color: #0073e6;\n            text-decoration: none;\n            font-weight: bold;\n        }\n\n        a:hover {\n            text-decoration: underline;\n        }\n    </style>\n</head>\n<body>\n\n    <div class=\"container\">\n        <h1>Buying Guides</h1>\n        <p>Welcome to our Buying Guides! Whether you're a homeowner, business, or installer, we provide expert advice to help you choose the right automation solution for your gates and garage doors.</p>\n\n        <div class=\"guide-section\">\n            <h2>1. Choosing the Right Motor for Your Gate</h2>\n            <p>Not all gate motors are the same. Here are key factors to consider:</p>\n            <ul>\n                <li><strong>Gate Type:</strong> Swing or sliding?</li>\n                <li><strong>Weight & Size:</strong> Ensure the motor supports your gate's weight.</li>\n                <li><strong>Power Supply:</strong> AC, DC, or solar-powered options available.</li>\n                <li><strong>Security Features:</strong> Look for automatic locking and obstacle detection.</li>\n            </ul>\n            <p>Need help choosing? <a href=\"#\">Contact our experts</a>.</p>\n        </div>\n\n        <div class=\"guide-section\">\n            <h2>2. How to Select the Best Remote Control</h2>\n            <p>Consider these factors when selecting a remote control:</p>\n            <ul>\n                <li><strong>Frequency Compatibility:</strong> Ensure it matches your motor\u2019s frequency.</li>\n                <li><strong>Number of Channels:</strong> Control multiple gates with one remote.</li>\n                <li><strong>Range & Battery Life:</strong> Choose remotes with extended range.</li>\n            </ul>\n            <p>Browse our selection of <a href=\"#\">remote controls</a>.</p>\n        </div>\n\n        <div class=\"guide-section\">\n            <h2>3. Must-Have Accessories for Your Automation System</h2>\n            <p>Enhance convenience and security with these accessories:</p>\n            <ul>\n                <li><strong>Safety Sensors:</strong> Prevent accidents with motion detection.</li>\n                <li><strong>Keypads & RFID Readers:</strong> Add extra layers of access control.</li>\n                <li><strong>Backup Batteries:</strong> Keep your system running during power outages.</li>\n            </ul>\n            <p>Check out our <a href=\"#\">accessories collection</a>.</p>\n        </div>\n\n        <div class=\"guide-section\">\n            <h2>4. Installation vs. DIY: What\u2019s Best for You?</h2>\n            <p>Decide whether to install yourself or hire a professional:</p>\n            <ul>\n                <li><strong>DIY Installation:</strong> Good for smaller systems with clear guides.</li>\n                <li><strong>Professional Installation:</strong> Recommended for complex setups.</li>\n                <li><strong>Warranty & Support:</strong> Professional installation may include extra support.</li>\n            </ul>\n            <p>Need an installer? <a href=\"#\">Find a professional near you</a>.</p>\n        </div>\n\n        <h2>Still Have Questions?</h2>\n        <p>Our team is here to help. Contact us for personalized recommendations:</p>\n        <p><strong>Email:</strong> <a href=\"mailto:support@ibertechsystems.com\">support@ibertechsystems.com</a></p>\n        <p><strong>Phone:</strong> [Customer Service Number]</p>\n\n        <p>Explore our <a href=\"#\">full product range</a> and find the perfect automation solution for your needs!</p>\n    </div>\n\n</body>\n</html>", "color_scheme": "", "padding_top": 40, "padding_bottom": 52}}}, "order": ["custom_liquid_iTgHtx"]}
+{
+  "sections": {
+    "main": {
+      "type": "general-content",
+      "blocks": {
+        "intro": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "",
+            "text_content": "<p>Welcome to our Buying Guides! Whether you're a homeowner, business, or installer, we provide expert advice to help you choose the right automation solution for your gates and garage doors.</p>"
+          }
+        },
+        "motor_guide": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "1. Choosing the Right Motor for Your Gate",
+            "text_content": "<p>Not all gate motors are the same. Here are key factors to consider:</p><ul><li><strong>Gate Type:</strong> Swing or sliding?</li><li><strong>Weight & Size:</strong> Ensure the motor supports your gate's weight.</li><li><strong>Power Supply:</strong> AC, DC, or solar-powered options available.</li><li><strong>Security Features:</strong> Look for automatic locking and obstacle detection.</li></ul><p>Need help choosing? <a href=\"/pages/contact\">Contact our experts</a>.</p>"
+          }
+        },
+        "remote_guide": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "2. How to Select the Best Remote Control",
+            "text_content": "<p>Consider these factors when selecting a remote control:</p><ul><li><strong>Frequency Compatibility:</strong> Ensure it matches your motor's frequency.</li><li><strong>Number of Channels:</strong> Control multiple gates with one remote.</li><li><strong>Range & Battery Life:</strong> Choose remotes with extended range.</li></ul><p>Browse our selection of <a href=\"/collections/remote-controls\">remote controls</a>.</p>"
+          }
+        },
+        "accessories_guide": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "3. Must-Have Accessories for Your Automation System",
+            "text_content": "<p>Enhance convenience and security with these accessories:</p><ul><li><strong>Safety Sensors:</strong> Prevent accidents with motion detection.</li><li><strong>Keypads & RFID Readers:</strong> Add extra layers of access control.</li><li><strong>Backup Batteries:</strong> Keep your system running during power outages.</li></ul><p>Check out our <a href=\"/collections/accessories\">accessories collection</a>.</p>"
+          }
+        },
+        "installation_guide": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "4. Installation vs. DIY: What's Best for You?",
+            "text_content": "<p>Decide whether to install yourself or hire a professional:</p><ul><li><strong>DIY Installation:</strong> Good for smaller systems with clear guides.</li><li><strong>Professional Installation:</strong> Recommended for complex setups.</li><li><strong>Warranty & Support:</strong> Professional installation may include extra support.</li></ul><p>Need an installer? <a href=\"/pages/contact\">Find a professional near you</a>.</p>"
+          }
+        },
+        "cta": {
+          "type": "call_to_action",
+          "settings": {
+            "cta_title": "Still Have Questions?",
+            "cta_text": "<p>Our team is here to help. Contact us for personalized recommendations and explore our full product range to find the perfect automation solution for your needs!</p>",
+            "cta_button_text": "Contact Our Experts",
+            "cta_button_link": "/pages/contact",
+            "cta_button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "motor_guide",
+        "remote_guide", 
+        "accessories_guide",
+        "installation_guide",
+        "cta"
+      ],
+      "settings": {
+        "heading": "Buying Guides",
+        "introduction": "",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": ["main"]
+}

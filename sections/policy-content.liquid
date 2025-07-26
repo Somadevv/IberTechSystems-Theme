@@ -1,0 +1,264 @@
+{{ 'section-policy-content.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="policy-content color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    
+    {% if section.settings.heading != blank %}
+      <h1 class="policy-content__heading center">{{ section.settings.heading }}</h1>
+    {% endif %}
+    
+    {% if section.settings.introduction != blank %}
+      <div class="policy-content__intro rte">{{ section.settings.introduction }}</div>
+    {% endif %}
+
+    <div class="policy-content__blocks">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'policy_section' %}
+            <div class="policy-content__section" {{ block.shopify_attributes }}>
+              {% if block.settings.section_title != blank %}
+                <h2 class="policy-content__section-title">{{ block.settings.section_title }}</h2>
+              {% endif %}
+              
+              {% if block.settings.section_content != blank %}
+                <div class="policy-content__section-content rte">
+                  {{ block.settings.section_content }}
+                </div>
+              {% endif %}
+            </div>
+
+          {% when 'policy_list' %}
+            <div class="policy-content__list-section" {{ block.shopify_attributes }}>
+              {% if block.settings.list_title != blank %}
+                <h2 class="policy-content__section-title">{{ block.settings.list_title }}</h2>
+              {% endif %}
+              
+              {% if block.settings.list_items != blank %}
+                <ul class="policy-content__list">
+                  {% assign items = block.settings.list_items | split: '|' %}
+                  {% for item in items %}
+                    <li>{{ item | strip }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+              
+              {% if block.settings.list_description != blank %}
+                <div class="policy-content__list-description rte">
+                  {{ block.settings.list_description }}
+                </div>
+              {% endif %}
+            </div>
+
+          {% when 'contact_info' %}
+            <div class="policy-content__contact" {{ block.shopify_attributes }}>
+              {% if block.settings.contact_title != blank %}
+                <h2 class="policy-content__section-title">{{ block.settings.contact_title }}</h2>
+              {% endif %}
+              
+              <div class="policy-content__contact-details">
+                {% if block.settings.contact_email != blank %}
+                  <p><strong>Email:</strong> <a href="mailto:{{ block.settings.contact_email }}">{{ block.settings.contact_email }}</a></p>
+                {% endif %}
+                
+                {% if block.settings.contact_phone != blank %}
+                  <p><strong>Phone:</strong> {{ block.settings.contact_phone }}</p>
+                {% endif %}
+                
+                {% if block.settings.contact_address != blank %}
+                  <div class="rte"><strong>Address:</strong> {{ block.settings.contact_address }}</div>
+                {% endif %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.footer_text != blank %}
+      <footer class="policy-content__footer">
+        <div class="rte">{{ section.settings.footer_text }}</div>
+      </footer>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Policy Content",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Policy Title",
+      "label": "Page Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction Text",
+      "info": "Optional introduction paragraph"
+    },
+    {
+      "type": "richtext",
+      "id": "footer_text",
+      "label": "Footer Text",
+      "info": "Optional footer content (e.g., copyright, last updated)"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2", 
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "policy_section",
+      "name": "Policy Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title"
+        },
+        {
+          "type": "richtext",
+          "id": "section_content",
+          "label": "Section Content"
+        }
+      ]
+    },
+    {
+      "type": "policy_list",
+      "name": "Policy List",
+      "settings": [
+        {
+          "type": "text",
+          "id": "list_title",
+          "label": "List Title",
+          "default": "List Title"
+        },
+        {
+          "type": "textarea",
+          "id": "list_items",
+          "label": "List Items",
+          "info": "Separate each item with | (pipe symbol)",
+          "placeholder": "Item 1|Item 2|Item 3"
+        },
+        {
+          "type": "richtext",
+          "id": "list_description",
+          "label": "Additional Description",
+          "info": "Optional text after the list"
+        }
+      ]
+    },
+    {
+      "type": "contact_info",
+      "name": "Contact Information",
+      "settings": [
+        {
+          "type": "text",
+          "id": "contact_title",
+          "label": "Contact Title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "text",
+          "id": "contact_email",
+          "label": "Email Address"
+        },
+        {
+          "type": "text",
+          "id": "contact_phone",
+          "label": "Phone Number"
+        },
+        {
+          "type": "richtext",
+          "id": "contact_address",
+          "label": "Address"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Policy Content",
+      "blocks": [
+        {
+          "type": "policy_section"
+        },
+        {
+          "type": "policy_list"
+        },
+        {
+          "type": "contact_info"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
