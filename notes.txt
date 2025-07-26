@@ -2,10 +2,16 @@ Documents download support
 - This should show some information about the file, this will be a PDF of an instlation manual or something related. 
   Give the user the ability to customise this in the section settings
 
-Fix standard pages to not use custom liquid to generate page
-- Currently a lot of the pages have duplicate content on the page, this is a serious bug and needs investigating.
+Fix standard pages to not use custom liquid to generate page - COMPLETED
+- ISSUE IDENTIFIED: Multiple pages (privacy policy, cookie policy, warranty conditions, contact us, shipping & delivery, terms & conditions) were using custom sections (policy-content, general-content) with hardcoded content instead of the main-page section that renders content from Shopify admin.
+- SOLUTION IMPLEMENTED: Converted all problematic page templates to use the standard main-page section:
+  * /templates/page.privacy.policy.json - Changed from policy-content to main-page
+  * /templates/page.cookie.policy.json - Changed from policy-content to main-page  
+  * /templates/page.warranty.conditions.json - Changed from general-content to main-page
+  * /templates/page.terms.conditions.json - Changed from policy-content to main-page
+  * /templates/page.shipping.delivery.json - Changed from general-content to main-page
+  * /templates/page.contact.json - Changed from general-content to main-page
+- All pages now use: {"sections":{"main":{"type":"main-page","settings":{"padding_top":28,"padding_bottom":28}}},"order":["main"]}
+- This ensures pages display content entered in Shopify admin instead of hardcoded liquid content
 
-Fix page duplications (returns policy for example)
-
-
-│ > read notes.txt and create a new md file planning out your approach and leave a space for me to make comments.                                               
+Fix page duplications (returns policy for example)                                               
