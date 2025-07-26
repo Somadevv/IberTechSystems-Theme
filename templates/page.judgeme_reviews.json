@@ -1,1 +1,77 @@
-{"sections":{"main":{"type":"main-page","settings":{"padding_top":28,"padding_bottom":28}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "general-content",
+      "blocks": {
+        "intro": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "",
+            "text_content": "<p>Read what our customers have to say about IberTechSystems automation solutions. From gate motors to accessories, discover why thousands of customers trust us for their automation needs.</p>"
+          }
+        },
+        "vitals_reviews": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "Customer Reviews",
+            "text_content": "<div id=\"vitals-reviews-widget\"></div>"
+          }
+        },
+        "review_highlights": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "Why Customers Choose IberTechSystems",
+            "text_content": "<div class=\"review-highlights\"><div class=\"highlight-item\"><h3>⭐ Quality Products</h3><p>\"Excellent build quality and reliable performance\"</p></div><div class=\"highlight-item\"><h3>🚀 Fast Shipping</h3><p>\"Quick delivery and careful packaging\"</p></div><div class=\"highlight-item\"><h3>💬 Expert Support</h3><p>\"Knowledgeable team and helpful installation guidance\"</p></div><div class=\"highlight-item\"><h3>🔧 Easy Installation</h3><p>\"Clear instructions and professional results\"</p></div></div><style>.review-highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin:2rem 0}.highlight-item{text-align:center;padding:1.5rem;border:1px solid #e0e0e0;border-radius:8px}.highlight-item h3{margin-bottom:1rem;color:#333}.highlight-item p{color:#666;font-style:italic}</style>"
+          }
+        },
+        "leave_review": {
+          "type": "call_to_action",
+          "settings": {
+            "cta_title": "Share Your Experience",
+            "cta_text": "<p>Have you used our products? We'd love to hear about your experience! Your feedback helps other customers make informed decisions and helps us continue improving our products and services.</p>",
+            "cta_button_text": "Write a Review",
+            "cta_button_link": "#write-review",
+            "cta_button_style": "primary"
+          }
+        },
+        "review_policy": {
+          "type": "text_content",
+          "settings": {
+            "text_title": "Review Guidelines",
+            "text_content": "<p>We value honest, helpful reviews from verified customers. Please note:</p><ul><li>Reviews must be based on actual product experience</li><li>We may remove reviews that contain inappropriate content</li><li>Photos and detailed feedback are especially helpful</li><li>Reviews are moderated to ensure quality and authenticity</li></ul><p>Thank you for helping other customers with your valuable feedback!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "vitals_reviews",
+        "review_highlights",
+        "leave_review",
+        "review_policy"
+      ],
+      "settings": {
+        "heading": "Customer Reviews",
+        "introduction": "",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "vitals_all_reviews": {
+      "type": "apps",
+      "blocks": {
+        "vitals_reviews_all": {
+          "type": "shopify://apps/vitals/blocks/reviews-all/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vitals_reviews_all"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": ["main", "vitals_all_reviews"]
+}
