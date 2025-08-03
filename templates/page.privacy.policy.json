@@ -1,1 +1,134 @@
-{"sections":{"main":{"type":"main-page","settings":{"padding_top":28,"padding_bottom":28}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "policy-content",
+      "blocks": {
+        "information_we_collect": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "1. Information We Collect",
+            "section_content": "<p>At IberTechSystems, we collect information to provide better services to our customers. This includes:</p>"
+          }
+        },
+        "personal_info": {
+          "type": "policy_list",
+          "settings": {
+            "list_title": "Personal Information:",
+            "list_items": "Name, email address, and phone number when you contact us|Billing and shipping addresses for order processing|Payment information (processed securely through our payment providers)|Account credentials if you create an account"
+          }
+        },
+        "automatic_info": {
+          "type": "policy_list",
+          "settings": {
+            "list_title": "Automatically Collected Information:",
+            "list_items": "IP address and browser information|Pages visited and time spent on our site|Device information and operating system|Cookies and similar tracking technologies"
+          }
+        },
+        "how_we_use": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "2. How We Use Your Information",
+            "section_content": "<p>We use your information for the following purposes:</p>"
+          }
+        },
+        "usage_list": {
+          "type": "policy_list",
+          "settings": {
+            "list_title": "",
+            "list_items": "Processing and fulfilling your orders|Providing customer support and responding to inquiries|Sending order confirmations and shipping updates|Improving our website and services|Marketing communications (with your consent)|Preventing fraud and ensuring website security"
+          }
+        },
+        "information_sharing": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "3. Information Sharing",
+            "section_content": "<p>We do not sell, trade, or rent your personal information to third parties. We may share your information in the following circumstances:</p>"
+          }
+        },
+        "sharing_list": {
+          "type": "policy_list",
+          "settings": {
+            "list_title": "",
+            "list_items": "With service providers who help us operate our business (shipping, payment processing)|When required by law or to protect our rights|In connection with a business transfer or merger|With your explicit consent"
+          }
+        },
+        "data_security": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "4. Data Security",
+            "section_content": "<p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. This includes:</p>"
+          }
+        },
+        "security_list": {
+          "type": "policy_list",
+          "settings": {
+            "list_title": "",
+            "list_items": "SSL encryption for data transmission|Secure payment processing through certified providers|Regular security audits and updates|Limited access to personal information on a need-to-know basis"
+          }
+        },
+        "your_rights": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "5. Your Rights",
+            "section_content": "<p>You have the following rights regarding your personal information:</p>"
+          }
+        },
+        "rights_list": {
+          "type": "policy_list",
+          "settings": {
+            "list_title": "",
+            "list_items": "Access to your personal information|Correction of inaccurate information|Deletion of your personal information|Opt-out of marketing communications|Data portability (where applicable)"
+          }
+        },
+        "cookies": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "6. Cookies and Tracking",
+            "section_content": "<p>We use cookies and similar technologies to enhance your browsing experience. For detailed information about our cookie usage, please see our <a href=\"/pages/cookie-policy\">Cookie Policy</a>.</p>"
+          }
+        },
+        "updates": {
+          "type": "policy_section",
+          "settings": {
+            "section_title": "7. Policy Updates",
+            "section_content": "<p>We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy on this page with an updated effective date.</p>"
+          }
+        },
+        "contact": {
+          "type": "contact_info",
+          "settings": {
+            "contact_title": "8. Contact Us",
+            "contact_email": "privacy@ibertechsystems.com",
+            "contact_phone": "+123-456-7890",
+            "contact_address": "<p>If you have any questions about this Privacy Policy or our data practices, please contact us.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "information_we_collect",
+        "personal_info", 
+        "automatic_info",
+        "how_we_use",
+        "usage_list",
+        "information_sharing",
+        "sharing_list",
+        "data_security",
+        "security_list",
+        "your_rights",
+        "rights_list",
+        "cookies",
+        "updates",
+        "contact"
+      ],
+      "settings": {
+        "heading": "Privacy Policy",
+        "introduction": "<p>At IberTechSystems, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or use our services.</p>",
+        "footer_text": "<p>Effective Date: January 2025</p>",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": ["main"]
+}
