@@ -50,6 +50,8 @@
     {%- if has_specs -%}
       <button class="tab-button-robust" onclick="showTabRobust('specifications')">Specifications</button>
     {%- endif -%}
+    
+    <button class="tab-button-robust" onclick="showTabRobust('reviews')">Reviews</button>
   </div>
   
   <!-- Description Tab -->
@@ -116,6 +118,22 @@
       </div>
     </div>
   {%- endif -%}
+  
+  <!-- Reviews Tab -->
+  <div id="tab-reviews" class="tab-panel-robust">
+    <div class="product-reviews">
+      {%- comment -%} Vitals Reviews Integration {%- endcomment -%}
+      <div id="vitals-product-reviews" data-product-id="{{ product.id }}">
+        <!-- Vitals reviews will be loaded here automatically -->
+      </div>
+      
+      {%- comment -%} Fallback content if Vitals is not loaded {%- endcomment -%}
+      <div class="reviews-placeholder" style="text-align: center; padding: 2rem; color: #666;">
+        <p>Customer reviews will appear here.</p>
+        <p><small>Reviews are powered by Vitals app.</small></p>
+      </div>
+    </div>
+  </div>
   
   <script>
     function showTabRobust(tabName) {
