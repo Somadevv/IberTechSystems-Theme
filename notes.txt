@@ -14,4 +14,4 @@ Fix standard pages to not use custom liquid to generate page - COMPLETED
 - All pages now use: {"sections":{"main":{"type":"main-page","settings":{"padding_top":28,"padding_bottom":28}}},"order":["main"]}
 - This ensures pages display content entered in Shopify admin instead of hardcoded liquid content
 
-Fix page duplications (returns policy for example)                                               
+Fix page duplications (returns policy for example)                                               # Updated: Sun Aug  3 12:47:06 BST 2025
