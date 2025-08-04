@@ -1,42 +1,29 @@
-<!-- Robust Product Tabs -->
-<div class="product-tabs-robust" {{ block.shopify_attributes }}>
-  <style>
-    .product-tabs-robust { margin: 2rem 0; font-family: inherit; }
-    .tab-nav-robust { display: flex; border-bottom: 2px solid #e5e5e5; margin-bottom: 2rem; flex-wrap: wrap; }
-    .tab-button-robust { background: none; border: none; padding: 1.2rem 2rem; cursor: pointer; font-size: 1.6rem; font-weight: 500; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
-    .tab-button-robust:hover { color: #333; background-color: #f9f9f9; }
-    .tab-button-robust.active { color: #000; border-bottom-color: #000; background-color: #fff; }
-    .tab-panel-robust { display: none; line-height: 1.6; }
-    .tab-panel-robust.active { display: block; animation: fadeIn 0.3s ease-in; }
-    .feature-item-robust { border: 1px solid #e0e0e0; margin-bottom: 1rem; border-radius: 6px; overflow: hidden; }
-    .feature-toggle-robust { width: 100%; padding: 1.5rem; background: #f8f8f8; border: none; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.5rem; }
-    .feature-toggle-robust:hover { background: #f0f0f0; }
-    .feature-content-robust { padding: 1.5rem; background: #fff; display: none; border-top: 1px solid #e0e0e0; }
-    .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .spec-item { background: #f9f9f9; padding: 1rem; border-radius: 4px; }
-    .spec-label { font-weight: 600; color: #333; margin-bottom: 0.5rem; }
-    .spec-value { color: #666; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 768px) { .tab-button-robust { padding: 1rem 1.5rem; font-size: 1.4rem; } .tab-nav-robust { justify-content: center; } }
-  </style>
+<!-- Product Tabs Block -->
+<div class="product-tabs" {{ block.shopify_attributes }}>
+  {{ 'product-tabs.css' | asset_url | stylesheet_tag }}
   
-  <div class="tab-nav-robust">
-    <button class="tab-button-robust active" onclick="showTabRobust('description')">Description</button>
+  <!-- Tab Navigation -->
+  <div class="product-tabs__nav">
+    <button class="product-tabs__button active" data-tab="description">
+      {{ block.settings.description_tab_label | default: 'Description' }}
+    </button>
     
-    {%- comment -%} Check for features in custom metafield {%- endcomment -%}
+    {%- comment -%} Check if product has features metafields {%- endcomment -%}
     {%- assign has_features = false -%}
     {%- for metafield in product.metafields.custom -%}
-      {%- if metafield[0] contains 'feature' or metafield[0] == 'features' -%}
+      {%- if metafield[0] contains 'feature' and metafield[1] != blank -%}
         {%- assign has_features = true -%}
         {%- break -%}
       {%- endif -%}
     {%- endfor -%}
     
     {%- if has_features -%}
-      <button class="tab-button-robust" onclick="showTabRobust('features')">Features</button>
+      <button class="product-tabs__button" data-tab="features">
+        {{ block.settings.features_tab_label | default: 'Features' }}
+      </button>
     {%- endif -%}
     
-    {%- comment -%} Check for specifications {%- endcomment -%}
+    {%- comment -%} Check if product has specifications metafields {%- endcomment -%}
     {%- assign has_specs = false -%}
     {%- for metafield in product.metafields.custom -%}
       {%- unless metafield[0] contains 'feature' -%}
@@ -48,170 +35,136 @@
     {%- endfor -%}
     
     {%- if has_specs -%}
-      <button class="tab-button-robust" onclick="showTabRobust('specifications')">Specifications</button>
+      <button class="product-tabs__button" data-tab="specifications">
+        {{ block.settings.specs_tab_label | default: 'Specifications' }}
+      </button>
     {%- endif -%}
     
-    <button class="tab-button-robust" onclick="showTabRobust('reviews')">Reviews</button>
+    <button class="product-tabs__button" data-tab="reviews">
+      {{ block.settings.reviews_tab_label | default: 'Reviews' }}
+    </button>
   </div>
   
-  <!-- Description Tab -->
-  <div id="tab-description" class="tab-panel-robust active">
-    {%- if product.description != blank -%}
-      <div class="product-description">{{ product.description }}</div>
-    {%- else -%}
-      <p>No description available for this product.</p>
-    {%- endif -%}
-  </div>
-  
-  <!-- Features Tab -->
-  {%- if has_features -%}
-    <div id="tab-features" class="tab-panel-robust">
-      <div class="product-features">
-        {%- comment -%} Look for pipe-separated features list {%- endcomment -%}
-        {%- if product.metafields.custom.features != blank and product.metafields.custom.features contains '|' -%}
-          {%- assign features_list = product.metafields.custom.features | split: '|' -%}
-          {%- for feature in features_list -%}
-            <div class="feature-item-robust">
-              <button class="feature-toggle-robust" onclick="toggleFeatureRobust(this)">
-                <span>{{ feature | strip }}</span>
-                <span>+</span>
-              </button>
-              <div class="feature-content-robust">
-                <p>{{ feature | strip }}</p>
+  <!-- Tab Content -->
+  <div class="product-tabs__content">
+    <!-- Description Tab -->
+    <div class="product-tabs__panel active" data-panel="description">
+      {%- if product.description != blank -%}
+        <div class="rte">
+          {{ product.description }}
+        </div>
+      {%- else -%}
+        <p>No description available for this product.</p>
+      {%- endif -%}
+    </div>
+    
+    <!-- Features Tab -->
+    {%- if has_features -%}
+      <div class="product-tabs__panel" data-panel="features">
+        <div class="product-features">
+          {%- comment -%} Look for pipe-separated features list {%- endcomment -%}
+          {%- if product.metafields.custom.features != blank and product.metafields.custom.features contains '|' -%}
+            {%- assign features_list = product.metafields.custom.features | split: '|' -%}
+            {%- for feature in features_list -%}
+              <div class="feature-item">
+                <h4>{{ feature | strip }}</h4>
               </div>
-            </div>
-          {%- endfor -%}
-        {%- else -%}
-          {%- comment -%} Show individual feature metafields {%- endcomment -%}
-          {%- for metafield in product.metafields.custom -%}
-            {%- if metafield[0] contains 'feature' and metafield[1] != blank -%}
-              <div class="feature-item-robust">
-                <button class="feature-toggle-robust" onclick="toggleFeatureRobust(this)">
-                  <span>{{ metafield[0] | replace: '_', ' ' | capitalize }}</span>
-                  <span>+</span>
-                </button>
-                <div class="feature-content-robust">
+            {%- endfor -%}
+          {%- else -%}
+            {%- comment -%} Show individual feature metafields {%- endcomment -%}
+            {%- for metafield in product.metafields.custom -%}
+              {%- if metafield[0] contains 'feature' and metafield[1] != blank -%}
+                <div class="feature-item">
+                  <h4>{{ metafield[0] | replace: '_', ' ' | capitalize }}</h4>
                   <p>{{ metafield[1] }}</p>
                 </div>
-              </div>
-            {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+    
+    <!-- Specifications Tab -->
+    {%- if has_specs -%}
+      <div class="product-tabs__panel" data-panel="specifications">
+        <div class="specifications-grid">
+          {%- for metafield in product.metafields.custom -%}
+            {%- unless metafield[0] contains 'feature' -%}
+              {%- if metafield[1] != blank -%}
+                <div class="spec-item">
+                  <dt>{{ metafield[0] | replace: '_', ' ' | capitalize }}</dt>
+                  <dd>{{ metafield[1] }}</dd>
+                </div>
+              {%- endif -%}
+            {%- endunless -%}
           {%- endfor -%}
-        {%- endif -%}
+        </div>
       </div>
-    </div>
-  {%- endif -%}
-  
-  <!-- Specifications Tab -->
-  {%- if has_specs -%}
-    <div id="tab-specifications" class="tab-panel-robust">
-      <div class="specs-grid">
-        {%- for metafield in product.metafields.custom -%}
-          {%- unless metafield[0] contains 'feature' -%}
-            {%- if metafield[1] != blank -%}
-              <div class="spec-item">
-                <div class="spec-label">{{ metafield[0] | replace: '_', ' ' | capitalize }}</div>
-                <div class="spec-value">{{ metafield[1] }}</div>
-              </div>
-            {%- endif -%}
-          {%- endunless -%}
-        {%- endfor -%}
-      </div>
-    </div>
-  {%- endif -%}
-  
-  <!-- Reviews Tab -->
-  <div id="tab-reviews" class="tab-panel-robust">
-    <div class="product-reviews">
-      {%- comment -%} Vitals Reviews Integration {%- endcomment -%}
-      <div class="vitals-reviews-section">
-        <div class="reviews-summary" style="margin-bottom: 2rem; text-align: center;">
+    {%- endif -%}
+    
+    <!-- Reviews Tab -->
+    <div class="product-tabs__panel" data-panel="reviews">
+      <div class="product-reviews">
+        <div class="reviews-header">
           <h3>Customer Reviews</h3>
-          <div class="review-stats" style="margin: 1rem 0;">
-            <div class="stars" style="font-size: 1.5rem; color: #ffa500;">★★★★★</div>
-            <p style="color: #666; margin-top: 0.5rem;">Based on customer feedback</p>
-          </div>
-          <button class="write-review-btn" onclick="openVitalsReviewForm()" style="background: #000; color: #fff; padding: 1rem 2rem; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-bottom: 2rem;">Write a Review</button>
+          <button class="write-review-btn" onclick="openVitalsReviewForm()">
+            Write a Review
+          </button>
         </div>
         
-        {%- comment -%} Vitals Reviews Widget Container {%- endcomment -%}
-        <div id="vitals-reviews-widget" data-product-id="{{ product.id }}" style="min-height: 200px;">
-          <!-- Vitals reviews carousel will be loaded here -->
+        {%- comment -%} Vitals Reviews Integration {%- endcomment -%}
+        <div id="vitals-reviews-container" data-product-id="{{ product.id }}">
+          <!-- Vitals reviews will be loaded here -->
         </div>
         
-        {%- comment -%} Fallback content {%- endcomment -%}
-        <div class="reviews-fallback" style="text-align: center; padding: 2rem; color: #666; border: 1px dashed #ccc; border-radius: 4px; margin-top: 1rem;">
-          <p>Customer reviews will appear here once loaded.</p>
-          <p><small>Powered by Vitals Reviews App</small></p>
+        <div class="reviews-placeholder">
+          <p>Customer reviews will appear here.</p>
         </div>
       </div>
     </div>
   </div>
   
   <script>
-    function showTabRobust(tabName) {
-      // Hide all tabs
-      document.querySelectorAll('.tab-panel-robust').forEach(panel => panel.classList.remove('active'));
-      document.querySelectorAll('.tab-button-robust').forEach(btn => btn.classList.remove('active'));
+    // Simple tab functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.product-tabs__button');
+      const tabPanels = document.querySelectorAll('.product-tabs__panel');
       
-      // Show selected tab
-      const targetPanel = document.getElementById('tab-' + tabName);
-      if (targetPanel) {
-        targetPanel.classList.add('active');
-        event.target.classList.add('active');
-      }
-    }
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const tabName = this.getAttribute('data-tab');
+          
+          // Remove active class from all buttons and panels
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabPanels.forEach(panel => panel.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding panel
+          this.classList.add('active');
+          const targetPanel = document.querySelector(`[data-panel="${tabName}"]`);
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
+        });
+      });
+    });
     
-    function toggleFeatureRobust(button) {
-      const content = button.nextElementSibling;
-      const icon = button.querySelector('span:last-child');
-      
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        icon.textContent = '+';
-      } else {
-        content.style.display = 'block';
-        icon.textContent = '−';
-      }
-    }
-    
+    // Vitals review form integration
     function openVitalsReviewForm() {
       // Try multiple approaches to trigger Vitals review form
-      if (typeof VITALS !== 'undefined' && VITALS.init) {
-        // Method 1: Direct VITALS API
-        VITALS.init('reviews', {
-          action: 'create',
-          productId: {{ product.id }}
-        });
-      } else if (window.vitalsLibrary) {
-        // Method 2: vitalsLibrary
-        window.vitalsLibrary.reviews.openReviewForm({{ product.id }});
+      if (typeof VITALS !== 'undefined' && VITALS.reviews) {
+        VITALS.reviews.openForm({{ product.id }});
+      } else if (window.vitalsApp && window.vitalsApp.reviews) {
+        window.vitalsApp.reviews.openForm({{ product.id }});
       } else {
-        // Method 3: Trigger click on existing Vitals elements
-        const vitalsButton = document.querySelector('[data-vitals-review-button], .vitals-review-button, .vitals-write-review');
+        // Fallback: trigger existing Vitals elements
+        const vitalsButton = document.querySelector('[data-vitals-action="reviews-form"], .vitals-review-button');
         if (vitalsButton) {
           vitalsButton.click();
         } else {
-          // Method 4: Custom event
-          window.dispatchEvent(new CustomEvent('vitals:openReviewForm', {
-            detail: { productId: {{ product.id }} }
-          }));
+          alert('Please scroll down to see the reviews section to write a review.');
         }
       }
     }
-    
-    // Initialize Vitals reviews on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if we're on the reviews tab
-      const reviewsTab = document.getElementById('tab-reviews');
-      if (reviewsTab) {
-        // Load Vitals reviews widget
-        if (typeof VITALS !== 'undefined') {
-          VITALS.init('reviews', {
-            productId: {{ product.id }},
-            container: '#vitals-reviews-widget'
-          });
-        }
-      }
-    });
   </script>
 </div>
