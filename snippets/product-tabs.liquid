@@ -1,146 +1,204 @@
-<!-- Robust Product Tabs -->
-<div class="product-tabs-robust" {{ block.shopify_attributes }}>
+<div class="product-tabs-container" {{ block.shopify_attributes }}>
   <style>
-    .product-tabs-robust { margin: 2rem 0; font-family: inherit; }
-    .tab-nav-robust { display: flex; border-bottom: 2px solid #e5e5e5; margin-bottom: 2rem; flex-wrap: wrap; }
-    .tab-button-robust { background: none; border: none; padding: 1.2rem 2rem; cursor: pointer; font-size: 1.6rem; font-weight: 500; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
-    .tab-button-robust:hover { color: #333; background-color: #f9f9f9; }
-    .tab-button-robust.active { color: #000; border-bottom-color: #000; background-color: #fff; }
-    .tab-panel-robust { display: none; line-height: 1.6; }
-    .tab-panel-robust.active { display: block; animation: fadeIn 0.3s ease-in; }
-    .feature-item-robust { border: 1px solid #e0e0e0; margin-bottom: 1rem; border-radius: 6px; overflow: hidden; }
-    .feature-toggle-robust { width: 100%; padding: 1.5rem; background: #f8f8f8; border: none; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.5rem; }
-    .feature-toggle-robust:hover { background: #f0f0f0; }
-    .feature-content-robust { padding: 1.5rem; background: #fff; display: none; border-top: 1px solid #e0e0e0; }
-    .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .spec-item { background: #f9f9f9; padding: 1rem; border-radius: 4px; }
-    .spec-label { font-weight: 600; color: #333; margin-bottom: 0.5rem; }
-    .spec-value { color: #666; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 768px) { .tab-button-robust { padding: 1rem 1.5rem; font-size: 1.4rem; } .tab-nav-robust { justify-content: center; } }
+    .product-tabs-container {
+      margin: 2rem 0;
+      max-width: 100%;
+    }
+    
+    .product-tabs-nav {
+      display: flex;
+      border-bottom: 2px solid #e5e5e5;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .product-tab-btn {
+      background: none;
+      border: none;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      border-radius: 8px 8px 0 0;
+    }
+    
+    .product-tab-btn:hover {
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    
+    .product-tab-btn.active {
+      color: #000;
+      border-bottom-color: #000;
+      background-color: #fff;
+    }
+    
+    .product-tab-content {
+      min-height: 200px;
+    }
+    
+    .product-tab-panel {
+      display: none;
+      line-height: 1.6;
+    }
+    
+    .product-tab-panel.active {
+      display: block;
+      animation: tabFadeIn 0.3s ease-in;
+    }
+    
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .write-review-button {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .write-review-button:hover {
+      background: #333;
+    }
+    
+    @media (max-width: 768px) {
+      .product-tab-btn {
+        flex: 1;
+        min-width: 0;
+        padding: 0.8rem 1rem;
+        font-size: 1.4rem;
+        text-align: center;
+      }
+    }
   </style>
   
-  <div class="tab-nav-robust">
-    <button class="tab-button-robust active" onclick="showTabRobust('description')">Description</button>
+  <!-- Unique Tab Navigation -->
+  <div class="product-tabs-nav">
+    <button class="product-tab-btn active" onclick="switchProductTab(event, 'description-{{ block.id }}')">
+      {{ block.settings.description_tab_label | default: 'Description' }}
+    </button>
     
-    {%- comment -%} Check for features in custom metafield {%- endcomment -%}
+    {%- comment -%} Check for features metafields {%- endcomment -%}
     {%- assign has_features = false -%}
     {%- for metafield in product.metafields.custom -%}
-      {%- if metafield[0] contains 'feature' or metafield[0] == 'features' -%}
+      {%- if metafield[0] contains 'feature' and metafield[1] != blank -%}
         {%- assign has_features = true -%}
         {%- break -%}
       {%- endif -%}
     {%- endfor -%}
     
     {%- if has_features -%}
-      <button class="tab-button-robust" onclick="showTabRobust('features')">Features</button>
+      <button class="product-tab-btn" onclick="switchProductTab(event, 'features-{{ block.id }}')">
+        {{ block.settings.features_tab_label | default: 'Features' }}
+      </button>
     {%- endif -%}
     
-    {%- comment -%} Check for specifications {%- endcomment -%}
-    {%- assign has_specs = false -%}
-    {%- for metafield in product.metafields.custom -%}
-      {%- unless metafield[0] contains 'feature' -%}
-        {%- if metafield[1] != blank -%}
-          {%- assign has_specs = true -%}
-          {%- break -%}
-        {%- endif -%}
-      {%- endunless -%}
-    {%- endfor -%}
+    <button class="product-tab-btn" onclick="switchProductTab(event, 'reviews-{{ block.id }}')">
+      {{ block.settings.reviews_tab_label | default: 'Reviews' }}
+    </button>
+  </div>
+  
+  <!-- Unique Tab Content -->
+  <div class="product-tab-content">
+    <!-- Description Panel -->
+    <div id="description-{{ block.id }}" class="product-tab-panel active">
+      {%- if product.description != blank -%}
+        <div class="rte">
+          {{ product.description }}
+        </div>
+      {%- else -%}
+        <p>No description available for this product.</p>
+      {%- endif -%}
+    </div>
     
-    {%- if has_specs -%}
-      <button class="tab-button-robust" onclick="showTabRobust('specifications')">Specifications</button>
-    {%- endif -%}
-  </div>
-  
-  <!-- Description Tab -->
-  <div id="tab-description" class="tab-panel-robust active">
-    {%- if product.description != blank -%}
-      <div class="product-description">{{ product.description }}</div>
-    {%- else -%}
-      <p>No description available for this product.</p>
-    {%- endif -%}
-  </div>
-  
-  <!-- Features Tab -->
-  {%- if has_features -%}
-    <div id="tab-features" class="tab-panel-robust">
-      <div class="product-features">
-        {%- comment -%} Look for pipe-separated features list {%- endcomment -%}
-        {%- if product.metafields.custom.features != blank and product.metafields.custom.features contains '|' -%}
-          {%- assign features_list = product.metafields.custom.features | split: '|' -%}
-          {%- for feature in features_list -%}
-            <div class="feature-item-robust">
-              <button class="feature-toggle-robust" onclick="toggleFeatureRobust(this)">
-                <span>{{ feature | strip }}</span>
-                <span>+</span>
-              </button>
-              <div class="feature-content-robust">
-                <p>{{ feature | strip }} - High-quality component designed for professional performance and reliability.</p>
-              </div>
-            </div>
-          {%- endfor -%}
-        {%- else -%}
-          {%- comment -%} Show individual feature metafields {%- endcomment -%}
+    <!-- Features Panel -->
+    {%- if has_features -%}
+      <div id="features-{{ block.id }}" class="product-tab-panel">
+        <div class="product-features">
           {%- for metafield in product.metafields.custom -%}
             {%- if metafield[0] contains 'feature' and metafield[1] != blank -%}
-              <div class="feature-item-robust">
-                <button class="feature-toggle-robust" onclick="toggleFeatureRobust(this)">
-                  <span>{{ metafield[0] | replace: '_', ' ' | capitalize }}</span>
-                  <span>+</span>
-                </button>
-                <div class="feature-content-robust">
-                  <p>{{ metafield[1] }}</p>
-                </div>
+              <div style="margin-bottom: 1rem; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 4px;">
+                <h4 style="margin: 0 0 0.5rem 0;">{{ metafield[0] | replace: '_', ' ' | capitalize }}</h4>
+                <p style="margin: 0;">{{ metafield[1] }}</p>
               </div>
             {%- endif -%}
           {%- endfor -%}
-        {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+    
+    <!-- Reviews Panel -->
+    <div id="reviews-{{ block.id }}" class="product-tab-panel">
+      <div class="reviews-header">
+        <h3>Customer Reviews</h3>
+        <button class="write-review-button" onclick="openReviewForm()">
+          Write a Review
+        </button>
+      </div>
+      
+      <div id="vitals-reviews-{{ product.id }}">
+        <!-- Vitals reviews will load here -->
+      </div>
+      
+      <div style="text-align: center; padding: 2rem; color: #666; border: 1px dashed #ddd; border-radius: 4px;">
+        <p>Customer reviews will appear here.</p>
       </div>
     </div>
-  {%- endif -%}
-  
-  <!-- Specifications Tab -->
-  {%- if has_specs -%}
-    <div id="tab-specifications" class="tab-panel-robust">
-      <div class="specs-grid">
-        {%- for metafield in product.metafields.custom -%}
-          {%- unless metafield[0] contains 'feature' -%}
-            {%- if metafield[1] != blank -%}
-              <div class="spec-item">
-                <div class="spec-label">{{ metafield[0] | replace: '_', ' ' | capitalize }}</div>
-                <div class="spec-value">{{ metafield[1] }}</div>
-              </div>
-            {%- endif -%}
-          {%- endunless -%}
-        {%- endfor -%}
-      </div>
-    </div>
-  {%- endif -%}
+  </div>
   
   <script>
-    function showTabRobust(tabName) {
-      // Hide all tabs
-      document.querySelectorAll('.tab-panel-robust').forEach(panel => panel.classList.remove('active'));
-      document.querySelectorAll('.tab-button-robust').forEach(btn => btn.classList.remove('active'));
+    function switchProductTab(evt, tabId) {
+      // Get the container for this specific tab instance
+      var container = evt.target.closest('.product-tabs-container');
       
-      // Show selected tab
-      const targetPanel = document.getElementById('tab-' + tabName);
+      // Hide all panels in this container
+      var panels = container.querySelectorAll('.product-tab-panel');
+      panels.forEach(function(panel) {
+        panel.classList.remove('active');
+      });
+      
+      // Remove active class from all buttons in this container
+      var buttons = container.querySelectorAll('.product-tab-btn');
+      buttons.forEach(function(button) {
+        button.classList.remove('active');
+      });
+      
+      // Show the selected panel
+      var targetPanel = document.getElementById(tabId);
       if (targetPanel) {
         targetPanel.classList.add('active');
-        event.target.classList.add('active');
       }
+      
+      // Mark the clicked button as active
+      evt.target.classList.add('active');
     }
     
-    function toggleFeatureRobust(button) {
-      const content = button.nextElementSibling;
-      const icon = button.querySelector('span:last-child');
-      
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        icon.textContent = '+';
+    function openReviewForm() {
+      // Try to find and trigger Vitals review form
+      if (typeof VITALS !== 'undefined' && VITALS.reviews) {
+        VITALS.reviews.openForm({{ product.id }});
       } else {
-        content.style.display = 'block';
-        icon.textContent = '−';
+        alert('Please scroll down to find the reviews section to write a review.');
       }
     }
   </script>
