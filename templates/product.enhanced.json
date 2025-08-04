@@ -36,10 +36,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "product_tabs": {
-          "type": "product_tabs",
-          "settings": {}
-        }
       },
       "block_order": [
         "vendor",
@@ -47,8 +43,7 @@
         "price", 
         "variant_picker",
         "quantity_selector",
-        "buy_buttons",
-        "product_tabs"
+        "buy_buttons"
       ],
       "settings": {
         "color_scheme": "scheme-1", 

@@ -42,36 +42,6 @@
             "share_label": "Share"
           }
         },
-        "product_tabs": {
-          "type": "product_tabs",
-          "settings": {
-            "description_tab_label": "Description",
-            "features_tab_label": "Product Details",
-            "reviews_tab_label": "Reviews",
-            "show_reviews_count": true,
-            "reviews_count": 1,
-            "reviews_content": "",
-            "reviews_placeholder_title": "Customer Reviews",
-            "reviews_placeholder_text": "No reviews yet. Be the first to review this product!",
-            "show_review_button": true,
-            "review_button_text": "Write a Review",
-            "use_vitals_reviews": true,
-            "no_description_text": "No description available for this product.",
-            "features_content": "High Quality Materials|Durable Construction|Easy to Use|Eco-Friendly|Satisfaction Guaranteed",
-            "features_placeholder_title": "Key Features",
-            "features_placeholder_text": "Product features will be displayed here.",
-            "custom_feature_1_title": "",
-            "custom_feature_1_description": "",
-            "custom_feature_2_title": "",
-            "custom_feature_2_description": "",
-            "custom_feature_3_title": "",
-            "custom_feature_3_description": "",
-            "custom_feature_4_title": "",
-            "custom_feature_4_description": "",
-            "custom_feature_5_title": "",
-            "custom_feature_5_description": ""
-          }
-        }
       },
       "block_order": [
         "vendor",
@@ -80,8 +50,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "share",
-        "product_tabs"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,

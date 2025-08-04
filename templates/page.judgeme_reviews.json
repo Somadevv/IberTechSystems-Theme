@@ -14,14 +14,14 @@
           "type": "text_content",
           "settings": {
             "text_title": "Customer Reviews",
-            "text_content": "<div id=\"vitals-reviews-widget\"></div>"
+            "text_content": "<p>Customer reviews will be displayed here.</p>"
           }
         },
         "review_highlights": {
           "type": "text_content",
           "settings": {
             "text_title": "Why Customers Choose IberTechSystems",
-            "text_content": "<div class=\"review-highlights\"><div class=\"highlight-item\"><h3>⭐ Quality Products</h3><p>\"Excellent build quality and reliable performance\"</p></div><div class=\"highlight-item\"><h3>🚀 Fast Shipping</h3><p>\"Quick delivery and careful packaging\"</p></div><div class=\"highlight-item\"><h3>💬 Expert Support</h3><p>\"Knowledgeable team and helpful installation guidance\"</p></div><div class=\"highlight-item\"><h3>🔧 Easy Installation</h3><p>\"Clear instructions and professional results\"</p></div></div><style>.review-highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin:2rem 0}.highlight-item{text-align:center;padding:1.5rem;border:1px solid #e0e0e0;border-radius:8px}.highlight-item h3{margin-bottom:1rem;color:#333}.highlight-item p{color:#666;font-style:italic}</style>"
+            "text_content": "<h3>⭐ Quality Products</h3><p>\"Excellent build quality and reliable performance\"</p><h3>🚀 Fast Shipping</h3><p>\"Quick delivery and careful packaging\"</p><h3>💬 Expert Support</h3><p>\"Knowledgeable team and helpful installation guidance\"</p><h3>🔧 Easy Installation</h3><p>\"Clear instructions and professional results\"</p>"
           }
         },
         "leave_review": {
