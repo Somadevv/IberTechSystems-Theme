@@ -35,16 +35,6 @@
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
           }
-        },
-        "product_tabs": {
-          "type": "product_tabs",
-          "settings": {
-            "description_tab_label": "Description",
-            "features_tab_label": "Features",
-            "reviews_tab_label": "Reviews",
-            "show_reviews_count": true,
-            "use_vitals_reviews": false
-          }
         }
       },
       "block_order": [
@@ -53,8 +43,7 @@
         "price",
         "variant_picker",
         "quantity_selector",
-        "buy_buttons",
-        "product_tabs"
+        "buy_buttons"
       ],
       "settings": {
         "color_scheme": "scheme-1",

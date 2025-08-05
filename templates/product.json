@@ -41,16 +41,6 @@
           "settings": {
             "share_label": "Share"
           }
-        },
-        "product_tabs": {
-          "type": "product_tabs",
-          "settings": {
-            "description_tab_label": "Description",
-            "features_tab_label": "Product Details",
-            "reviews_tab_label": "Reviews",
-            "show_reviews_count": true,
-            "use_vitals_reviews": true
-          }
         }
       },
       "block_order": [
@@ -60,8 +50,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "share",
-        "product_tabs"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
