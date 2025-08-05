@@ -45,6 +45,10 @@
             "show_gift_card_recipient": true
           }
         },
+        "description_CENFQU": {
+          "type": "description",
+          "settings": {}
+        },
         "trust_badges_nL8kWG": {
           "type": "trust_badges",
           "settings": {
@@ -73,6 +77,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "description_CENFQU",
         "trust_badges_nL8kWG",
         "shipping_info_bfRJNw"
       ],
