@@ -68,12 +68,6 @@
         "description_VR3ABR": {
           "type": "description",
           "settings": {}
-        },
-        "product_tabs_demo": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{% render 'product-tabs-demo' %}"
-          }
         }
       },
       "block_order": [
@@ -85,8 +79,7 @@
         "buy_buttons",
         "trust_badges_nL8kWG",
         "shipping_info_bfRJNw",
-        "description_VR3ABR",
-        "product_tabs_demo"
+        "description_VR3ABR"
       ],
       "settings": {
         "enable_sticky_info": true,

@@ -16,7 +16,6 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
   {{ 'product-enhancements.css' | asset_url | stylesheet_tag }}
-  {{ 'product-tabs-vitals.css' | asset_url | stylesheet_tag }}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -754,10 +753,6 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
-              {%- when 'product_tabs_vitals' -%}
-                <div class="product-tabs-wrapper" {{ block.shopify_attributes }}>
-                  {% render 'product-tabs-vitals', product: product %}
-                </div>
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -2324,68 +2319,6 @@
           "id": "support_guarantee",
           "label": "Support Guarantee",
           "placeholder": "e.g. 24/7 customer support"
-        }
-      ]
-    },
-    {
-      "type": "product_tabs_vitals",
-      "name": "Product Tabs (Vitals Enhanced)",
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "Display product features, specifications, applications, and benefits in a tabbed interface. Data is pulled from product metafields with namespace 'features'."
-        },
-        {
-          "type": "header",
-          "content": "Tab Display Options" 
-        },
-        {
-          "type": "checkbox",
-          "id": "show_features",
-          "default": true,
-          "label": "Show Features Tab"
-        },
-        {
-          "type": "checkbox", 
-          "id": "show_specs",
-          "default": true,
-          "label": "Show Specifications Tab"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_applications", 
-          "default": true,
-          "label": "Show Applications Tab"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_benefits",
-          "default": true, 
-          "label": "Show Benefits Tab"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_installation",
-          "default": false,
-          "label": "Show Installation Tab"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_warranty",
-          "default": false,
-          "label": "Show Warranty Tab"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_video",
-          "default": false,
-          "label": "Show Video Tab"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_downloads",
-          "default": false,
-          "label": "Show Downloads Tab"
         }
       ]
     }
