@@ -45,12 +45,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        },
         "trust_badges_nL8kWG": {
           "type": "trust_badges",
           "settings": {
@@ -88,7 +82,6 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "share",
         "trust_badges_nL8kWG",
         "shipping_info_bfRJNw",
         "product_guarantees_iM3VmF"
