@@ -190,19 +190,6 @@
                   {%- endif -%}
                 </p>
               
-              {%- when 'description' -%}
-               {% if product.description != blank %}
-  <div class="border-t border-border">
-    <div class="container">
-      <div class="mx-auto max-w-3xl py-6 md:py-10">
-        <h2 class="mb-4 text-xl font-bold">Product Description</h2>
-        <div class="prose dark:prose-invert max-w-none">
-          {{ product.description }}
-        </div>
-      </div>
-    </div>
-  </div>
-{% endif %}
 
               {%- when 'trust_badges' -%}
                 <div class="product__trust-badges" {{ block.shopify_attributes }}>
@@ -1017,11 +1004,6 @@
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
         }
       ]
-    },
-    {
-      "type": "description",
-      "name": "t:sections.main-product.blocks.description.name",
-      "limit": 1
     },
     {
       "type": "share",
