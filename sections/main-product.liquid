@@ -190,7 +190,10 @@
                   {%- endif -%}
                 </p>
               
-
+              {%- when 'description' -%}
+                <div class="product__description rte" {{ block.shopify_attributes }}>
+                  {{ product.description }}
+                </div>
               {%- when 'trust_badges' -%}
                 <div class="product__trust-badges" {{ block.shopify_attributes }}>
                   <div class="trust-badges">
@@ -1004,6 +1007,11 @@
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
         }
       ]
+    },
+    {
+      "type": "description",
+      "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
     },
     {
       "type": "share",
