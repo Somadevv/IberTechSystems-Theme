@@ -1,0 +1,40 @@
+{
+  "sample_metafields_for_rhino_230v": {
+    "features.key_features": "Heavy-duty electromechanical design|Built-in mechanical stops|400mm stroke length|IP54 weather protection|Thermal protection|Quick manual release",
+    "features.technical_specs": "Power: 230V AC|Stroke: 400mm|Max Leaf: 3.5m|Operation: Irreversible|Protection: IP54|Temp Range: -20°C to +55°C",
+    "features.applications": "Residential gates|Commercial access|Industrial entrances|Security installations|Daily use applications",
+    "features.benefits": "Enhanced security|Weather resistant|Precise positioning|Reliable operation|Low maintenance|Professional grade",
+    "features.installation": "Professional installation required. Concrete foundation needed. Standard electrical connection. Compatible with all control systems.",
+    "features.warranty": "3-year motor warranty. 1-year component warranty. Professional support available."
+  },
+  
+  "sample_metafields_for_rhino_24v": {
+    "features.key_features": "24V DC low voltage operation|Battery backup compatible|Solar power ready|Ultra-quiet operation|Smart home integration|Emergency manual release",
+    "features.technical_specs": "Power: 24V DC|Stroke: 400mm|Max Leaf: 3.0m|Operation: Irreversible|Protection: IP54|Battery: Compatible",
+    "features.applications": "Residential gates|Smart homes|Solar installations|Battery backup systems|Quiet neighborhoods",
+    "features.benefits": "Enhanced safety|Battery backup|Solar compatible|Quiet operation|Smart integration|Eco-friendly",
+    "features.installation": "Professional installation recommended. 12V battery system compatible. Solar panel integration available.",
+    "features.warranty": "3-year motor warranty. 2-year electronic warranty. Smart system support."
+  },
+
+  "instructions": {
+    "how_to_add_metafields": [
+      "1. Go to Shopify Admin > Settings > Custom data",
+      "2. Click 'Products' then 'Add definition'", 
+      "3. Create metafield with namespace 'features' and the following keys:",
+      "   - key_features (Single line text)",
+      "   - technical_specs (Single line text)", 
+      "   - applications (Single line text)",
+      "   - benefits (Single line text)",
+      "   - installation (Single line text)",
+      "   - warranty (Single line text)",
+      "4. Go to Products > [Select Product] > Metafields section",
+      "5. Add the sample data from above for each field",
+      "6. Save the product"
+    ],
+    "alternative_method": [
+      "Use the Enhanced CSV file (Product-list-Enhanced.csv) which includes metafields columns",
+      "Import via Shopify admin or use a CSV import app that supports metafields"
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{% comment %}
+  Demo version of product tabs with hardcoded data for testing
+  This shows how the tabs will look when metafields are populated
+{% endcomment %}
+
+<div class="product-tabs-container vitals-enhanced" data-vitals-product-tabs>
+  <div class="product-tabs__navigation">
+    <ul class="product-tabs__nav-list" role="tablist">
+      <li class="product-tabs__nav-item">
+        <button 
+          class="product-tabs__nav-button active" 
+          role="tab" 
+          aria-selected="true"
+          aria-controls="tab-features-demo"
+          id="nav-features-demo"
+          data-tab="features"
+        >
+          {% render 'icon-features' %}
+          <span>Key Features</span>
+        </button>
+      </li>
+      
+      <li class="product-tabs__nav-item">
+        <button 
+          class="product-tabs__nav-button" 
+          role="tab" 
+          aria-selected="false"
+          aria-controls="tab-specs-demo"
+          id="nav-specs-demo"
+          data-tab="specs"
+        >
+          {% render 'icon-specifications' %}
+          <span>Specifications</span>
+        </button>
+      </li>
+      
+      <li class="product-tabs__nav-item">
+        <button 
+          class="product-tabs__nav-button" 
+          role="tab" 
+          aria-selected="false"
+          aria-controls="tab-applications-demo"
+          id="nav-applications-demo"
+          data-tab="applications"
+        >
+          {% render 'icon-applications' %}
+          <span>Applications</span>
+        </button>
+      </li>
+      
+      <li class="product-tabs__nav-item">
+        <button 
+          class="product-tabs__nav-button" 
+          role="tab" 
+          aria-selected="false"
+          aria-controls="tab-benefits-demo"
+          id="nav-benefits-demo"
+          data-tab="benefits"
+        >
+          {% render 'icon-benefits' %}
+          <span>Benefits</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="product-tabs__content">
+    <div 
+      class="product-tabs__panel active" 
+      role="tabpanel"
+      aria-labelledby="nav-features-demo"
+      id="tab-features-demo"
+      data-tab-content="features"
+    >
+      <div class="product-tabs__panel-content">
+        <h3 class="product-tabs__panel-title">Key Features</h3>
+        <div class="product-tabs__features-list">
+          <ul class="features-grid">
+            <li class="feature-item">
+              {% render 'icon-check-circle' %}
+              <span>Heavy-duty electromechanical design</span>
+            </li>
+            <li class="feature-item">
+              {% render 'icon-check-circle' %}
+              <span>Built-in mechanical stops</span>
+            </li>
+            <li class="feature-item">
+              {% render 'icon-check-circle' %}
+              <span>400mm stroke length</span>
+            </li>
+            <li class="feature-item">
+              {% render 'icon-check-circle' %}
+              <span>IP54 weather protection</span>
+            </li>
+            <li class="feature-item">
+              {% render 'icon-check-circle' %}
+              <span>Thermal protection</span>
+            </li>
+            <li class="feature-item">
+              {% render 'icon-check-circle' %}
+              <span>Quick manual release</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div 
+      class="product-tabs__panel" 
+      role="tabpanel"
+      aria-labelledby="nav-specs-demo"
+      id="tab-specs-demo"
+      data-tab-content="specs"
+    >
+      <div class="product-tabs__panel-content">
+        <h3 class="product-tabs__panel-title">Technical Specifications</h3>
+        <div class="product-tabs__specs-table">
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                <td class="spec-label">Power</td>
+                <td class="spec-value">230V AC</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Stroke</td>
+                <td class="spec-value">400mm</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Max Leaf</td>
+                <td class="spec-value">3.5m</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Operation</td>
+                <td class="spec-value">Irreversible</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Protection</td>
+                <td class="spec-value">IP54</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Temp Range</td>
+                <td class="spec-value">-20°C to +55°C</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div 
+      class="product-tabs__panel" 
+      role="tabpanel"
+      aria-labelledby="nav-applications-demo"
+      id="tab-applications-demo"
+      data-tab-content="applications"
+    >
+      <div class="product-tabs__panel-content">
+        <h3 class="product-tabs__panel-title">Applications</h3>
+        <div class="product-tabs__applications-list">
+          <ul class="applications-grid">
+            <li class="application-item">
+              {% render 'icon-target' %}
+              <span>Residential gates</span>
+            </li>
+            <li class="application-item">
+              {% render 'icon-target' %}
+              <span>Commercial access</span>
+            </li>
+            <li class="application-item">
+              {% render 'icon-target' %}
+              <span>Industrial entrances</span>
+            </li>
+            <li class="application-item">
+              {% render 'icon-target' %}
+              <span>Security installations</span>
+            </li>
+            <li class="application-item">
+              {% render 'icon-target' %}
+              <span>Daily use applications</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div 
+      class="product-tabs__panel" 
+      role="tabpanel"
+      aria-labelledby="nav-benefits-demo"
+      id="tab-benefits-demo"
+      data-tab-content="benefits"
+    >
+      <div class="product-tabs__panel-content">
+        <h3 class="product-tabs__panel-title">Benefits</h3>
+        <div class="product-tabs__benefits-list">
+          <ul class="benefits-grid">
+            <li class="benefit-item">
+              {% render 'icon-benefits' %}
+              <span>Enhanced security</span>
+            </li>
+            <li class="benefit-item">
+              {% render 'icon-benefits' %}
+              <span>Weather resistant</span>
+            </li>
+            <li class="benefit-item">
+              {% render 'icon-benefits' %}
+              <span>Precise positioning</span>
+            </li>
+            <li class="benefit-item">
+              {% render 'icon-benefits' %}
+              <span>Reliable operation</span>
+            </li>
+            <li class="benefit-item">
+              {% render 'icon-benefits' %}
+              <span>Low maintenance</span>
+            </li>
+            <li class="benefit-item">
+              {% render 'icon-benefits' %}
+              <span>Professional grade</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const productTabs = document.querySelector('[data-vitals-product-tabs]');
+    if (!productTabs) return;
+    
+    const tabButtons = productTabs.querySelectorAll('.product-tabs__nav-button');
+    const tabPanels = productTabs.querySelectorAll('.product-tabs__panel');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const targetTab = this.getAttribute('data-tab');
+        
+        // Remove active states
+        tabButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        
+        tabPanels.forEach(panel => {
+          panel.classList.remove('active');
+        });
+        
+        // Add active states
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        
+        const targetPanel = productTabs.querySelector(`[data-tab-content="${targetTab}"]`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+        
+        // Fire event for Vitals integration
+        window.dispatchEvent(new CustomEvent('vitals:productTabChanged', {
+          detail: {
+            productId: 'demo',
+            activeTab: targetTab,
+            productHandle: 'demo-product'
+          }
+        }));
+      });
+    });
+  });
+</script>
