@@ -18,13 +18,14 @@
 .trust-badge {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
   background: white;
   border-radius: 6px;
   border: 1px solid #e0e0e0;
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   color: #333;
+  font-weight: 500;
   transition: all 0.2s ease;
 }
 
@@ -33,6 +34,8 @@
 .trust-badge svg {
   color: #4CAF50;
   flex-shrink: 0;
+  width: 24px;
+  height: 24px;
 }
 
 /* Shipping Information */
