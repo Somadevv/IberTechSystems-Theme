@@ -10,9 +10,10 @@
 
 .trust-badges {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
 }
 
 .trust-badge {
@@ -182,11 +183,13 @@
 /* Mobile Responsiveness */
 @media screen and (max-width: 749px) {
   .trust-badges {
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   
   .trust-badge {
     justify-content: center;
+    flex: 0 1 auto;
   }
   
   .payment-icons {
