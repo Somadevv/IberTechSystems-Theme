@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -41,6 +50,35 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "trust_badges_nL8kWG": {
+          "type": "trust_badges",
+          "settings": {
+            "show_secure_checkout": true,
+            "secure_checkout_text": "Secure Checkout",
+            "show_free_shipping": false,
+            "free_shipping_text": "Free Shipping",
+            "show_warranty": true,
+            "warranty_text": "Warranty Included"
+          }
+        },
+        "shipping_info_bfRJNw": {
+          "type": "shipping_info",
+          "settings": {
+            "shipping_title": "Shipping Information",
+            "free_shipping_threshold": 3000,
+            "delivery_time": "3-5 Business days",
+            "shipping_note": "Please note locations overseas will charge extra for delivery fees."
+          }
+        },
+        "product_guarantees_iM3VmF": {
+          "type": "product_guarantees",
+          "settings": {
+            "guarantees_title": "Our Promise",
+            "money_back": "Not satisfied with your purchase? Get a full refund within 30 days—no hassle, no risk.",
+            "quality_guarantee": "Every item is carefully inspected to meet our high-quality standards, ensuring you get only the best.",
+            "support_guarantee": "Our support team is always here to help—expect fast, friendly assistance whenever you need it."
+          }
         }
       },
       "block_order": [
@@ -50,7 +88,10 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "share"
+        "share",
+        "trust_badges_nL8kWG",
+        "shipping_info_bfRJNw",
+        "product_guarantees_iM3VmF"
       ],
       "settings": {
         "enable_sticky_info": true,
