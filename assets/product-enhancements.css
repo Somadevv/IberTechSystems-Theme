@@ -28,10 +28,7 @@
   transition: all 0.2s ease;
 }
 
-.trust-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/* Hover effects removed as requested */
 
 .trust-badge svg {
   color: #4CAF50;
@@ -49,8 +46,9 @@
 
 .shipping-info h4 {
   margin: 0 0 1rem 0;
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   color: #333;
+  font-weight: 600;
 }
 
 .shipping-details {
@@ -61,7 +59,8 @@
 
 .shipping-item {
   color: #555;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
 .shipping-item strong {
@@ -105,15 +104,18 @@
 .product__guarantees {
   margin: 1.5rem 0;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: transparent;
+  color: #333;
   border-radius: 8px;
+  border: 1px solid #e0e0e0;
 }
 
 .guarantees h4 {
-  margin: 0 0 1rem 0;
-  font-size: 1.1rem;
-  text-align: center;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.4rem;
+  text-align: left;
+  color: #333;
+  font-weight: 600;
 }
 
 .guarantee-list {
@@ -126,9 +128,11 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+  margin-bottom: 0.5rem;
 }
 
 .guarantee-icon {
