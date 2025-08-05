@@ -1,0 +1,538 @@
+{% comment %}
+  Product Manager Page Template
+  
+  This template provides a simple interface for managing products
+  and populating them with data from the enhanced CSV file.
+  
+  Usage: Create a page with template 'product-manager' in Shopify admin
+{% endcomment %}
+
+<div class="page-width section-{{ section.id }}-padding">
+  <header class="section-header text-center">
+    <h1 class="h2">{{ page.title }}</h1>
+    {% if page.content != blank %}
+      <div class="rte">
+        {{ page.content }}
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="product-manager-container">
+    
+    <!-- CSV Data Display Section -->
+    <section class="csv-data-section">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="h3">Enhanced Product Data from CSV</h2>
+          <p>The following products have been enhanced with detailed descriptions and metafields structure:</p>
+        </div>
+        <div class="card-content">
+          
+          <!-- Product Grid Display -->
+          <div class="product-grid">
+            
+            <!-- RHINO 230V Operator -->
+            <div class="product-card" data-product-handle="rhino-230v-operator">
+              <div class="product-card__header">
+                <h3 class="product-card__title">RHINO 230V Gate Operator</h3>
+                <span class="product-card__sku">PRH4A7</span>
+              </div>
+              <div class="product-card__content">
+                <div class="product-card__features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Heavy-duty electromechanical design</li>
+                    <li>Built-in mechanical stops</li>
+                    <li>400mm stroke length</li>
+                    <li>IP54 weather protection</li>
+                    <li>Thermal protection</li>
+                  </ul>
+                </div>
+                <div class="product-card__specs">
+                  <h4>Technical Specs:</h4>
+                  <ul>
+                    <li><strong>Power:</strong> 230V AC</li>
+                    <li><strong>Stroke:</strong> 400mm</li>
+                    <li><strong>Max Leaf:</strong> 3.5m</li>
+                    <li><strong>Protection:</strong> IP54</li>
+                  </ul>
+                </div>
+                <div class="product-card__price">
+                  <span class="price">$546.00</span>
+                  <span class="compare-price">$650.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RHINO 24V Operator -->
+            <div class="product-card" data-product-handle="rhino-24v-operator">
+              <div class="product-card__header">
+                <h3 class="product-card__title">RHINO 24V Gate Operator</h3>
+                <span class="product-card__sku">PRH2A7</span>
+              </div>
+              <div class="product-card__content">
+                <div class="product-card__features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>24V DC low voltage operation</li>
+                    <li>Battery backup compatible</li>
+                    <li>Solar power ready</li>
+                    <li>Ultra-quiet operation</li>
+                    <li>Smart home integration</li>
+                  </ul>
+                </div>
+                <div class="product-card__specs">
+                  <h4>Technical Specs:</h4>
+                  <ul>
+                    <li><strong>Power:</strong> 24V DC</li>
+                    <li><strong>Stroke:</strong> 400mm</li>
+                    <li><strong>Max Leaf:</strong> 3.0m</li>
+                    <li><strong>Battery:</strong> Compatible</li>
+                  </ul>
+                </div>
+                <div class="product-card__price">
+                  <span class="price">$550.00</span>
+                  <span class="compare-price">$650.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RHINO Double Kit Standard -->
+            <div class="product-card" data-product-handle="rhino-double-kit-standard">
+              <div class="product-card__header">
+                <h3 class="product-card__title">RHINO Double Gate Kit - Standard</h3>
+                <span class="product-card__sku">KRH4A7YD501</span>
+              </div>
+              <div class="product-card__content">
+                <div class="product-card__features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Dual RHINO operators</li>
+                    <li>LED warning blinker</li>
+                    <li>RF40 photocell safety</li>
+                    <li>Extended range antenna</li>
+                    <li>Professional control unit</li>
+                  </ul>
+                </div>
+                <div class="product-card__specs">
+                  <h4>Technical Specs:</h4>
+                  <ul>
+                    <li><strong>Power:</strong> 230V AC</li>
+                    <li><strong>Max Gates:</strong> 3.5m each</li>
+                    <li><strong>Safety:</strong> RF40 photocells</li>
+                    <li><strong>Control:</strong> Q80A unit</li>
+                  </ul>
+                </div>
+                <div class="product-card__price">
+                  <span class="price">$1,450.00</span>
+                  <span class="compare-price">$1,750.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACE 4 TI Operator -->
+            <div class="product-card" data-product-handle="ace-ti-4-operator">
+              <div class="product-card__header">
+                <h3 class="product-card__title">ACE 4 TI Gate Operator</h3>
+                <span class="product-card__sku">PAC44A0D</span>
+              </div>
+              <div class="product-card__content">
+                <div class="product-card__features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Extending ram design</li>
+                    <li>Precision engineering</li>
+                    <li>High torque output</li>
+                    <li>Flexible mounting</li>
+                    <li>Commercial grade</li>
+                  </ul>
+                </div>
+                <div class="product-card__specs">
+                  <h4>Technical Specs:</h4>
+                  <ul>
+                    <li><strong>Power:</strong> 230V AC</li>
+                    <li><strong>Stroke:</strong> 400mm</li>
+                    <li><strong>Max Leaf:</strong> 3.0m</li>
+                    <li><strong>Operation:</strong> Irreversible</li>
+                  </ul>
+                </div>
+                <div class="product-card__price">
+                  <span class="price">$494.00</span>
+                  <span class="compare-price">$580.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- LEADER NEW 5 TI -->
+            <div class="product-card" data-product-handle="leader-new-5-ti">
+              <div class="product-card__header">
+                <h3 class="product-card__title">LEADER NEW 5 TI Gate Operator</h3>
+                <span class="product-card__sku">PLN54A0D/S</span>
+              </div>
+              <div class="product-card__content">
+                <div class="product-card__features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Extended 500mm stroke</li>
+                    <li>Heavy-duty construction</li>
+                    <li>Premium components</li>
+                    <li>Ultimate reliability</li>
+                    <li>Large gate capacity</li>
+                  </ul>
+                </div>
+                <div class="product-card__specs">
+                  <h4>Technical Specs:</h4>
+                  <ul>
+                    <li><strong>Power:</strong> 230V AC</li>
+                    <li><strong>Stroke:</strong> 500mm</li>
+                    <li><strong>Max Leaf:</strong> 3.5m</li>
+                    <li><strong>Duty:</strong> Heavy-duty</li>
+                  </ul>
+                </div>
+                <div class="product-card__price">
+                  <span class="price">$374.00</span>
+                  <span class="compare-price">$450.00</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metafields Structure Information -->
+    <section class="metafields-info-section">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="h3">Metafields Structure for Vitals Product Tabs</h2>
+          <p>The following metafields structure has been designed for the enhanced product tabs:</p>
+        </div>
+        <div class="card-content">
+          <div class="metafields-grid">
+            
+            <div class="metafield-info">
+              <h4>features.key_features</h4>
+              <p><strong>Type:</strong> single_line_text_field</p>
+              <p><strong>Format:</strong> Pipe-separated values (|)</p>
+              <p><strong>Example:</strong> "Heavy-duty design|Built-in stops|400mm stroke|IP54 protection"</p>
+            </div>
+
+            <div class="metafield-info">
+              <h4>features.technical_specs</h4>
+              <p><strong>Type:</strong> single_line_text_field</p>
+              <p><strong>Format:</strong> Key:Value pairs separated by pipes</p>
+              <p><strong>Example:</strong> "Power: 230V AC|Stroke: 400mm|Max Leaf: 3.5m|Protection: IP54"</p>
+            </div>
+
+            <div class="metafield-info">
+              <h4>features.applications</h4>
+              <p><strong>Type:</strong> single_line_text_field</p>
+              <p><strong>Format:</strong> Pipe-separated values (|)</p>
+              <p><strong>Example:</strong> "Residential gates|Commercial access|Industrial entrances"</p>
+            </div>
+
+            <div class="metafield-info">
+              <h4>features.benefits</h4>
+              <p><strong>Type:</strong> single_line_text_field</p>
+              <p><strong>Format:</strong> Pipe-separated values (|)</p>
+              <p><strong>Example:</strong> "Enhanced security|Weather resistant|Reliable operation"</p>
+            </div>
+
+            <div class="metafield-info">
+              <h4>features.installation</h4>
+              <p><strong>Type:</strong> single_line_text_field</p>
+              <p><strong>Format:</strong> Text description</p>
+              <p><strong>Example:</strong> "Professional installation required|Concrete foundation needed"</p>
+            </div>
+
+            <div class="metafield-info">
+              <h4>features.warranty</h4>
+              <p><strong>Type:</strong> single_line_text_field</p>
+              <p><strong>Format:</strong> Text description</p>
+              <p><strong>Example:</strong> "3-year motor warranty|1-year component warranty"</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructions Section -->
+    <section class="instructions-section">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="h3">Implementation Instructions</h2>
+        </div>
+        <div class="card-content">
+          <div class="instructions-steps">
+            
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Import Enhanced CSV</h4>
+                <p>Use the enhanced CSV file (<code>Product-list-Enhanced.csv</code>) to import products with improved descriptions and metafields data.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Configure Metafields</h4>
+                <p>Ensure the following metafields are created in your Shopify admin under Settings > Custom data:</p>
+                <ul>
+                  <li>Namespace: <code>features</code></li>
+                  <li>Keys: <code>key_features</code>, <code>technical_specs</code>, <code>applications</code>, <code>benefits</code>, <code>installation</code>, <code>warranty</code></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Add Product Tabs Block</h4>
+                <p>In your product template, add the "Product Tabs (Vitals Enhanced)" block to display the tabbed interface with product information.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Configure Vitals Integration</h4>
+                <p>The product tabs will automatically integrate with Vitals app features and fire custom events for enhanced tracking and analytics.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<style>
+  .product-manager-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    background: var(--color-background);
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 8px;
+    margin-bottom: 3rem;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 2rem;
+    background: rgba(var(--color-foreground), 0.02);
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .card-header h2 {
+    margin: 0 0 0.5rem 0;
+    color: rgb(var(--color-foreground));
+  }
+
+  .card-header p {
+    margin: 0;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .card-content {
+    padding: 2rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .product-card {
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 6px;
+    padding: 1.5rem;
+    background: var(--color-background);
+    transition: all 0.2s ease;
+  }
+
+  .product-card:hover {
+    border-color: rgba(var(--color-link), 0.3);
+    box-shadow: 0 4px 12px rgba(var(--color-foreground), 0.1);
+  }
+
+  .product-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .product-card__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: rgb(var(--color-foreground));
+    margin: 0;
+    flex: 1;
+  }
+
+  .product-card__sku {
+    font-size: 1.2rem;
+    color: rgba(var(--color-foreground), 0.6);
+    background: rgba(var(--color-foreground), 0.05);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+
+  .product-card__content h4 {
+    font-size: 1.4rem;
+    margin: 0 0 0.5rem 0;
+    color: rgb(var(--color-link));
+    font-weight: 600;
+  }
+
+  .product-card__features,
+  .product-card__specs {
+    margin-bottom: 1.5rem;
+  }
+
+  .product-card__content ul {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .product-card__content li {
+    margin-bottom: 0.3rem;
+    font-size: 1.3rem;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  .product-card__price {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .price {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: rgb(var(--color-link));
+  }
+
+  .compare-price {
+    font-size: 1.4rem;
+    color: rgba(var(--color-foreground), 0.5);
+    text-decoration: line-through;
+  }
+
+  .metafields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .metafield-info {
+    padding: 1.5rem;
+    background: rgba(var(--color-foreground), 0.02);
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    border-radius: 6px;
+  }
+
+  .metafield-info h4 {
+    font-family: monospace;
+    font-size: 1.4rem;
+    margin: 0 0 1rem 0;
+    color: rgb(var(--color-link));
+    background: rgba(var(--color-link), 0.05);
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .metafield-info p {
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  .metafield-info code {
+    background: rgba(var(--color-foreground), 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 1.2rem;
+  }
+
+  .instructions-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    width: 3rem;
+    height: 3rem;
+    background: rgb(var(--color-link));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .step-content h4 {
+    margin: 0 0 0.5rem 0;
+    color: rgb(var(--color-foreground));
+    font-size: 1.6rem;
+  }
+
+  .step-content p {
+    margin: 0.5rem 0;
+    color: rgba(var(--color-foreground), 0.8);
+    line-height: 1.5;
+  }
+
+  .step-content ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .step-content li {
+    margin-bottom: 0.3rem;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  @media screen and (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .metafields-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .product-card__header {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: start;
+    }
+  }
+</style>
