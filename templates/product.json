@@ -64,15 +64,6 @@
             "delivery_time": "3-5 Business days",
             "shipping_note": "Please note locations overseas will charge extra for delivery fees."
           }
-        },
-        "product_guarantees_iM3VmF": {
-          "type": "product_guarantees",
-          "settings": {
-            "guarantees_title": "Our Promise",
-            "money_back": "Not satisfied with your purchase? Get a full refund within 30 days—no hassle, no risk.",
-            "quality_guarantee": "Every item is carefully inspected to meet our high-quality standards, ensuring you get only the best.",
-            "support_guarantee": "Our support team is always here to help—expect fast, friendly assistance whenever you need it."
-          }
         }
       },
       "block_order": [
@@ -83,8 +74,7 @@
         "quantity_selector",
         "buy_buttons",
         "trust_badges_nL8kWG",
-        "shipping_info_bfRJNw",
-        "product_guarantees_iM3VmF"
+        "shipping_info_bfRJNw"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -134,27 +124,11 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
-    },
-    "1754414576516dfc38": {
-      "type": "apps",
-      "blocks": {
-        "vitals_shipping_info_d7znzp": {
-          "type": "shopify://apps/vitals/blocks/shipping-info/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "vitals_shipping_info_d7znzp"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
     "main",
     "product-documents",
-    "related-products",
-    "1754414576516dfc38"
+    "related-products"
   ]
 }
