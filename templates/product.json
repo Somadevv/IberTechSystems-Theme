@@ -64,6 +64,10 @@
             "delivery_time": "3-5 Business days",
             "shipping_note": "Please note locations overseas will charge extra for delivery fees."
           }
+        },
+        "description_VR3ABR": {
+          "type": "description",
+          "settings": {}
         }
       },
       "block_order": [
@@ -74,7 +78,8 @@
         "quantity_selector",
         "buy_buttons",
         "trust_badges_nL8kWG",
-        "shipping_info_bfRJNw"
+        "shipping_info_bfRJNw",
+        "description_VR3ABR"
       ],
       "settings": {
         "enable_sticky_info": true,
