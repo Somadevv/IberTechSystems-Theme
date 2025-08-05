@@ -134,11 +134,27 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "1754414576516dfc38": {
+      "type": "apps",
+      "blocks": {
+        "vitals_shipping_info_d7znzp": {
+          "type": "shopify://apps/vitals/blocks/shipping-info/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vitals_shipping_info_d7znzp"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "main",
     "product-documents",
-    "related-products"
+    "related-products",
+    "1754414576516dfc38"
   ]
 }
